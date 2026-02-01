@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoiceCore AI - Mockups Detallados de Interfaces</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00d4ff 0%, #ff0080 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        
+        .interface-section {
+            margin-bottom: 5rem;
+            background: #111;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+        
+        .interface-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            border-bottom: 1px solid #333;
+        }
+        
+        .interface-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        
+        .interface-description {
+            color: #aaa;
+            font-size: 1.1rem;
+        }
+        
+        .mockup-container {
+            padding: 2rem;
+            background: #0f0f0f;
+        }
+        
+        .dashboard-mockup {
+            width: 100%;
+            height: 600px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+        }
+        
+        /* Interface 1: Corporate Executive */
+        .corporate-executive {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .corporate-executive .sidebar {
+            width: 250px;
+            background: rgba(15, 23, 42, 0.95);
+            padding: 1.5rem 1rem;
+            backdrop-filter: blur(20px);
+        }
+        
+        .corporate-executive .logo {
+            color: #3b82f6;
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 10px;
+        }
+        
+        .corporate-executive .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .corporate-executive .nav-item.active {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+            border-left: 3px solid #3b82f6;
+        }
+        
+        .corporate-executive .main-content {
+            flex: 1;
+            padding: 1.5rem;
+            background: rgba(248, 250, 252, 0.95);
+            color: #1e293b;
+        }
+        
+        .corporate-executive .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .corporate-executive .header-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #1e293b;
+        }
+        
+        .corporate-executive .status-badge {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .corporate-executive .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .corporate-executive .metric-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .corporate-executive .metric-value {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .corporate-executive .metric-label {
+            color: #64748b;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        /* Interface 2: Neon Cyberpunk */
+        .neon-cyberpunk {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 100%);
+        }
+        
+        .neon-cyberpunk .sidebar {
+            width: 250px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1.5rem 1rem;
+            border-right: 2px solid #ff0080;
+            position: relative;
+        }
+        
+        .neon-cyberpunk .sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, #ff0080 0%, transparent 50%, #ff0080 100%);
+            animation: pulse-border 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-border {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        .neon-cyberpunk .logo {
+            color: #00d4ff;
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border: 1px solid #00d4ff;
+            border-radius: 10px;
+            text-shadow: 0 0 10px #00d4ff;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .neon-cyberpunk .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            color: #66ffaa;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .neon-cyberpunk .nav-item.active {
+            background: rgba(255, 0, 128, 0.2);
+            color: #ff0080;
+            border-color: #ff0080;
+            box-shadow: 0 0 20px rgba(255, 0, 128, 0.3);
+            text-shadow: 0 0 10px #ff0080;
+        }
+        
+        .neon-cyberpunk .main-content {
+            flex: 1;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+        }
+        
+        .neon-cyberpunk .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(0, 20, 40, 0.6);
+            border: 1px solid #00d4ff;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .neon-cyberpunk .header-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #00d4ff;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 20px #00d4ff;
+        }
+        
+        .neon-cyberpunk .status-badge {
+            background: rgba(0, 255, 136, 0.2);
+            border: 1px solid #00ff88;
+            color: #00ff88;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .neon-cyberpunk .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .neon-cyberpunk .metric-card {
+            background: rgba(0, 20, 40, 0.6);
+            border: 1px solid #ff0080;
+            padding: 1.5rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .neon-cyberpunk .metric-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, #ff0080, transparent);
+            animation: rotate 4s linear infinite;
+            opacity: 0.1;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .neon-cyberpunk .metric-value {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #00ff88;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px #00ff88;
+        }
+        
+        .neon-cyberpunk .metric-label {
+            color: #66ffaa;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+        
+        /* Interface 3: Ocean Blue */
+        .ocean-blue {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        .ocean-blue .sidebar {
+            width: 250px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1.5rem 1rem;
+            backdrop-filter: blur(20px);
+        }
+        
+        .ocean-blue .logo {
+            color: #0ea5e9;
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(14, 165, 233, 0.1);
+            border-radius: 15px;
+        }
+        
+        .ocean-blue .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 12px;
+            color: #64748b;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .ocean-blue .nav-item.active {
+            background: rgba(14, 165, 233, 0.15);
+            color: #0ea5e9;
+            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.2);
+        }
+        
+        .ocean-blue .main-content {
+            flex: 1;
+            padding: 1.5rem;
+            background: rgba(248, 250, 252, 0.9);
+            color: #1e293b;
+        }
+        
+        .ocean-blue .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(14, 165, 233, 0.1);
+        }
+        
+        .ocean-blue .header-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #0f172a;
+        }
+        
+        .ocean-blue .status-badge {
+            background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .ocean-blue .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .ocean-blue .metric-card {
+            background: white;
+            padding: 2rem 1.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(14, 165, 233, 0.1);
+            text-align: center;
+            border-top: 4px solid #0ea5e9;
+        }
+        
+        .ocean-blue .metric-value {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+        
+        .ocean-blue .metric-label {
+            color: #64748b;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Interface 4: Dark Professional */
+        .dark-professional {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        }
+        
+        .dark-professional .sidebar {
+            width: 250px;
+            background: rgba(15, 23, 42, 0.95);
+            padding: 1.5rem 1rem;
+            border-right: 1px solid rgba(148, 163, 184, 0.1);
+        }
+        
+        .dark-professional .logo {
+            color: #f8fafc;
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 12px;
+        }
+        
+        .dark-professional .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-professional .nav-item.active {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3b82f6;
+            border-left: 3px solid #3b82f6;
+        }
+        
+        .dark-professional .main-content {
+            flex: 1;
+            padding: 1.5rem;
+            background: rgba(30, 41, 59, 0.8);
+            color: #f8fafc;
+        }
+        
+        .dark-professional .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 16px;
+            backdrop-filter: blur(20px);
+        }
+        
+        .dark-professional .header-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #f8fafc;
+        }
+        
+        .dark-professional .status-badge {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #10b981;
+            padding: 0.75rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .dark-professional .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .dark-professional .metric-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            padding: 2rem 1.5rem;
+            border-radius: 16px;
+            backdrop-filter: blur(20px);
+            text-align: center;
+        }
+        
+        .dark-professional .metric-value {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #f8fafc;
+            margin-bottom: 0.5rem;
+        }
+        
+        .dark-professional .metric-label {
+            color: #94a3b8;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Interface 5: Green Tech */
+        .green-tech {
+            background: linear-gradient(135deg, #065f46 0%, #047857 100%);
+        }
+        
+        .green-tech .sidebar {
+            width: 250px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1.5rem 1rem;
+            border-right: 2px solid #10b981;
+        }
+        
+        .green-tech .logo {
+            color: #10b981;
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border: 1px solid #10b981;
+            border-radius: 10px;
+            text-shadow: 0 0 10px #10b981;
+        }
+        
+        .green-tech .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            color: #6ee7b7;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .green-tech .nav-item.active {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border-color: #10b981;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+        }
+        
+        .green-tech .main-content {
+            flex: 1;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: #ffffff;
+        }
+        
+        .green-tech .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: rgba(6, 95, 70, 0.6);
+            border: 1px solid #10b981;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .green-tech .header-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #10b981;
+            text-shadow: 0 0 20px #10b981;
+        }
+        
+        .green-tech .status-badge {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid #10b981;
+            color: #10b981;
+            padding: 0.75rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        
+        .green-tech .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .green-tech .metric-card {
+            background: rgba(6, 95, 70, 0.6);
+            border: 1px solid #10b981;
+            padding: 2rem 1.5rem;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        
+        .green-tech .metric-value {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #10b981;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px #10b981;
+        }
+        
+        .green-tech .metric-label {
+            color: #6ee7b7;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+        
+        .select-section {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+        
+        .btn-select {
+            background: linear-gradient(135deg, #00d4ff 0%, #ff0080 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-select:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+        }
+        
+        .navigation {
+            position: fixed;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 1000;
+        }
+        
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-dot.active {
+            background: #00d4ff;
+            transform: scale(1.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 Mockups Detallados - VoiceCore AI</h1>
+            <p>5 Interfaces completas con dashboards reales para que veas exactamente cómo se verán</p>
+        </div>
+        
+        <!-- Interface 1: Corporate Executive -->
+        <div class="interface-section" id="interface-1">
+            <div class="interface-header">
+                <div class="interface-title" style="color: #3b82f6;">1. 🏢 Corporate Executive</div>
+                <div class="interface-description">Dashboard ejecutivo elegante con gradientes azules, sidebar profesional y métricas destacadas</div>
+            </div>
+            <div class="mockup-container">
+                <div class="dashboard-mockup corporate-executive">
+                    <div class="sidebar">
+                        <div class="logo">
+                            <i class="fas fa-headset"></i> VoiceCore AI
+                        </div>
+                        <div class="nav-item active">
+                            <i class="fas fa-chart-line"></i> Dashboard
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-phone"></i> Llamadas
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-users"></i> Agentes
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-building"></i> Tenants
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-robot"></i> IA Training
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-chart-bar"></i> Analytics
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-shield-alt"></i> Seguridad
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="header-section">
+                            <div class="header-title">Executive Dashboard</div>
+                            <div class="status-badge">Sistema Operacional</div>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">47</div>
+                                <div class="metric-label">Llamadas Activas</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">23</div>
+                                <div class="metric-label">Agentes Online</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">87%</div>
+                                <div class="metric-label">IA Resolución</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">1.2s</div>
+                                <div class="metric-label">Tiempo Respuesta</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="select-section">
+                <button class="btn-select" onclick="selectInterface(1)">Seleccionar Corporate Executive</button>
+            </div>
+        </div>
+        
+        <!-- Interface 2: Neon Cyberpunk -->
+        <div class="interface-section" id="interface-2">
+            <div class="interface-header">
+                <div class="interface-title" style="color: #ff0080;">2. ⚡ Neon Cyberpunk</div>
+                <div class="interface-description">Interfaz futurista con neones rosas/azules, efectos holográficos y tipografía cyberpunk</div>
+            </div>
+            <div class="mockup-container">
+                <div class="dashboard-mockup neon-cyberpunk">
+                    <div class="sidebar">
+                        <div class="logo">
+                            <i class="fas fa-headset"></i> VOICECORE
+                        </div>
+                        <div class="nav-item active">
+                            <i class="fas fa-chart-line"></i> DASHBOARD
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-phone"></i> CALLS
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-users"></i> AGENTS
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-building"></i> TENANTS
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-robot"></i> AI CORE
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-chart-bar"></i> ANALYTICS
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-shield-alt"></i> SECURITY
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="header-section">
+                            <div class="header-title">CYBER COMMAND</div>
+                            <div class="status-badge">SYSTEM ONLINE</div>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">47</div>
+                                <div class="metric-label">ACTIVE CALLS</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">23</div>
+                                <div class="metric-label">AGENTS ONLINE</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">87%</div>
+                                <div class="metric-label">AI SUCCESS</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">1.2s</div>
+                                <div class="metric-label">RESPONSE TIME</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="select-section">
+                <button class="btn-select" onclick="selectInterface(2)">Seleccionar Neon Cyberpunk</button>
+            </div>
+        </div>
+        
+        <!-- Interface 3: Ocean Blue -->
+        <div class="interface-section" id="interface-3">
+            <div class="interface-header">
+                <div class="interface-title" style="color: #0ea5e9;">3. 🌊 Ocean Blue</div>
+                <div class="interface-description">Diseño limpio y minimalista con azules oceánicos, cards flotantes y espacios amplios</div>
+            </div>
+            <div class="mockup-container">
+                <div class="dashboard-mockup ocean-blue">
+                    <div class="sidebar">
+                        <div class="logo">
+                            <i class="fas fa-headset"></i> VoiceCore AI
+                        </div>
+                        <div class="nav-item active">
+                            <i class="fas fa-chart-line"></i> Dashboard
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-phone"></i> Llamadas
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-users"></i> Agentes
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-building"></i> Tenants
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-robot"></i> IA Training
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-chart-bar"></i> Analytics
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-shield-alt"></i> Seguridad
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="header-section">
+                            <div class="header-title">Ocean Dashboard</div>
+                            <div class="status-badge">Sistema Activo</div>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">47</div>
+                                <div class="metric-label">Llamadas Activas</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">23</div>
+                                <div class="metric-label">Agentes Online</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">87%</div>
+                                <div class="metric-label">Tasa de Éxito</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">1.2s</div>
+                                <div class="metric-label">Tiempo Respuesta</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="select-section">
+                <button class="btn-select" onclick="selectInterface(3)">Seleccionar Ocean Blue</button>
+            </div>
+        </div>
+        
+        <!-- Interface 4: Dark Professional -->
+        <div class="interface-section" id="interface-4">
+            <div class="interface-header">
+                <div class="interface-title" style="color: #f8fafc;">4. 🌙 Dark Professional</div>
+                <div class="interface-description">Interfaz oscura profesional con elementos glassmorphism y colores neutros elegantes</div>
+            </div>
+            <div class="mockup-container">
+                <div class="dashboard-mockup dark-professional">
+                    <div class="sidebar">
+                        <div class="logo">
+                            <i class="fas fa-headset"></i> VoiceCore AI
+                        </div>
+                        <div class="nav-item active">
+                            <i class="fas fa-chart-line"></i> Dashboard
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-phone"></i> Llamadas
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-users"></i> Agentes
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-building"></i> Tenants
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-robot"></i> IA Training
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-chart-bar"></i> Analytics
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-shield-alt"></i> Seguridad
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="header-section">
+                            <div class="header-title">Professional Dashboard</div>
+                            <div class="status-badge">Sistema Operacional</div>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">47</div>
+                                <div class="metric-label">Llamadas Activas</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">23</div>
+                                <div class="metric-label">Agentes Online</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">87%</div>
+                                <div class="metric-label">IA Resolución</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">1.2s</div>
+                                <div class="metric-label">Tiempo Respuesta</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="select-section">
+                <button class="btn-select" onclick="selectInterface(4)">Seleccionar Dark Professional</button>
+            </div>
+        </div>
+        
+        <!-- Interface 5: Green Tech -->
+        <div class="interface-section" id="interface-5">
+            <div class="interface-header">
+                <div class="interface-title" style="color: #10b981;">5. 💚 Green Tech</div>
+                <div class="interface-description">Interfaz tecnológica con verdes vibrantes, efectos matrix y elementos digitales avanzados</div>
+            </div>
+            <div class="mockup-container">
+                <div class="dashboard-mockup green-tech">
+                    <div class="sidebar">
+                        <div class="logo">
+                            <i class="fas fa-headset"></i> VoiceCore AI
+                        </div>
+                        <div class="nav-item active">
+                            <i class="fas fa-chart-line"></i> Dashboard
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-phone"></i> Llamadas
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-users"></i> Agentes
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-building"></i> Tenants
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-robot"></i> IA Core
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-chart-bar"></i> Analytics
+                        </div>
+                        <div class="nav-item">
+                            <i class="fas fa-shield-alt"></i> Security
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <div class="header-section">
+                            <div class="header-title">Tech Control</div>
+                            <div class="status-badge">Sistema Online</div>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">47</div>
+                                <div class="metric-label">Llamadas Activas</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">23</div>
+                                <div class="metric-label">Agentes Online</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">87%</div>
+                                <div class="metric-label">IA Success Rate</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">1.2s</div>
+                                <div class="metric-label">Response Time</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="select-section">
+                <button class="btn-select" onclick="selectInterface(5)">Seleccionar Green Tech</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Navigation Dots -->
+    <div class="navigation">
+        <div class="nav-dot active" onclick="scrollToInterface(1)"></div>
+        <div class="nav-dot" onclick="scrollToInterface(2)"></div>
+        <div class="nav-dot" onclick="scrollToInterface(3)"></div>
+        <div class="nav-dot" onclick="scrollToInterface(4)"></div>
+        <div class="nav-dot" onclick="scrollToInterface(5)"></div>
+    </div>
+    
+    <script>
+        function selectInterface(number) {
+            const interfaces = {
+                1: "Corporate Executive - Dashboard ejecutivo elegante con gradientes azules",
+                2: "Neon Cyberpunk - Interfaz futurista con neones y efectos holográficos",
+                3: "Ocean Blue - Diseño limpio minimalista con azules oceánicos",
+                4: "Dark Professional - Interfaz oscura profesional con glassmorphism",
+                5: "Green Tech - Tecnológico con verdes vibrantes y efectos matrix"
+            };
+            
+            const selected = interfaces[number];
+            
+            if (confirm(`¿Confirmas que quieres la Interface ${number}?\n\n"${selected}"\n\nEsta será implementada como tu dashboard ejecutivo completo de VoiceCore AI con todas las funcionalidades.`)) {
+                alert(`¡Perfecto! Has seleccionado la Interface ${number}.\n\nAhora regresa a la conversación y escribe:\n"Implementa la Interface ${number}"\n\npara que pueda crearla inmediatamente con todas las funcionalidades.`);
+            }
+        }
+        
+        function scrollToInterface(number) {
+            document.getElementById(`interface-${number}`).scrollIntoView({
+                behavior: 'smooth'
+            });
+            
+            // Update navigation dots
+            document.querySelectorAll('.nav-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index + 1 === number);
+            });
+        }
+        
+        // Update navigation on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.interface-section');
+            const scrollPos = window.scrollY + 200;
+            
+            sections.forEach((section, index) => {
+                const top = section.offsetTop;
+                const bottom = top + section.offsetHeight;
+                
+                if (scrollPos >= top && scrollPos <= bottom) {
+                    document.querySelectorAll('.nav-dot').forEach((dot, dotIndex) => {
+                        dot.classList.toggle('active', dotIndex === index);
+                    });
+                }
+            });
+        });
+        
+        console.log('VoiceCore AI - Mockups Detallados Cargados');
+        console.log('5 Interfaces completas con dashboards reales');
+    </script>
+</body>
+</html>

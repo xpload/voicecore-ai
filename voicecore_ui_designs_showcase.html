@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoiceCore AI - 10 Professional UI Designs</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .showcase-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .showcase-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .showcase-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .showcase-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .designs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .design-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .design-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        }
+
+        .design-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            text-align: center;
+        }
+
+        .design-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .design-description {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .design-preview {
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .select-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .select-button:hover {
+            background: #059669;
+            transform: scale(1.05);
+        }
+
+        /* Design 1: Corporate Executive */
+        .design-1 {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        .design-1 .header {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .design-1 .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .design-1 .metric-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1rem;
+            color: white;
+            text-align: center;
+        }
+
+        .design-1 .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Design 2: Minimalist Professional */
+        .design-2 {
+            background: #f8fafc;
+            display: flex;
+            padding: 1rem;
+        }
+
+        .design-2 .sidebar {
+            width: 200px;
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-right: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .design-2 .main-content {
+            flex: 1;
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .design-2 .nav-item {
+            padding: 0.5rem;
+            margin-bottom: 0.25rem;
+            border-radius: 8px;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .design-2 .nav-item.active {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        /* Design 3: Dark Professional */
+        .design-3 {
+            background: #0f172a;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        .design-3 .header {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .design-3 .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .design-3 .card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 1rem;
+        }
+
+        /* Design 4: Gradient Modern */
+        .design-4 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        .design-4 .header {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(15px);
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .design-4 .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .design-4 .glass-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 16px;
+            padding: 1rem;
+            color: white;
+        }
+
+        /* Design 5: Banking Executive */
+        .design-5 {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            display: flex;
+            padding: 1rem;
+        }
+
+        .design-5 .sidebar {
+            width: 180px;
+            background: #2d3748;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-right: 1rem;
+            color: white;
+        }
+
+        .design-5 .main-area {
+            flex: 1;
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 1rem;
+        }
+
+        .design-5 .luxury-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* Design 6: Tech Startup */
+        .design-6 {
+            background: #0d1117;
+            color: #f0f6fc;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        .design-6 .header {
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .design-6 .metrics-row {
+            display: flex;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .design-6 .metric-box {
+            flex: 1;
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        /* Design 7: Medical Professional */
+        .design-7 {
+            background: linear-gradient(135deg, #065f46 0%, #10b981 100%);
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        .design-7 .header {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .design-7 .content-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .design-7 .clean-card {
+            background: rgba(255,255,255,0.9);
+            border-radius: 12px;
+            padding: 1rem;
+            color: #065f46;
+        }
+
+        /* Design 8: Financial Services */
+        .design-8 {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%);
+            display: flex;
+            padding: 1rem;
+        }
+
+        .design-8 .left-panel {
+            width: 200px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-right: 1rem;
+            color: white;
+        }
+
+        .design-8 .main-dashboard {
+            flex: 1;
+            background: rgba(255,255,255,0.95);
+            border-radius: 12px;
+            padding: 1rem;
+        }
+
+        .design-8 .chart-area {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+        }
+
+        /* Design 9: Cyberpunk Executive */
+        .design-9 {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #00ff88;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+            position: relative;
+        }
+
+        .design-9::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(0,255,136,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0,191,255,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .design-9 .cyber-header {
+            background: rgba(0,255,136,0.1);
+            border: 1px solid #00ff88;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .design-9 .cyber-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .design-9 .cyber-card {
+            background: rgba(0,255,136,0.05);
+            border: 1px solid rgba(0,255,136,0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        /* Design 10: Apple Pro Max */
+        .design-10 {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            padding: 1rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+        }
+
+        .design-10 .sidebar {
+            width: 180px;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 1rem;
+            margin-right: 1rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .design-10 .main-content {
+            flex: 1;
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 1rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .design-10 .apple-card {
+            background: rgba(255,255,255,0.9);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        .features-list {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .features-title {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #1e40af;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .feature-content h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+
+        .feature-content p {
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .final-cta {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            border-radius: 20px;
+            color: white;
+        }
+
+        .final-cta h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .final-cta p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            background: white;
+            color: #1e40af;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="showcase-container">
+        <div class="showcase-header">
+            <h1 class="showcase-title">VoiceCore AI</h1>
+            <p class="showcase-subtitle">10 Professional Enterprise UI Designs - Choose Your Perfect Interface</p>
+        </div>
+
+        <div class="designs-grid">
+            <!-- Design 1: Corporate Executive -->
+            <div class="design-card">
+                <div class="design-header">
+                    <h3 class="design-title">1. Corporate Executive</h3>
+                    <p class="design-description">Elegant blue gradients with glass morphism effects</p>
+                </div>
+                <div class="design-preview design-1">
+                    <button class="select-button" onclick="selectDesign(1)">SELECT THIS DESIGN</button>
+                    <div class="header">
+                        <div>
+                            <h2><i class="fas fa-headset"></i> VoiceCore AI</h2>
+                            <p>Enterprise Dashboard</p>
+                        </div>
+                        <div style="display: flex; gap: 1rem;">
+                            <span><i class="fas fa-circle" style="color: #10b981;"></i> Online</span>
+                            <span><i class="fas fa-broadcast-tower"></i> Live</span>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <div class="metric-card">
+                            <div class="metric-value">24</div>
+                            <div>Active Calls</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">18</div>
+                            <div>Available Agents</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">3</div>
+                            <div>Queue Size</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">87%</div>
+                            <div>AI Resolution</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Design 2: Minimalist Professional -->
+            <div class="design-card">
+                <div class="design-header">
+                    <h3 class="design-title">2. Minimalist Professional</h3>
+                    <p class="design-description">Clean white interface with subtle shadows</p>
+                </div>
+                <div class="design-preview design-2">
+                    <button class="select-button" onclick="selectDesign(2)">SELECT THIS DESIGN</button>
+                    <div class="sidebar">
+                        <div style="font-weight: 600; margin-bottom: 1rem; color: #1e40af;">
+                            <i class="fas fa-headset"></i> VoiceCore
+                        </div>
+                        <div class="nav-item active"><i class="fas fa-chart-line"></i> Dashboard</div>
+                        <div class="nav-item"><i class="fas fa-phone"></i> Live Calls</div>
+                        <div class="nav-item"><i class="fas fa-users"></i> Agents</div>
+                        <div class="nav-item"><i class="fas fa-brain"></i> AI Training</div>
+                        <div class="nav-item"><i class="fas fa-analytics"></i> Analytics</div>
+                        <div class="nav-item"><i class="fas fa-cog"></i> Settings</div>
+                    </div>
+                    <div class="main-content">
+                        <h2 style="margin-bottom: 1rem; color: #1e293b;">Dashboard Overview</h2>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                            <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; text-align: center;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: #3b82f6;">24</div>
+                                <div style="color: #64748b; font-size: 0.875rem;">Active Calls</div>
+                            </div>
+                            <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; text-align: center;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: #10b981;">18</div>
+                                <div style="color: #64748b; font-size: 0.875rem;">Available Agents</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1rem; padding: 1rem; background: #f8fafc; border-radius: 8px;">
+                            <h4 style="margin-bottom: 0.5rem; color: #1e293b;">Recent Activity</h4>
+                            <div style="color: #64748b; font-size: 0.875rem;">Call answered by John Smith (Ext. 101)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Design 3: Dark Professional -->
+            <div class="design-card">
+                <div class="design-header">
+                    <h3 class="design-title">3. Dark Professional</h3>
+                    <p class="design-description">Sophisticated dark theme with blue accents</p>
+                </div>
+                <div class="design-preview design-3">
+                    <button class="select-button" onclick="selectDesign(3)">SELECT THIS DESIGN</button>
+                    <div class="header">
+                        <div>
+                            <h2><i class="fas fa-headset"></i> VoiceCore AI</h2>
+                        </div>
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <span style="color: #10b981;"><i class="fas fa-circle"></i> System Online</span>
+                            <span style="color: #3b82f6;"><i class="fas fa-broadcast-tower"></i> Live Data</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <h4 style="color: #3b82f6; margin-bottom: 0.5rem;">Active Calls</h4>
+                            <div style="font-size: 2rem; font-weight: 700; color: white;">24</div>
+                            <div style="color: #94a3b8; font-size: 0.875rem;">Currently in progress</div>
+                        </div>
+                        <div class="card">
+                            <h4 style="color: #10b981; margin-bottom: 0.5rem;">Available Agents</h4>
+                            <div style="font-size: 2rem; font-weight: 700; color: white;">18</div>
+                            <div style="color: #94a3b8; font-size: 0.875rem;">Ready to take calls</div>
+                        </div>
+                        <div class="card">
+                            <h4 style="color: #f59e0b; margin-bottom: 0.5rem;">Queue Size</h4>
+                            <div style="font-size: 2rem; font-weight: 700; color: white;">3</div>
+                            <div style="color: #94a3b8; font-size: 0.875rem;">Calls waiting</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Design 4: Gradient Modern -->
+            <div class="design-card">
+                <div class="design-header">
+                    <h3 class="design-title">4. Gradient Modern</h3>
+                    <p class="design-description">Vibrant gradients with glass morphism</p>
+                </div>
+                <div class="design-preview design-4">
+                    <button class="select-button" onclick="selectDesign(4)">SELECT THIS DESIGN</button>
+                    <div class="header">
+                        <h2><i class="fas fa-headset"></i> VoiceCore AI - Enterprise Command Center</h2>
+                        <div style="display: flex; gap: 1rem;">
+                            <span><i class="fas fa-circle"></i> Online</span>
+                            <span><i class="fas fa-broadcast-tower"></i> Real-time</span>
+                        </div>
+                    </div>
+                    <div class="content-grid">
+                        <div class="glass-card">
+                            <h3>Call Management</h3>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-top: 1rem;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700;">24</div>
+                                    <div style="font-size: 0.875rem;">Active</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700;">3</div>
+                                    <div style="font-size: 0.875rem;">Queued</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="glass-card">
+                            <h3>Agent Status</h3>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-top: 1rem;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700;">18</div>
+                                    <div style="font-size: 0.875rem;">Available</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 1.5rem; font-weight: 700;">6</div>
+                                    <div style="font-size: 0.875rem;">Busy</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Design 5: Banking Executive -->
+            <div class="design-card">
+                <div class="design-header">
+                    <h3 class="design-title">5. Banking Executive</h3>
+                    <p class="design-description">Goldman Sachs inspired luxury interface</p>
+                </div>
+                <div class="design-preview design-5">
+                    <button class="select-button" onclick="selectDesign(5)">SELECT THIS DESIGN</button>
+                    <div class="sidebar">
+                        <div style="font-weight: 700; margin-bottom: 1.5rem; font-size: 1.1rem;">
+                            <i class="fas fa-headset"></i> VoiceCore
+                        </div>
+                        <div style="font-size: 0.75rem; color: #a0aec0; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">OPERATIONS</div>
+                        <div style="padding: 0.5rem 0; color: #e2e8f0; border-left: 3px solid #3b82f6; padding-left: 0.75rem; margin-left: -1rem;">Dashboard</div>
+                        <div style="padding: 0.5rem 0; color: #a0aec0;">Live Calls</div>
+                        <div style="padding: 0.5rem 0; color: #a0aec0;">Agents</div>
+                        <div style="font-size: 0.75rem; color: #a0aec0; margin: 1rem 0 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">INTELLIGENCE</div>
+                        <div style="padding: 0.5rem 0; color: #a0aec0;">AI Training</div>
+                        <div style="padding: 0.5rem 0; color: #a0aec0;">Analytics</div>
+                    </div>
+                    <div class="main-area">
+                        <h2 style="margin-bottom: 1.5rem; color: #1a202c; font-weight: 700;">Executive Dashboard</h2>
+                        <div class="luxury-card">
+                            <h4 style="color: #2d3748; margin-bottom: 1rem;">Key Performance Indicators</h4>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                                <div style="text-align: center; padding: 0.5rem;">
+                                    <div style="font-size: 1.8rem; font-weight: 700; color: #3b82f6;">24</div>
+                                    <div style="color: #718096; font-size: 0.875rem;">Active Calls</div>
+                                </div>
+                                <div style="text-align: center; padding: 0.5rem;">
+                                    <div style="font-size: 1.8rem; font-weight: 700; color: #10b981;">87%</div>
+                                    <div style="color: #718096; font-size: 0.875rem;">AI Resolution</div>
+                                </div>
+                                <div style="text-align: center; padding: 0.5rem;">
+                                    <div style="font-size: 1.8rem; font-weight: 700; color: #f59e0b;">18</div>
+                                    <div style="color: #718096; font-size: 0.875rem;">Available Agents</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="luxury-card">
+                            <h4 style="color: #2d3748; margin-bottom: 0.5rem;">System Status</h4>
+                            <div style="color: #718096; font-size: 0.875rem;">All systems operational • Last updated: 2 minutes ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Design 6: Tech Startup -->
+            <div class="design-card">
+                <div class="design-header">
+                    <h3 class="design-title">6. Tech Startup</h3>
+                    <p class="design-description">GitHub-inspired dark interface</p>
+                </div>
+                <div class="design-preview design-6">
+                    <button class="select-button" onclick="selectDesign(6)">SELECT THIS DESIGN</button>
+                    <div class="header">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <h2><i class="fas fa-headset"></i> VoiceCore AI</h2>
+                            <span style="background: #238636; color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem;">ENTERPRISE</span>
+                        </div>
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <span style="color: #238636;"><i class="fas fa-circle"></i> Online</span>
+                            <span style="color: #1f6feb;"><i class="fas fa-broadcast-tower"></i> Live</span>
+                        </div>
+                    </div>
+                    <div class="metrics-row">
+                        <div class="metric-box">
+                            <div style="font-size: 1.8rem; font-weight: 700; color: #1f6feb; margin-bottom: 0.5rem;">24</div>
+                            <div style="color: #8b949e; font-size: 0.875rem;">Active Calls</div>
+                            <div style="color: #238636; font-size: 0.75rem; margin-top: 0.25rem;">↑ +12% today</div>
+                        </div>
+                        <div class="metric-box">
+                            <div style="font-size: 1.8rem; font-weight: 700; color: #238636; margin-bottom: 0.5rem;">18</div>
+                            <div style="color: #8b949e; font-size: 0.875rem;">Available Agents</div>
+                            <div style="color: #238636; font-size: 0.75rem; margin-top: 0.25rem;">85% capacity</div>
+                        </div>
+                        <div class="metric-box">
+                            <div style="font-size: 1.8rem; font-weight: 700; color: #f85149; margin-bottom: 0.5rem;">3</div>
+                            <div style="color: #8b949e; font-size: 0.875rem;">Queue Size</div>
+                            <div style="color: #f85149; font-size: 0.75rem; margin-top: 0.25rem;">↓ -5% hour</div>
+                        </div>
+                        <div class="metric-box">
+                            <div style="font-size: 1.8rem; font-weight: 700; color: #a5a5a5; margin-bottom: 0.5rem;">87%</div>
+                            <div style="color: #8b949e; font-size: 0.875rem;">AI Resolution</div>
+                            <div style="color: #238636; font-size: 0.75rem; margin-top: 0.25rem;">↑ +3% week</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Design 7: Medical Professional -->
+            <div class="design-card">
+                <div class="design-header">
+                    <h3 class="design-title">7. Medical Professional</h3>
+                    <p class="design-description">Clean healthcare-inspired interface</p>
+                </div>
+                <div class="design-preview design-7">
+                    <button class="select-button" onclick="selectDesign(7)">SELECT THIS DESIGN</button>
+                    <div class="header">
+                        <div>
+                            <h2><i class="fas fa-headset"></i> VoiceCore AI</h2>
+                            <p style="opacity: 0.8;">Healthcare Communication Platform</p>
+                        </div>
+                        <div style="display: flex; gap: 1rem;">
+                            <span><i class="fas fa-shield-alt"></i> HIPAA Compliant</span>
+                            <span><i class="fas fa-circle"></i> Secure</span>
+                        </div>
+                    </div>
+                    <div class="content-area">
+                        <div class="clean-card">
+                            <h3 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-phone" style="color: #10b981;"></i>
+                                Call Management
+                            </h3>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                                <div style="text-align: center; padding: 0.5rem; background: #f0fdf4; border-radius: 8px;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #059669;">24</div>
+                                    <div style="color: #065f46; font-size: 0.875rem;">Active Calls</div>
+                                </div>
+                                <div style="text-align: center; padding: 0.5rem; background: #f0fdf4; border-radius: 8px;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #059669;">3</div>
+                                    <div style="color: #065f46; font-size: 0.875rem;">Priority Queue</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clean-card">
+                            <h3 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fas fa-users" style="color: #10b981;"></i>
+                                Staff Status
+                            </h3>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                                <div style="text-align: center; padding: 0.5rem; background: #f0fdf4; border-radius: 8px;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #059669;">18</div>
+                                    <div style="color: #065f46; font-size: 0.875rem;">Available</div>
+                                </div>
+                                <div style="text-align: center; padding: 0.5rem; background: #f0fdf4; border-radius: 8px;">
+                                    <div style="font-size: 1.5rem; font-weight: 700; color: #059669;">6</div>
+                                    <div style="color: #065f46; font-size: 0.875rem;">On Call</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Design 8: Financial Services -->
+            <div class="design-card">
+                <div class="design-header">
+                    <h3 class="design-title">8. Financial Services</h3>
+                    <p class="design-description">Professional financial dashboard</p>
+                </div>
+                <div class="design-preview design-8">
+                    <button class="select-button" onclick="selectDesign(8)">SELECT THIS DESIGN</button>
+                    <div class="left-panel">
+                        <div style="font-weight: 700; margin-bottom: 1.5rem;">
+                            <i class="fas fa-headset"></i> VoiceCore
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <div style="font-size: 0.75rem; opacity: 0.7; margin-bottom: 0.5rem; text-transform: uppercase;">DASHBOARD</div>
+                            <div style="padding: 0.5rem 0; border-left: 3px solid white; padding-left: 0.75rem; margin-left: -1rem;">Overview</div>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <div style="font-size: 0.75rem; opacity: 0.7; margin-bottom: 0.5rem; text-transform: uppercase;">OPERATIONS</div>
+                            <div style="padding: 0.25rem 0; opacity: 0.8;">Live Calls</div>
+                            <div style="padding: 0.25rem 0; opacity: 0.8;">Agents</div>
+                            <div style="padding: 0.25rem 0; opacity: 0.8;">Queue</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.75rem; opacity: 0.7; margin-bottom: 0.5rem; text-transform: uppercase;">ANALYTICS</div>
+                            <div style="padding: 0.25rem 0; opacity: 0.8;">Reports</div>
+                            <div style="padding: 0.25rem 0; opacity: 0.8;">Insights</div>
+                        </div>
+                    </div>
+                    <div class="main-dashboard">
+                        <h2 style="margin-bottom: 1.5rem; color: #1e293b; font-weight: 700;">Financial Services Dashboard</h2>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1rem;">
+                            <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; text-align: center; border-left: 4px solid #3b82f6;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: #3b82f6;">24</div>
+                                <div style="color: #64748b; font-size: 0.875rem;">Active Calls</div>
+                            </div>
+                            <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; text-align: center; border-left: 4px solid #10b981;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: #10b981;">18</div>
+                                <div style="color: #64748b; font-size: 0.875rem;">Available</div>
+                            </div>
+                            <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; text-align: center; border-left: 4px solid #f59e0b;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: #f59e0b;">3</div>
+                                <div style="color: #64748b; font-size: 0.875rem;">Queue</div>
+                            </div>
+                            <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; text-align: center; border-left: 4px solid #8b5cf6;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: #8b5cf6;">87%</div>
+                                <div style="color: #64748b; font-size: 0.875rem;">AI Resolution</div>
+                            </div>
+                        </div>
+                        <div class="chart-area">
+                            <i class="fas fa-chart-line" style="font-size: 2rem; margin-right: 1rem;"></i>
+                            Real-time Analytics Chart Area
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Design 9: Cyberpunk Executive -->
+            <div class="design-card">
+                <div class="design-header">
+                    <h3 class="design-title">9. Cyberpunk Executive</h3>
+                    <p class="design-description">Futuristic holographic interface</p>
+                </div>
+                <div class="design-preview design-9">
+                    <button class="select-button" onclick="selectDesign(9)">SELECT THIS DESIGN</button>
+                    <div class="cyber-header">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h2><i class="fas fa-headset"></i> VoiceCore AI</h2>
+                                <p style="opacity: 0.8;">NEURAL COMMAND INTERFACE</p>
+                            </div>
+                            <div style="display: flex; gap: 1rem;">
+                                <span><i class="fas fa-circle"></i> ONLINE</span>
+                                <span><i class="fas fa-broadcast-tower"></i> NEURAL LINK ACTIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cyber-grid">
+                        <div class="cyber-card">
+                            <div style="font-size: 0.75rem; opacity: 0.8; margin-bottom: 0.5rem;">ACTIVE_CALLS</div>
+                            <div style="font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem;">24</div>
+                            <div style="font-size: 0.75rem; opacity: 0.6;">PROCESSING...</div>
+                        </div>
+                        <div class="cyber-card">
+                            <div style="font-size: 0.75rem; opacity: 0.8; margin-bottom: 0.5rem;">AGENTS_ONLINE</div>
+                            <div style="font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem;">18</div>
+                            <div style="font-size: 0.75rem; opacity: 0.6;">READY_STATE</div>
+                        </div>
+                        <div class="cyber-card">
+                            <div style="font-size: 0.75rem; opacity: 0.8; margin-bottom: 0.5rem;">QUEUE_SIZE</div>
+                            <div style="font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem;">03</div>
+                            <div style="font-size: 0.75rem; opacity: 0.6;">WAITING...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Design 10: Apple Pro Max -->
+            <div class="design-card">
+                <div class="design-header">
+                    <h3 class="design-title">10. Apple Pro Max</h3>
+                    <p class="design-description">Apple ecosystem inspired design</p>
+                </div>
+                <div class="design-preview design-10">
+                    <button class="select-button" onclick="selectDesign(10)">SELECT THIS DESIGN</button>
+                    <div class="sidebar">
+                        <div style="font-weight: 600; margin-bottom: 1rem; color: #1d4ed8;">
+                            <i class="fas fa-headset"></i> VoiceCore
+                        </div>
+                        <div style="margin-bottom: 0.5rem; padding: 0.5rem; background: rgba(29,78,216,0.1); border-radius: 8px; color: #1d4ed8; font-weight: 500;">
+                            <i class="fas fa-chart-line"></i> Overview
+                        </div>
+                        <div style="margin-bottom: 0.5rem; padding: 0.5rem; color: #6b7280;">
+                            <i class="fas fa-phone"></i> Live Calls
+                        </div>
+                        <div style="margin-bottom: 0.5rem; padding: 0.5rem; color: #6b7280;">
+                            <i class="fas fa-users"></i> Agents
+                        </div>
+                        <div style="margin-bottom: 0.5rem; padding: 0.5rem; color: #6b7280;">
+                            <i class="fas fa-brain"></i> AI Training
+                        </div>
+                        <div style="margin-bottom: 0.5rem; padding: 0.5rem; color: #6b7280;">
+                            <i class="fas fa-analytics"></i> Analytics
+                        </div>
+                    </div>
+                    <div class="main-content">
+                        <h2 style="margin-bottom: 1rem; color: #1f2937; font-weight: 600;">Dashboard</h2>
+                        <div class="apple-card">
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                                <div style="text-align: center; padding: 0.5rem;">
+                                    <div style="font-size: 1.8rem; font-weight: 700; color: #3b82f6;">24</div>
+                                    <div style="color: #6b7280; font-size: 0.875rem;">Active Calls</div>
+                                </div>
+                                <div style="text-align: center; padding: 0.5rem;">
+                                    <div style="font-size: 1.8rem; font-weight: 700; color: #10b981;">18</div>
+                                    <div style="color: #6b7280; font-size: 0.875rem;">Available Agents</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="apple-card">
+                            <h4 style="color: #1f2937; margin-bottom: 0.5rem; font-weight: 600;">System Status</h4>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <div style="width: 8px; height: 8px; background: #10b981; border-radius: 50%;"></div>
+                                <span style="color: #6b7280; font-size: 0.875rem;">All systems operational</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features List -->
+        <div class="features-list">
+            <h2 class="features-title">Complete VoiceCore AI System Features</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Live Call Management</h4>
+                        <p>Real-time call monitoring, routing, and control with agent assignment and transfer capabilities</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Agent Management</h4>
+                        <p>Complete agent lifecycle management with status tracking, performance metrics, and department organization</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>AI Training Interface</h4>
+                        <p>Knowledge base management, conversation flow design, and AI response training with real-time testing</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-list-ol"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Call Queue System</h4>
+                        <p>Intelligent call queuing with priority management, wait time estimation, and automatic routing</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Spam Detection</h4>
+                        <p>Advanced spam filtering with configurable rules, blacklist management, and real-time threat detection</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>VIP Management</h4>
+                        <p>Priority caller identification, special routing rules, and enhanced service levels for important customers</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-analytics"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Real-time Analytics</h4>
+                        <p>Comprehensive dashboards with call metrics, agent performance, and system health monitoring</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Department Structure</h4>
+                        <p>Hierarchical organization with department-specific routing, schedules, and management capabilities</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Agent Softphone/PWA</h4>
+                        <p>Web-based calling interface with mobile PWA support for agents to make and receive calls anywhere</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>System Configuration</h4>
+                        <p>Comprehensive settings management for tenants, integrations, security, and system optimization</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Call History & Reports</h4>
+                        <p>Detailed call logs, transcriptions, recordings, and comprehensive reporting with data export</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-broadcast-tower"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h4>Real-time Communication</h4>
+                        <p>WebSocket-powered live updates, WebRTC calling, and instant system notifications</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final CTA -->
+        <div class="final-cta">
+            <h3>Ready to Choose Your Perfect Interface?</h3>
+            <p>Select any design above to implement the complete VoiceCore AI system with all enterprise features</p>
+            <button class="cta-button" onclick="showImplementationOptions()">
+                <i class="fas fa-rocket"></i> Start Implementation
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function selectDesign(designNumber) {
+            alert(`¡Excelente elección! Has seleccionado el Diseño ${designNumber}.\n\nAhora procederé a implementar la interfaz completa con todas las funcionalidades del sistema VoiceCore AI:\n\n✅ Dashboard empresarial profesional\n✅ Gestión de agentes en tiempo real\n✅ Sistema de llamadas en vivo\n✅ Entrenamiento de IA\n✅ Cola de llamadas inteligente\n✅ Detección de spam\n✅ Gestión VIP\n✅ Analíticas avanzadas\n✅ Softphone/PWA para agentes\n✅ Configuración completa del sistema\n\n¿Procedo con la implementación completa?`);
+            
+            // Store the selected design
+            localStorage.setItem('selectedDesign', designNumber);
+            
+            // Highlight the selected design
+            document.querySelectorAll('.design-card').forEach(card => {
+                card.style.border = '2px solid transparent';
+            });
+            
+            event.target.closest('.design-card').style.border = '2px solid #10b981';
+            event.target.style.background = '#059669';
+            event.target.innerHTML = '✅ SELECTED';
+        }
+
+        function showImplementationOptions() {
+            const selectedDesign = localStorage.getItem('selectedDesign');
+            if (selectedDesign) {
+                alert(`Perfecto! Implementaré el Diseño ${selectedDesign} con todas las funcionalidades empresariales.\n\nEl sistema incluirá:\n\n🎯 Interfaz profesional Fortune 500\n🎯 Gestión completa de agentes\n🎯 Sistema de llamadas en tiempo real\n🎯 IA conversacional avanzada\n🎯 Analíticas y reportes\n🎯 Seguridad empresarial\n🎯 Escalabilidad automática\n\n¡Comenzando implementación ahora!`);
+            } else {
+                alert('Por favor, selecciona primero un diseño haciendo clic en "SELECT THIS DESIGN" en cualquiera de las opciones de arriba.');
+            }
+        }
+
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to design cards
+            const designCards = document.querySelectorAll('.design-card');
+            designCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Add animation to feature items
+            const featureItems = document.querySelectorAll('.feature-item');
+            featureItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    item.style.transition = 'all 0.6s ease';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

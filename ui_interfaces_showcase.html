@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoiceCore AI - 10 Interfaces UI Profesionales</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00d4ff 0%, #ff0080 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            color: #888;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .interfaces-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+        }
+        
+        .interface-card {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .interface-card:hover {
+            transform: translateY(-10px);
+            border-color: #00d4ff;
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+        }
+        
+        .interface-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+        }
+        
+        .interface-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        
+        .interface-description {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .interface-preview {
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .preview-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #666;
+            background: var(--preview-bg);
+        }
+        
+        .interface-features {
+            padding: 2rem;
+        }
+        
+        .features-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+        
+        .features-list li {
+            color: #ccc;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .features-list li i {
+            color: #00d4ff;
+            width: 12px;
+        }
+        
+        .select-button {
+            padding: 0 2rem 2rem;
+        }
+        
+        .btn-select {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #ff0080 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-select:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
+        }
+        
+        /* Interface Specific Styles */
+        .interface-1 { --preview-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .interface-2 { --preview-bg: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .interface-3 { --preview-bg: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .interface-4 { --preview-bg: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .interface-5 { --preview-bg: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .interface-6 { --preview-bg: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+        .interface-7 { --preview-bg: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); }
+        .interface-8 { --preview-bg: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
+        .interface-9 { --preview-bg: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); }
+        .interface-10 { --preview-bg: linear-gradient(135deg, #08fdd8 0%, #9796f0 100%); }
+        
+        .preview-mockup {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+        
+        .mockup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #333;
+        }
+        
+        .mockup-title {
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .mockup-status {
+            width: 8px;
+            height: 8px;
+            background: #00ff00;
+            border-radius: 50%;
+        }
+        
+        .mockup-content {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+        
+        .mockup-widget {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            padding: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .widget-value {
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        .widget-label {
+            color: #aaa;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+        }
+        
+        .instructions {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+        
+        .instructions h3 {
+            color: #00d4ff;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .instructions p {
+            color: #ccc;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 10 Interfaces UI Profesionales</h1>
+            <p>Selecciona la interfaz que más te impacte visualmente para VoiceCore AI</p>
+        </div>
+        
+        <div class="interfaces-grid">
+            <!-- Interface 1: Corporate Executive -->
+            <div class="interface-card interface-1">
+                <div class="interface-header">
+                    <div class="interface-title">1. Corporate Executive</div>
+                    <div class="interface-description">Diseño corporativo elegante con gradientes azules y layout ejecutivo</div>
+                </div>
+                <div class="interface-preview">
+                    <div class="preview-mockup">
+                        <div class="mockup-header">
+                            <div class="mockup-title">Executive Dashboard</div>
+                            <div class="mockup-status"></div>
+                        </div>
+                        <div class="mockup-content">
+                            <div class="mockup-widget">
+                                <div class="widget-value">47</div>
+                                <div class="widget-label">Calls</div>
+                            </div>
+                            <div class="mockup-widget">
+                                <div class="widget-value">23</div>
+                                <div class="widget-label">Agents</div>
+                            </div>
+                            <div class="mockup-widget">
+                                <div class="widget-value">87%</div>
+                                <div class="widget-label">AI Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="interface-features">
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> Gradientes azules</li>
+                        <li><i class="fas fa-check"></i> Layout ejecutivo</li>
+                        <li><i class="fas fa-check"></i> Sidebar elegante</li>
+                        <li><i class="fas fa-check"></i> Métricas destacadas</li>
+                        <li><i class="fas fa-check"></i> Animaciones suaves</li>
+                        <li><i class="fas fa-check"></i> Responsive design</li>
+                    </ul>
+                </div>
+                <div class="select-button">
+                    <button class="btn-select" onclick="selectInterface(1)">Seleccionar Interface 1</button>
+                </div>
+            </div>
+            
+            <!-- Interface 2: Neon Cyberpunk -->
+            <div class="interface-card interface-2">
+                <div class="interface-header">
+                    <div class="interface-title">2. Neon Cyberpunk</div>
+                    <div class="interface-description">Interfaz futurista con neones rosas y efectos holográficos</div>
+                </div>
+                <div class="interface-preview">
+                    <div class="preview-mockup">
+                        <div class="mockup-header">
+                            <div class="mockup-title">CYBER COMMAND</div>
+                            <div class="mockup-status"></div>
+                        </div>
+                        <div class="mockup-content">
+                            <div class="mockup-widget">
+                                <div class="widget-value">47</div>
+                                <div class="widget-label">ACTIVE</div>
+                            </div>
+                            <div class="mockup-widget">
+                                <div class="widget-value">23</div>
+                                <div class="widget-label">ONLINE</div>
+                            </div>
+                            <div class="mockup-widget">
+                                <div class="widget-value">87%</div>
+                                <div class="widget-label">SUCCESS</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="interface-features">
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> Neones rosas</li>
+                        <li><i class="fas fa-check"></i> Efectos holográficos</li>
+                        <li><i class="fas fa-check"></i> Tipografía futurista</li>
+                        <li><i class="fas fa-check"></i> Animaciones cyber</li>
+                        <li><i class="fas fa-check"></i> Colores vibrantes</li>
+                        <li><i class="fas fa-check"></i> Estilo sci-fi</li>
+                    </ul>
+                </div>
+                <div class="select-button">
+                    <button class="btn-select" onclick="selectInterface(2)">Seleccionar Interface 2</button>
+                </div>
+            </div>
+            
+            <!-- Interface 3: Ocean Blue -->
+            <div class="interface-card interface-3">
+                <div class="interface-header">
+                    <div class="interface-title">3. Ocean Blue</div>
+                    <div class="interface-description">Diseño limpio con azules oceánicos y elementos minimalistas</div>
+                </div>
+                <div class="interface-preview">
+                    <div class="preview-mockup">
+                        <div class="mockup-header">
+                            <div class="mockup-title">Ocean Dashboard</div>
+                            <div class="mockup-status"></div>
+                        </div>
+                        <div class="mockup-content">
+                            <div class="mockup-widget">
+                                <div class="widget-value">47</div>
+                                <div class="widget-label">Calls</div>
+                            </div>
+                            <div class="mockup-widget">
+                                <div class="widget-value">23</div>
+                                <div class="widget-label">Agents</div>
+                            </div>
+                            <div class="mockup-widget">
+                                <div class="widget-value">87%</div>
+                                <div class="widget-label">Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="interface-features">
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> Azules oceánicos</li>
+                        <li><i class="fas fa-check"></i> Diseño minimalista</li>
+                        <li><i class="fas fa-check"></i> Cards flotantes</li>
+                        <li><i class="fas fa-check"></i> Sombras suaves</li>
+                        <li><i class="fas fa-check"></i> Espacios amplios</li>
+                        <li><i class="fas fa-check"></i> Tipografía clara</li>
+                    </ul>
+                </div>
+                <div class="select-button">
+                    <button class="btn-select" onclick="selectInterface(3)">Seleccionar Interface 3</button>
+                </div>
+            </div>
+            
+            <!-- Interface 4: Green Tech -->
+            <div class="interface-card interface-4">
+                <div class="interface-header">
+                    <div class="interface-title">4. Green Tech</div>
+                    <div class="interface-description">Interfaz tecnológica con verdes vibrantes y elementos digitales</div>
+                </div>
+                <div class="interface-preview">
+                    <div class="preview-mockup">
+                        <div class="mockup-header">
+                            <div class="mockup-title">Tech Control</div>
+                            <div class="mockup-status"></div>
+                        </div>
+                        <div class="mockup-content">
+                            <div class="mockup-widget">
+                                <div class="widget-value">47</div>
+                                <div class="widget-label">ACTIVE</div>
+                            </div>
+                            <div class="mockup-widget">
+                                <div class="widget-value">23</div>
+                                <div class="widget-label">ONLINE</div>
+                            </div>
+                            <div class="mockup-widget">
+                                <div class="widget-value">87%</div>
+                                <div class="widget-label">RATE</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="interface-features">
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> Verdes vibrantes</li>
+                        <li><i class="fas fa-check"></i> Elementos digitales</li>
+                        <li><i class="fas fa-check"></i> Efectos matrix</li>
+                        <li><i class="fas fa-check"></i> Bordes brillantes</li>
+                        <li><i class="fas fa-check"></i> Iconos tech</li>
+                        <li><i class="fas fa-check"></i> Animaciones fluidas</li>
+                    </ul>
+                </div>
+                <div class="select-button">
+                    <button class="btn-select" onclick="selectInterface(4)">Seleccionar Interface 4</button>
+                </div>
+            </div>
+            
+            <!-- Interface 5: Sunset Gradient -->
+            <div class="interface-card interface-5">
+                <div class="interface-header">
+                    <div class="interface-title">5. Sunset Gradient</div>
+                    <div class="interface-description">Diseño cálido con gradientes de atardecer y elementos orgánicos</div>
+                </div>
+                <div class="interface-preview">
+                    <div class="preview-mockup">
+                        <div class="mockup-header">
+                            <div class="mockup-title">Sunset Control</div>
+                            <div class="mockup-status"></div>
+                        </div>
+                        <div class="mockup-content">
+                            <div class="mockup-widget">
+                                <div class="widget-value">47</div>
+                                <div class="widget-label">Calls</div>
+                            </div>
+                            <div class="mockup-widget">
+                                <div class="widget-value">23</div>
+                                <div class="widget-label">Agents</div>
+                            </div>
+                            <div class="mockup-widget">
+                                <div class="widget-value">87%</div>
+                                <div class="widget-label">Success</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="interface-features">
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> Gradientes cálidos</li>
+                        <li><i class="fas fa-check"></i> Colores atardecer</li>
+                        <li><i class="fas fa-check"></i> Formas orgánicas</li>
+                        <li><i class="fas fa-check"></i> Transiciones suaves</li>
+                        <li><i class="fas fa-check"></i> Ambiente acogedor</li>
+                        <li><i class="fas fa-check"></i> Diseño moderno</li>
+                    </ul>
+                </div>
+                <div class="select-button">
+                    <button class="btn-select" onclick="selectInterface(5)">Seleccionar Interface 5</button>
+                </div>
+            </div>
+            
+            <!-- Interface 6: Pastel Dream -->
+            <div class="interface-card interface-6">
+                <div class="interface-header">
+                    <div class="interface-title">6. Pastel Dream</div>
+                    <div class="interface-description">Interfaz suave con colores pastel y diseño minimalista elegante</div>
+                </div>
+                <div class="interface-preview">
+                    <div class="preview-mockup">
+                        <div class="mockup-header">
+                            <div class="mockup-title">Dream Dashboard</div>
+                            <div class="mockup-status"></div>
+                        </div>
+                        <div class="mockup-content">
+                            <div class="mockup-widget">
+                                <div class="widget-value">47</div>
+                                <div class="widget-label">Calls</div>
+                            </div>
+                            <div class="mockup-widget">
+                                <div class="widget-value">23</div>
+                                <div class="widget-label">Agents</div>
+                            </div>
+                            <div class="mockup-widget">
+                                <div class="widget-value">87%</div>
+                                <div class="widget-label">Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="interface-features">
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> Colores pastel</li>
+                        <li><i class="fas fa-check"></i> Diseño suave</li>
+                        <li><i class="fas fa-check"></i> Elementos flotantes</li>
+                        <li><i class="fas fa-check"></i> Sombras delicadas</li>
+                        <li><i class="fas fa-check"></i> Tipografía ligera</li>
+                        <li><i class="fas fa-check"></i> Estilo dreamy</li>
+                    </ul>
+                </div>
+                <div class="select-button">
+                    <button class="btn-select" onclick="selectInterface(6)">Seleccionar Interface 6</button>
+                </div>
+            </div>
+            
+            <!-- Interface 7: Rose Gold -->
+            <div class="interface-card interface-7">
+                <div class="interface-header">
+                    <div class="interface-title">7. Rose Gold</div>
+                    <div class="interface-description">Diseño premium con tonos rose gold y elementos de lujo</div>
+                </div>
+                <div class="interface-preview">
+                    <div class="preview-mockup">
+                        <div class="mockup-header">
+                            <div class="mockup-title">Premium Control</div>
+                            <div class="mockup-status"></div>
+                        </div>
+                        <div class="mockup-content">
+                            <div class="mockup-widget">
+                                <div class="widget-value">47</div>
+                                <div class="widget-label">Calls</div>
+                            </div>
+                            <div class="mockup-widget">
+                                <div class="widget-value">23</div>
+                                <div class="widget-label">Agents</div>
+                            </div>
+                            <div class="mockup-widget">
+                                <div class="widget-value">87%</div>
+                                <div class="widget-label">Success</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="interface-features">
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> Tonos rose gold</li>
+                        <li><i class="fas fa-check"></i> Elementos premium</li>
+                        <li><i class="fas fa-check"></i> Acabados metálicos</li>
+                        <li><i class="fas fa-check"></i> Diseño de lujo</li>
+                        <li><i class="fas fa-check"></i> Detalles elegantes</li>
+                        <li><i class="fas fa-check"></i> Estilo sofisticado</li>
+                    </ul>
+                </div>
+                <div class="select-button">
+                    <button class="btn-select" onclick="selectInterface(7)">Seleccionar Interface 7</button>
+                </div>
+            </div>
+            
+            <!-- Interface 8: Purple Haze -->
+            <div class="interface-card interface-8">
+                <div class="interface-header">
+                    <div class="interface-title">8. Purple Haze</div>
+                    <div class="interface-description">Interfaz mística con púrpuras profundos y efectos nebulosos</div>
+                </div>
+                <div class="interface-preview">
+                    <div class="preview-mockup">
+                        <div class="mockup-header">
+                            <div class="mockup-title">Mystic Dashboard</div>
+                            <div class="mockup-status"></div>
+                        </div>
+                        <div class="mockup-content">
+                            <div class="mockup-widget">
+                                <div class="widget-value">47</div>
+                                <div class="widget-label">Calls</div>
+                            </div>
+                            <div class="mockup-widget">
+                                <div class="widget-value">23</div>
+                                <div class="widget-label">Agents</div>
+                            </div>
+                            <div class="mockup-widget">
+                                <div class="widget-value">87%</div>
+                                <div class="widget-label">Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="interface-features">
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> Púrpuras profundos</li>
+                        <li><i class="fas fa-check"></i> Efectos nebulosos</li>
+                        <li><i class="fas fa-check"></i> Ambiente místico</li>
+                        <li><i class="fas fa-check"></i> Gradientes mágicos</li>
+                        <li><i class="fas fa-check"></i> Partículas flotantes</li>
+                        <li><i class="fas fa-check"></i> Estilo ethereal</li>
+                    </ul>
+                </div>
+                <div class="select-button">
+                    <button class="btn-select" onclick="selectInterface(8)">Seleccionar Interface 8</button>
+                </div>
+            </div>
+            
+            <!-- Interface 9: Warm Copper -->
+            <div class="interface-card interface-9">
+                <div class="interface-header">
+                    <div class="interface-title">9. Warm Copper</div>
+                    <div class="interface-description">Diseño cálido con tonos cobre y elementos industriales elegantes</div>
+                </div>
+                <div class="interface-preview">
+                    <div class="preview-mockup">
+                        <div class="mockup-header">
+                            <div class="mockup-title">Copper Control</div>
+                            <div class="mockup-status"></div>
+                        </div>
+                        <div class="mockup-content">
+                            <div class="mockup-widget">
+                                <div class="widget-value">47</div>
+                                <div class="widget-label">Calls</div>
+                            </div>
+                            <div class="mockup-widget">
+                                <div class="widget-value">23</div>
+                                <div class="widget-label">Agents</div>
+                            </div>
+                            <div class="mockup-widget">
+                                <div class="widget-value">87%</div>
+                                <div class="widget-label">Success</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="interface-features">
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> Tonos cobre</li>
+                        <li><i class="fas fa-check"></i> Estilo industrial</li>
+                        <li><i class="fas fa-check"></i> Texturas metálicas</li>
+                        <li><i class="fas fa-check"></i> Diseño cálido</li>
+                        <li><i class="fas fa-check"></i> Elementos robustos</li>
+                        <li><i class="fas fa-check"></i> Acabado premium</li>
+                    </ul>
+                </div>
+                <div class="select-button">
+                    <button class="btn-select" onclick="selectInterface(9)">Seleccionar Interface 9</button>
+                </div>
+            </div>
+            
+            <!-- Interface 10: Electric Teal -->
+            <div class="interface-card interface-10">
+                <div class="interface-header">
+                    <div class="interface-title">10. Electric Teal</div>
+                    <div class="interface-description">Interfaz eléctrica con teals vibrantes y efectos de energía</div>
+                </div>
+                <div class="interface-preview">
+                    <div class="preview-mockup">
+                        <div class="mockup-header">
+                            <div class="mockup-title">Electric Command</div>
+                            <div class="mockup-status"></div>
+                        </div>
+                        <div class="mockup-content">
+                            <div class="mockup-widget">
+                                <div class="widget-value">47</div>
+                                <div class="widget-label">ACTIVE</div>
+                            </div>
+                            <div class="mockup-widget">
+                                <div class="widget-value">23</div>
+                                <div class="widget-label">ONLINE</div>
+                            </div>
+                            <div class="mockup-widget">
+                                <div class="widget-value">87%</div>
+                                <div class="widget-label">POWER</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="interface-features">
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> Teals eléctricos</li>
+                        <li><i class="fas fa-check"></i> Efectos de energía</li>
+                        <li><i class="fas fa-check"></i> Rayos animados</li>
+                        <li><i class="fas fa-check"></i> Colores vibrantes</li>
+                        <li><i class="fas fa-check"></i> Pulsos de luz</li>
+                        <li><i class="fas fa-check"></i> Estilo dinámico</li>
+                    </ul>
+                </div>
+                <div class="select-button">
+                    <button class="btn-select" onclick="selectInterface(10)">Seleccionar Interface 10</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 Instrucciones</h3>
+            <p>
+                Haz clic en "Seleccionar Interface" del diseño que más te impacte visualmente. 
+                Una vez que elijas, implementaré esa interfaz completa en tu sistema VoiceCore AI 
+                con todas las funcionalidades y la desplegaré automáticamente a Railway.
+                <br><br>
+                <strong>Cada interfaz incluye:</strong> Dashboard ejecutivo, métricas en tiempo real, 
+                navegación lateral, gráficos interactivos, feed de actividad y diseño responsive.
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        function selectInterface(number) {
+            const interfaces = {
+                1: "Corporate Executive - Gradientes azules elegantes",
+                2: "Neon Cyberpunk - Futurista con neones rosas",
+                3: "Ocean Blue - Minimalista con azules oceánicos", 
+                4: "Green Tech - Tecnológico con verdes vibrantes",
+                5: "Sunset Gradient - Cálido con gradientes de atardecer",
+                6: "Pastel Dream - Suave con colores pastel",
+                7: "Rose Gold - Premium con tonos rose gold",
+                8: "Purple Haze - Místico con púrpuras profundos",
+                9: "Warm Copper - Industrial con tonos cobre",
+                10: "Electric Teal - Eléctrico con teals vibrantes"
+            };
+            
+            const selected = interfaces[number];
+            
+            if (confirm(`¿Confirmas que quieres la Interface ${number}?\n\n"${selected}"\n\nEsta será implementada como tu dashboard ejecutivo de VoiceCore AI.`)) {
+                alert(`¡Perfecto! Has seleccionado la Interface ${number}.\n\nAhora regresa a la conversación y dime:\n"Selecciono la Interface ${number}" \n\npara que pueda implementarla inmediatamente.`);
+            }
+        }
+        
+        // Add hover effects
+        document.querySelectorAll('.interface-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-15px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        console.log('VoiceCore AI - 10 Interfaces UI Profesionales Cargadas');
+        console.log('Selecciona la que más te impacte visualmente');
+    </script>
+</body>
+</html>
