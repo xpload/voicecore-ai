@@ -266,13 +266,6 @@ try:
     except ImportError:
         print("⚠️ No se pudo cargar el dashboard enterprise")
     
-    @app.get("/dashboard")
-    async def redirect_to_system_dashboard():
-        """Redirigir al dashboard del sistema"""
-        from fastapi.responses import RedirectResponse
-        return RedirectResponse(url="/system/dashboard")
-    
-    
     # Dashboard Enterprise Routes integrado
     @app.get("/dashboard", response_class=HTMLResponse)
     async def enterprise_dashboard():
