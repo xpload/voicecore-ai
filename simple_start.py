@@ -252,19 +252,14 @@ try:
             "note": "Esta es una respuesta de demostración. Configura Twilio para llamadas reales."
         }
     
-    # Importar y agregar rutas del sistema de monitoreo
-    try:
-        from voicecore.api.system_status_routes import router as system_router
-        app.include_router(system_router)
-    except ImportError:
-        print("⚠️ No se pudo cargar el sistema de monitoreo")
+    # Importar y agregar rutas del sistema de monitoreo (temporalmente deshabilitado)
+    # try:
+    #     from voicecore.api.system_status_routes import router as system_router
+    #     app.include_router(system_router)
+    # except ImportError:
+    #     print("⚠️ No se pudo cargar el sistema de monitoreo")
     
-    # Importar y agregar dashboard enterprise
-    try:
-        from voicecore.api.dashboard_routes import router as dashboard_router
-        app.include_router(dashboard_router)
-    except ImportError:
-        print("⚠️ No se pudo cargar el dashboard enterprise")
+    # Dashboard enterprise integrado directamente (sin router externo para evitar conflictos)
     
     # Dashboard Enterprise Routes integrado
 
