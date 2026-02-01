@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoiceCore AI - Diseños de Dashboard Modernos</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1e40af;
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .designs-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+        }
+
+        .design-option {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .design-option:hover {
+            transform: translateY(-5px);
+        }
+
+        .design-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .design-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .design-description {
+            opacity: 0.9;
+        }
+
+        .design-preview {
+            padding: 0;
+            height: 600px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .mockup-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            transform: scale(0.8);
+            transform-origin: top left;
+        }
+
+        .features-list {
+            padding: 2rem;
+            background: #f8fafc;
+        }
+
+        .features-list h4 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+
+        .features-list ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #64748b;
+        }
+
+        .features-list li i {
+            color: #10b981;
+        }
+
+        .select-button {
+            margin: 2rem;
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 Diseños Modernos para VoiceCore AI</h1>
+            <p>Selecciona el diseño que más te guste para tu dashboard enterprise. Cada opción está optimizada para uso profesional.</p>
+        </div>
+
+        <div class="designs-grid">
+            <!-- Diseño 1: Glassmorphism Modern -->
+            <div class="design-option">
+                <div class="design-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <div class="design-title">🌟 Glassmorphism Ultra Modern</div>
+                    <div class="design-description">Diseño futurista con efectos de vidrio, transparencias y gradientes modernos</div>
+                </div>
+                <div class="design-preview">
+                    <iframe class="mockup-frame" srcdoc='
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <style>
+                            * { margin: 0; padding: 0; box-sizing: border-box; }
+                            body { 
+                                font-family: "Inter", sans-serif; 
+                                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                                min-height: 100vh;
+                                overflow: hidden;
+                            }
+                            .dashboard {
+                                display: flex;
+                                height: 100vh;
+                            }
+                            .sidebar {
+                                width: 280px;
+                                background: rgba(255, 255, 255, 0.1);
+                                backdrop-filter: blur(20px);
+                                border-right: 1px solid rgba(255, 255, 255, 0.2);
+                                padding: 2rem 1rem;
+                            }
+                            .logo {
+                                color: white;
+                                font-size: 1.5rem;
+                                font-weight: 800;
+                                margin-bottom: 2rem;
+                                text-align: center;
+                            }
+                            .nav-item {
+                                display: flex;
+                                align-items: center;
+                                gap: 1rem;
+                                padding: 1rem;
+                                color: rgba(255, 255, 255, 0.8);
+                                border-radius: 12px;
+                                margin-bottom: 0.5rem;
+                                transition: all 0.3s ease;
+                            }
+                            .nav-item:hover, .nav-item.active {
+                                background: rgba(255, 255, 255, 0.2);
+                                color: white;
+                            }
+                            .main-content {
+                                flex: 1;
+                                padding: 2rem;
+                                overflow-y: auto;
+                            }
+                            .header {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                margin-bottom: 2rem;
+                            }
+                            .header h1 {
+                                color: white;
+                                font-size: 2rem;
+                                font-weight: 700;
+                            }
+                            .status-badge {
+                                background: rgba(16, 185, 129, 0.2);
+                                color: #10b981;
+                                padding: 0.5rem 1rem;
+                                border-radius: 20px;
+                                backdrop-filter: blur(10px);
+                                border: 1px solid rgba(16, 185, 129, 0.3);
+                            }
+                            .cards-grid {
+                                display: grid;
+                                grid-template-columns: repeat(4, 1fr);
+                                gap: 1.5rem;
+                                margin-bottom: 2rem;
+                            }
+                            .glass-card {
+                                background: rgba(255, 255, 255, 0.1);
+                                backdrop-filter: blur(20px);
+                                border: 1px solid rgba(255, 255, 255, 0.2);
+                                border-radius: 20px;
+                                padding: 2rem;
+                                text-align: center;
+                                transition: all 0.3s ease;
+                            }
+                            .glass-card:hover {
+                                transform: translateY(-5px);
+                                background: rgba(255, 255, 255, 0.15);
+                            }
+                            .metric-value {
+                                font-size: 2.5rem;
+                                font-weight: 800;
+                                color: white;
+                                margin-bottom: 0.5rem;
+                            }
+                            .metric-label {
+                                color: rgba(255, 255, 255, 0.8);
+                                font-size: 0.9rem;
+                                text-transform: uppercase;
+                                letter-spacing: 0.5px;
+                            }
+                            .chart-card {
+                                background: rgba(255, 255, 255, 0.1);
+                                backdrop-filter: blur(20px);
+                                border: 1px solid rgba(255, 255, 255, 0.2);
+                                border-radius: 20px;
+                                padding: 2rem;
+                                height: 300px;
+                            }
+                            .chart-placeholder {
+                                width: 100%;
+                                height: 200px;
+                                background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+                                border-radius: 12px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: rgba(255, 255, 255, 0.6);
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="dashboard">
+                            <div class="sidebar">
+                                <div class="logo">🤖 VoiceCore AI</div>
+                                <div class="nav-item active">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>Dashboard</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-phone"></i>
+                                    <span>Llamadas</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>Agentes</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-brain"></i>
+                                    <span>IA</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-chart-bar"></i>
+                                    <span>Analytics</span>
+                                </div>
+                            </div>
+                            <div class="main-content">
+                                <div class="header">
+                                    <h1>Dashboard Enterprise</h1>
+                                    <div class="status-badge">
+                                        <i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 0.5rem;"></i>
+                                        Sistema Online
+                                    </div>
+                                </div>
+                                <div class="cards-grid">
+                                    <div class="glass-card">
+                                        <div class="metric-value">24</div>
+                                        <div class="metric-label">Llamadas Activas</div>
+                                    </div>
+                                    <div class="glass-card">
+                                        <div class="metric-value">12</div>
+                                        <div class="metric-label">Agentes Disponibles</div>
+                                    </div>
+                                    <div class="glass-card">
+                                        <div class="metric-value">3</div>
+                                        <div class="metric-label">En Cola</div>
+                                    </div>
+                                    <div class="glass-card">
+                                        <div class="metric-value">87%</div>
+                                        <div class="metric-label">IA Resolución</div>
+                                    </div>
+                                </div>
+                                <div class="chart-card">
+                                    <h3 style="color: white; margin-bottom: 1rem;">Actividad en Tiempo Real</h3>
+                                    <div class="chart-placeholder">
+                                        <i class="fas fa-chart-area" style="font-size: 3rem;"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                    '></iframe>
+                </div>
+                <div class="features-list">
+                    <h4>Características Principales:</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Efectos glassmorphism</li>
+                        <li><i class="fas fa-check"></i> Gradientes modernos</li>
+                        <li><i class="fas fa-check"></i> Transparencias elegantes</li>
+                        <li><i class="fas fa-check"></i> Animaciones suaves</li>
+                        <li><i class="fas fa-check"></i> Diseño futurista</li>
+                        <li><i class="fas fa-check"></i> Colores vibrantes</li>
+                    </ul>
+                </div>
+                <div class="select-button">
+                    <button class="btn" onclick="selectDesign(1)">
+                        <i class="fas fa-palette"></i>
+                        Seleccionar Este Diseño
+                    </button>
+                </div>
+            </div>
+
+            <!-- Diseño 2: Dark Professional -->
+            <div class="design-option">
+                <div class="design-header" style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%);">
+                    <div class="design-title">🌙 Dark Professional Elite</div>
+                    <div class="design-description">Diseño oscuro elegante con acentos dorados, perfecto para uso profesional 24/7</div>
+                </div>
+                <div class="design-preview">
+                    <iframe class="mockup-frame" srcdoc='
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <style>
+                            * { margin: 0; padding: 0; box-sizing: border-box; }
+                            body { 
+                                font-family: "Inter", sans-serif; 
+                                background: #0f172a;
+                                color: #e2e8f0;
+                                min-height: 100vh;
+                            }
+                            .dashboard {
+                                display: flex;
+                                height: 100vh;
+                            }
+                            .sidebar {
+                                width: 280px;
+                                background: #1e293b;
+                                border-right: 1px solid #334155;
+                                padding: 2rem 1rem;
+                            }
+                            .logo {
+                                color: #fbbf24;
+                                font-size: 1.5rem;
+                                font-weight: 800;
+                                margin-bottom: 2rem;
+                                text-align: center;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                gap: 0.5rem;
+                            }
+                            .nav-section {
+                                margin-bottom: 2rem;
+                            }
+                            .nav-section-title {
+                                color: #64748b;
+                                font-size: 0.75rem;
+                                font-weight: 600;
+                                text-transform: uppercase;
+                                letter-spacing: 0.1em;
+                                margin-bottom: 1rem;
+                                padding-left: 1rem;
+                            }
+                            .nav-item {
+                                display: flex;
+                                align-items: center;
+                                gap: 1rem;
+                                padding: 0.75rem 1rem;
+                                color: #94a3b8;
+                                border-radius: 8px;
+                                margin-bottom: 0.25rem;
+                                transition: all 0.2s ease;
+                                cursor: pointer;
+                            }
+                            .nav-item:hover {
+                                background: #334155;
+                                color: #e2e8f0;
+                            }
+                            .nav-item.active {
+                                background: linear-gradient(135deg, #fbbf24, #f59e0b);
+                                color: #1e293b;
+                                font-weight: 600;
+                            }
+                            .main-content {
+                                flex: 1;
+                                background: #0f172a;
+                                padding: 2rem;
+                            }
+                            .header {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                margin-bottom: 2rem;
+                                padding-bottom: 1rem;
+                                border-bottom: 1px solid #334155;
+                            }
+                            .header h1 {
+                                color: #f8fafc;
+                                font-size: 2rem;
+                                font-weight: 700;
+                            }
+                            .header-actions {
+                                display: flex;
+                                gap: 1rem;
+                                align-items: center;
+                            }
+                            .status-indicator {
+                                background: #065f46;
+                                color: #10b981;
+                                padding: 0.5rem 1rem;
+                                border-radius: 6px;
+                                font-size: 0.875rem;
+                                font-weight: 500;
+                                border: 1px solid #10b981;
+                            }
+                            .cards-grid {
+                                display: grid;
+                                grid-template-columns: repeat(4, 1fr);
+                                gap: 1.5rem;
+                                margin-bottom: 2rem;
+                            }
+                            .metric-card {
+                                background: #1e293b;
+                                border: 1px solid #334155;
+                                border-radius: 12px;
+                                padding: 2rem;
+                                transition: all 0.3s ease;
+                            }
+                            .metric-card:hover {
+                                border-color: #fbbf24;
+                                transform: translateY(-2px);
+                                box-shadow: 0 10px 25px rgba(251, 191, 36, 0.1);
+                            }
+                            .metric-header {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                margin-bottom: 1rem;
+                            }
+                            .metric-icon {
+                                width: 40px;
+                                height: 40px;
+                                background: linear-gradient(135deg, #fbbf24, #f59e0b);
+                                border-radius: 8px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: #1e293b;
+                                font-size: 1.2rem;
+                            }
+                            .metric-value {
+                                font-size: 2.5rem;
+                                font-weight: 800;
+                                color: #f8fafc;
+                                margin-bottom: 0.5rem;
+                            }
+                            .metric-label {
+                                color: #94a3b8;
+                                font-size: 0.875rem;
+                                font-weight: 500;
+                            }
+                            .metric-change {
+                                font-size: 0.75rem;
+                                color: #10b981;
+                                margin-top: 0.5rem;
+                            }
+                            .content-grid {
+                                display: grid;
+                                grid-template-columns: 2fr 1fr;
+                                gap: 2rem;
+                            }
+                            .chart-card {
+                                background: #1e293b;
+                                border: 1px solid #334155;
+                                border-radius: 12px;
+                                padding: 2rem;
+                            }
+                            .chart-header {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                margin-bottom: 1.5rem;
+                            }
+                            .chart-title {
+                                color: #f8fafc;
+                                font-size: 1.25rem;
+                                font-weight: 600;
+                            }
+                            .chart-placeholder {
+                                height: 250px;
+                                background: linear-gradient(135deg, #334155, #475569);
+                                border-radius: 8px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: #64748b;
+                            }
+                            .activity-card {
+                                background: #1e293b;
+                                border: 1px solid #334155;
+                                border-radius: 12px;
+                                padding: 2rem;
+                            }
+                            .activity-item {
+                                display: flex;
+                                align-items: center;
+                                gap: 1rem;
+                                padding: 1rem 0;
+                                border-bottom: 1px solid #334155;
+                            }
+                            .activity-item:last-child {
+                                border-bottom: none;
+                            }
+                            .activity-icon {
+                                width: 32px;
+                                height: 32px;
+                                background: #fbbf24;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: #1e293b;
+                                font-size: 0.875rem;
+                            }
+                            .activity-content {
+                                flex: 1;
+                            }
+                            .activity-title {
+                                color: #f8fafc;
+                                font-weight: 500;
+                                font-size: 0.875rem;
+                            }
+                            .activity-time {
+                                color: #64748b;
+                                font-size: 0.75rem;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="dashboard">
+                            <div class="sidebar">
+                                <div class="logo">
+                                    <i class="fas fa-headset"></i>
+                                    VoiceCore AI
+                                </div>
+                                <div class="nav-section">
+                                    <div class="nav-section-title">Principal</div>
+                                    <div class="nav-item active">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span>Dashboard</span>
+                                    </div>
+                                    <div class="nav-item">
+                                        <i class="fas fa-broadcast-tower"></i>
+                                        <span>Monitor Tiempo Real</span>
+                                    </div>
+                                </div>
+                                <div class="nav-section">
+                                    <div class="nav-section-title">Gestión</div>
+                                    <div class="nav-item">
+                                        <i class="fas fa-phone"></i>
+                                        <span>Llamadas</span>
+                                    </div>
+                                    <div class="nav-item">
+                                        <i class="fas fa-users"></i>
+                                        <span>Agentes</span>
+                                    </div>
+                                    <div class="nav-item">
+                                        <i class="fas fa-building"></i>
+                                        <span>Departamentos</span>
+                                    </div>
+                                </div>
+                                <div class="nav-section">
+                                    <div class="nav-section-title">IA & Analytics</div>
+                                    <div class="nav-item">
+                                        <i class="fas fa-brain"></i>
+                                        <span>IA Training</span>
+                                    </div>
+                                    <div class="nav-item">
+                                        <i class="fas fa-chart-bar"></i>
+                                        <span>Analytics</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-content">
+                                <div class="header">
+                                    <h1>Dashboard Enterprise</h1>
+                                    <div class="header-actions">
+                                        <div class="status-indicator">
+                                            <i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 0.5rem;"></i>
+                                            Sistema Online
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cards-grid">
+                                    <div class="metric-card">
+                                        <div class="metric-header">
+                                            <div class="metric-icon">
+                                                <i class="fas fa-phone"></i>
+                                            </div>
+                                        </div>
+                                        <div class="metric-value">24</div>
+                                        <div class="metric-label">Llamadas Activas</div>
+                                        <div class="metric-change">+12% vs ayer</div>
+                                    </div>
+                                    <div class="metric-card">
+                                        <div class="metric-header">
+                                            <div class="metric-icon">
+                                                <i class="fas fa-users"></i>
+                                            </div>
+                                        </div>
+                                        <div class="metric-value">12</div>
+                                        <div class="metric-label">Agentes Disponibles</div>
+                                        <div class="metric-change">85% disponibilidad</div>
+                                    </div>
+                                    <div class="metric-card">
+                                        <div class="metric-header">
+                                            <div class="metric-icon">
+                                                <i class="fas fa-list-ol"></i>
+                                            </div>
+                                        </div>
+                                        <div class="metric-value">3</div>
+                                        <div class="metric-label">En Cola</div>
+                                        <div class="metric-change">-5% última hora</div>
+                                    </div>
+                                    <div class="metric-card">
+                                        <div class="metric-header">
+                                            <div class="metric-icon">
+                                                <i class="fas fa-robot"></i>
+                                            </div>
+                                        </div>
+                                        <div class="metric-value">87%</div>
+                                        <div class="metric-label">IA Resolución</div>
+                                        <div class="metric-change">+3% esta semana</div>
+                                    </div>
+                                </div>
+                                <div class="content-grid">
+                                    <div class="chart-card">
+                                        <div class="chart-header">
+                                            <div class="chart-title">Actividad de Llamadas</div>
+                                        </div>
+                                        <div class="chart-placeholder">
+                                            <i class="fas fa-chart-area" style="font-size: 3rem;"></i>
+                                        </div>
+                                    </div>
+                                    <div class="activity-card">
+                                        <div class="chart-header">
+                                            <div class="chart-title">Actividad Reciente</div>
+                                        </div>
+                                        <div class="activity-item">
+                                            <div class="activity-icon">
+                                                <i class="fas fa-phone"></i>
+                                            </div>
+                                            <div class="activity-content">
+                                                <div class="activity-title">Llamada respondida</div>
+                                                <div class="activity-time">Hace 2 min</div>
+                                            </div>
+                                        </div>
+                                        <div class="activity-item">
+                                            <div class="activity-icon">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                            <div class="activity-content">
+                                                <div class="activity-title">Agente disponible</div>
+                                                <div class="activity-time">Hace 5 min</div>
+                                            </div>
+                                        </div>
+                                        <div class="activity-item">
+                                            <div class="activity-icon">
+                                                <i class="fas fa-robot"></i>
+                                            </div>
+                                            <div class="activity-content">
+                                                <div class="activity-title">IA resolvió consulta</div>
+                                                <div class="activity-time">Hace 8 min</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                    '></iframe>
+                </div>
+                <div class="features-list">
+                    <h4>Características Principales:</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Tema oscuro profesional</li>
+                        <li><i class="fas fa-check"></i> Acentos dorados elegantes</li>
+                        <li><i class="fas fa-check"></i> Navegación organizada</li>
+                        <li><i class="fas fa-check"></i> Métricas destacadas</li>
+                        <li><i class="fas fa-check"></i> Fácil lectura 24/7</li>
+                        <li><i class="fas fa-check"></i> Diseño corporativo</li>
+                    </ul>
+                </div>
+                <div class="select-button">
+                    <button class="btn" onclick="selectDesign(2)">
+                        <i class="fas fa-moon"></i>
+                        Seleccionar Este Diseño
+                    </button>
+                </div>
+            </div>
+
+            <!-- Diseño 3: Minimalist Clean -->
+            <div class="design-option">
+                <div class="design-header" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); color: #1e293b;">
+                    <div class="design-title">✨ Minimalist Clean Pro</div>
+                    <div class="design-description">Diseño minimalista ultra limpio con espacios blancos y tipografía perfecta</div>
+                </div>
+                <div class="design-preview">
+                    <iframe class="mockup-frame" srcdoc='
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <style>
+                            * { margin: 0; padding: 0; box-sizing: border-box; }
+                            body { 
+                                font-family: "Inter", sans-serif; 
+                                background: #ffffff;
+                                color: #1e293b;
+                                min-height: 100vh;
+                            }
+                            .dashboard {
+                                display: flex;
+                                height: 100vh;
+                            }
+                            .sidebar {
+                                width: 280px;
+                                background: #ffffff;
+                                border-right: 1px solid #e2e8f0;
+                                padding: 2rem 0;
+                            }
+                            .logo {
+                                color: #1e40af;
+                                font-size: 1.5rem;
+                                font-weight: 800;
+                                margin-bottom: 3rem;
+                                text-align: center;
+                                padding: 0 2rem;
+                            }
+                            .nav-item {
+                                display: flex;
+                                align-items: center;
+                                gap: 1rem;
+                                padding: 1rem 2rem;
+                                color: #64748b;
+                                transition: all 0.2s ease;
+                                cursor: pointer;
+                                border-right: 3px solid transparent;
+                            }
+                            .nav-item:hover {
+                                background: #f8fafc;
+                                color: #1e40af;
+                            }
+                            .nav-item.active {
+                                background: #eff6ff;
+                                color: #1e40af;
+                                border-right-color: #1e40af;
+                                font-weight: 600;
+                            }
+                            .nav-item i {
+                                width: 20px;
+                                text-align: center;
+                            }
+                            .main-content {
+                                flex: 1;
+                                background: #f8fafc;
+                                padding: 0;
+                            }
+                            .header {
+                                background: white;
+                                padding: 2rem;
+                                border-bottom: 1px solid #e2e8f0;
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                            }
+                            .header h1 {
+                                color: #1e293b;
+                                font-size: 2rem;
+                                font-weight: 700;
+                            }
+                            .breadcrumb {
+                                color: #64748b;
+                                font-size: 0.875rem;
+                                margin-bottom: 0.5rem;
+                            }
+                            .status-badge {
+                                background: #f0fdf4;
+                                color: #16a34a;
+                                padding: 0.5rem 1rem;
+                                border-radius: 6px;
+                                font-size: 0.875rem;
+                                font-weight: 500;
+                                border: 1px solid #bbf7d0;
+                            }
+                            .content {
+                                padding: 2rem;
+                            }
+                            .cards-grid {
+                                display: grid;
+                                grid-template-columns: repeat(4, 1fr);
+                                gap: 1.5rem;
+                                margin-bottom: 2rem;
+                            }
+                            .metric-card {
+                                background: white;
+                                border: 1px solid #e2e8f0;
+                                border-radius: 12px;
+                                padding: 2rem;
+                                transition: all 0.3s ease;
+                                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                            }
+                            .metric-card:hover {
+                                border-color: #1e40af;
+                                box-shadow: 0 10px 25px rgba(30, 64, 175, 0.1);
+                                transform: translateY(-2px);
+                            }
+                            .metric-header {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                margin-bottom: 1.5rem;
+                            }
+                            .metric-icon {
+                                width: 48px;
+                                height: 48px;
+                                background: #eff6ff;
+                                border-radius: 12px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: #1e40af;
+                                font-size: 1.25rem;
+                            }
+                            .metric-value {
+                                font-size: 2.5rem;
+                                font-weight: 800;
+                                color: #1e293b;
+                                margin-bottom: 0.5rem;
+                                line-height: 1;
+                            }
+                            .metric-label {
+                                color: #64748b;
+                                font-size: 0.875rem;
+                                font-weight: 500;
+                                margin-bottom: 1rem;
+                            }
+                            .metric-change {
+                                font-size: 0.75rem;
+                                color: #16a34a;
+                                display: flex;
+                                align-items: center;
+                                gap: 0.25rem;
+                            }
+                            .chart-section {
+                                display: grid;
+                                grid-template-columns: 2fr 1fr;
+                                gap: 2rem;
+                            }
+                            .chart-card {
+                                background: white;
+                                border: 1px solid #e2e8f0;
+                                border-radius: 12px;
+                                padding: 2rem;
+                                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                            }
+                            .chart-header {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                margin-bottom: 2rem;
+                                padding-bottom: 1rem;
+                                border-bottom: 1px solid #f1f5f9;
+                            }
+                            .chart-title {
+                                color: #1e293b;
+                                font-size: 1.25rem;
+                                font-weight: 600;
+                            }
+                            .chart-subtitle {
+                                color: #64748b;
+                                font-size: 0.875rem;
+                            }
+                            .chart-placeholder {
+                                height: 280px;
+                                background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+                                border-radius: 8px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: #94a3b8;
+                                border: 2px dashed #cbd5e1;
+                            }
+                            .stats-list {
+                                list-style: none;
+                            }
+                            .stats-item {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                padding: 1rem 0;
+                                border-bottom: 1px solid #f1f5f9;
+                            }
+                            .stats-item:last-child {
+                                border-bottom: none;
+                            }
+                            .stats-label {
+                                color: #64748b;
+                                font-size: 0.875rem;
+                            }
+                            .stats-value {
+                                color: #1e293b;
+                                font-weight: 600;
+                            }
+                            .progress-bar {
+                                width: 100%;
+                                height: 6px;
+                                background: #f1f5f9;
+                                border-radius: 3px;
+                                overflow: hidden;
+                                margin-top: 0.5rem;
+                            }
+                            .progress-fill {
+                                height: 100%;
+                                background: linear-gradient(90deg, #1e40af, #3b82f6);
+                                border-radius: 3px;
+                                transition: width 0.3s ease;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="dashboard">
+                            <div class="sidebar">
+                                <div class="logo">
+                                    <i class="fas fa-headset"></i>
+                                    VoiceCore AI
+                                </div>
+                                <div class="nav-item active">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>Dashboard</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-phone"></i>
+                                    <span>Llamadas en Vivo</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>Gestión de Agentes</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-list-ol"></i>
+                                    <span>Cola de Llamadas</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-brain"></i>
+                                    <span>IA Training</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-chart-bar"></i>
+                                    <span>Analytics</span>
+                                </div>
+                                <div class="nav-item">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Configuración</span>
+                                </div>
+                            </div>
+                            <div class="main-content">
+                                <div class="header">
+                                    <div>
+                                        <div class="breadcrumb">Dashboard / Resumen</div>
+                                        <h1>Dashboard Enterprise</h1>
+                                    </div>
+                                    <div class="status-badge">
+                                        <i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 0.5rem;"></i>
+                                        Sistema Operacional
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    <div class="cards-grid">
+                                        <div class="metric-card">
+                                            <div class="metric-header">
+                                                <div class="metric-icon">
+                                                    <i class="fas fa-phone"></i>
+                                                </div>
+                                            </div>
+                                            <div class="metric-value">24</div>
+                                            <div class="metric-label">Llamadas Activas</div>
+                                            <div class="metric-change">
+                                                <i class="fas fa-arrow-up"></i>
+                                                +12% vs ayer
+                                            </div>
+                                        </div>
+                                        <div class="metric-card">
+                                            <div class="metric-header">
+                                                <div class="metric-icon">
+                                                    <i class="fas fa-users"></i>
+                                                </div>
+                                            </div>
+                                            <div class="metric-value">12</div>
+                                            <div class="metric-label">Agentes Disponibles</div>
+                                            <div class="metric-change">
+                                                <i class="fas fa-arrow-up"></i>
+                                                85% disponibilidad
+                                            </div>
+                                        </div>
+                                        <div class="metric-card">
+                                            <div class="metric-header">
+                                                <div class="metric-icon">
+                                                    <i class="fas fa-clock"></i>
+                                                </div>
+                                            </div>
+                                            <div class="metric-value">1:24</div>
+                                            <div class="metric-label">Tiempo Promedio</div>
+                                            <div class="metric-change">
+                                                <i class="fas fa-arrow-down"></i>
+                                                -8% esta semana
+                                            </div>
+                                        </div>
+                                        <div class="metric-card">
+                                            <div class="metric-header">
+                                                <div class="metric-icon">
+                                                    <i class="fas fa-robot"></i>
+                                                </div>
+                                            </div>
+                                            <div class="metric-value">87%</div>
+                                            <div class="metric-label">IA Resolución</div>
+                                            <div class="metric-change">
+                                                <i class="fas fa-arrow-up"></i>
+                                                +3% esta semana
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="chart-section">
+                                        <div class="chart-card">
+                                            <div class="chart-header">
+                                                <div>
+                                                    <div class="chart-title">Actividad de Llamadas</div>
+                                                    <div class="chart-subtitle">Últimas 24 horas</div>
+                                                </div>
+                                            </div>
+                                            <div class="chart-placeholder">
+                                                <i class="fas fa-chart-area" style="font-size: 3rem;"></i>
+                                            </div>
+                                        </div>
+                                        <div class="chart-card">
+                                            <div class="chart-header">
+                                                <div>
+                                                    <div class="chart-title">Métricas Clave</div>
+                                                    <div class="chart-subtitle">Rendimiento actual</div>
+                                                </div>
+                                            </div>
+                                            <ul class="stats-list">
+                                                <li class="stats-item">
+                                                    <span class="stats-label">Tasa de Respuesta</span>
+                                                    <span class="stats-value">94%</span>
+                                                </li>
+                                                <li class="stats-item">
+                                                    <span class="stats-label">Satisfacción Cliente</span>
+                                                    <span class="stats-value">4.8/5</span>
+                                                </li>
+                                                <li class="stats-item">
+                                                    <span class="stats-label">Tiempo Espera Prom.</span>
+                                                    <span class="stats-value">32s</span>
+                                                </li>
+                                                <li class="stats-item">
+                                                    <span class="stats-label">Llamadas Perdidas</span>
+                                                    <span class="stats-value">2.1%</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                    '></iframe>
+                </div>
+                <div class="features-list">
+                    <h4>Características Principales:</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Diseño ultra limpio</li>
+                        <li><i class="fas fa-check"></i> Espacios blancos perfectos</li>
+                        <li><i class="fas fa-check"></i> Tipografía profesional</li>
+                        <li><i class="fas fa-check"></i> Navegación intuitiva</li>
+                        <li><i class="fas fa-check"></i> Métricas claras</li>
+                        <li><i class="fas fa-check"></i> Fácil de usar</li>
+                    </ul>
+                </div>
+                <div class="select-button">
+                    <button class="btn" onclick="selectDesign(3)">
+                        <i class="fas fa-check-circle"></i>
+                        Seleccionar Este Diseño
+                    </button>
+                </div>
+            </div>
+
+            <!-- Diseño 4: Corporate Blue -->
+            <div class="design-option">
+                <div class="design-header" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);">
+                    <div class="design-title">🏢 Corporate Blue Executive</div>
+                    <div class="design-description">Diseño corporativo azul con elementos ejecutivos, perfecto para empresas Fortune 500</div>
+                </div>
+                <div class="design-preview">
+                    <iframe class="mockup-frame" srcdoc='
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <style>
+                            * { margin: 0; padding: 0; box-sizing: border-box; }
+                            body { 
+                                font-family: "Inter", sans-serif; 
+                                background: #f8fafc;
+                                color: #1e293b;
+                                min-height: 100vh;
+                            }
+                            .dashboard {
+                                display: flex;
+                                height: 100vh;
+                            }
+                            .sidebar {
+                                width: 300px;
+                                background: linear-gradient(180deg, #1e40af 0%, #1e3a8a 100%);
+                                padding: 2rem 0;
+                                box-shadow: 4px 0 20px rgba(30, 64, 175, 0.1);
+                            }
+                            .logo {
+                                color: white;
+                                font-size: 1.5rem;
+                                font-weight: 800;
+                                margin-bottom: 3rem;
+                                text-align: center;
+                                padding: 0 2rem;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                gap: 0.75rem;
+                            }
+                            .user-profile {
+                                padding: 0 2rem;
+                                margin-bottom: 2rem;
+                                text-align: center;
+                            }
+                            .user-avatar {
+                                width: 60px;
+                                height: 60px;
+                                background: rgba(255, 255, 255, 0.2);
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                margin: 0 auto 1rem;
+                                color: white;
+                                font-size: 1.5rem;
+                            }
+                            .user-name {
+                                color: white;
+                                font-weight: 600;
+                                margin-bottom: 0.25rem;
+                            }
+                            .user-role {
+                                color: rgba(255, 255, 255, 0.7);
+                                font-size: 0.875rem;
+                            }
+                            .nav-section {
+                                margin-bottom: 2rem;
+                            }
+                            .nav-section-title {
+                                color: rgba(255, 255, 255, 0.6);
+                                font-size: 0.75rem;
+                                font-weight: 600;
+                                text-transform: uppercase;
+                                letter-spacing: 0.1em;
+                                margin-bottom: 1rem;
+                                padding: 0 2rem;
+                            }
+                            .nav-item {
+                                display: flex;
+                                align-items: center;
+                                gap: 1rem;
+                                padding: 1rem 2rem;
+                                color: rgba(255, 255, 255, 0.8);
+                                transition: all 0.3s ease;
+                                cursor: pointer;
+                                position: relative;
+                            }
+                            .nav-item:hover {
+                                background: rgba(255, 255, 255, 0.1);
+                                color: white;
+                            }
+                            .nav-item.active {
+                                background: rgba(255, 255, 255, 0.15);
+                                color: white;
+                                font-weight: 600;
+                            }
+                            .nav-item.active::before {
+                                content: "";
+                                position: absolute;
+                                left: 0;
+                                top: 0;
+                                bottom: 0;
+                                width: 4px;
+                                background: #fbbf24;
+                            }
+                            .nav-item i {
+                                width: 20px;
+                                text-align: center;
+                            }
+                            .main-content {
+                                flex: 1;
+                                background: #f8fafc;
+                                display: flex;
+                                flex-direction: column;
+                            }
+                            .header {
+                                background: white;
+                                padding: 1.5rem 2rem;
+                                border-bottom: 1px solid #e2e8f0;
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                            }
+                            .header-left h1 {
+                                color: #1e293b;
+                                font-size: 2rem;
+                                font-weight: 700;
+                                margin-bottom: 0.25rem;
+                            }
+                            .breadcrumb {
+                                color: #64748b;
+                                font-size: 0.875rem;
+                                display: flex;
+                                align-items: center;
+                                gap: 0.5rem;
+                            }
+                            .header-right {
+                                display: flex;
+                                align-items: center;
+                                gap: 1rem;
+                            }
+                            .status-indicator {
+                                background: #f0fdf4;
+                                color: #16a34a;
+                                padding: 0.75rem 1.5rem;
+                                border-radius: 8px;
+                                font-size: 0.875rem;
+                                font-weight: 600;
+                                border: 1px solid #bbf7d0;
+                                display: flex;
+                                align-items: center;
+                                gap: 0.5rem;
+                            }
+                            .pulse-dot {
+                                width: 8px;
+                                height: 8px;
+                                background: #16a34a;
+                                border-radius: 50%;
+                                animation: pulse 2s infinite;
+                            }
+                            @keyframes pulse {
+                                0%, 100% { opacity: 1; }
+                                50% { opacity: 0.5; }
+                            }
+                            .content {
+                                flex: 1;
+                                padding: 2rem;
+                                overflow-y: auto;
+                            }
+                            .stats-overview {
+                                display: grid;
+                                grid-template-columns: repeat(4, 1fr);
+                                gap: 1.5rem;
+                                margin-bottom: 2rem;
+                            }
+                            .stat-card {
+                                background: white;
+                                border: 1px solid #e2e8f0;
+                                border-radius: 16px;
+                                padding: 2rem;
+                                transition: all 0.3s ease;
+                                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                                position: relative;
+                                overflow: hidden;
+                            }
+                            .stat-card::before {
+                                content: "";
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                right: 0;
+                                height: 4px;
+                                background: linear-gradient(90deg, #1e40af, #3b82f6);
+                            }
+                            .stat-card:hover {
+                                transform: translateY(-4px);
+                                box-shadow: 0 10px 25px rgba(30, 64, 175, 0.15);
+                                border-color: #1e40af;
+                            }
+                            .stat-header {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: flex-start;
+                                margin-bottom: 1.5rem;
+                            }
+                            .stat-icon {
+                                width: 56px;
+                                height: 56px;
+                                background: linear-gradient(135deg, #1e40af, #3b82f6);
+                                border-radius: 16px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: white;
+                                font-size: 1.5rem;
+                                box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+                            }
+                            .stat-trend {
+                                background: #f0fdf4;
+                                color: #16a34a;
+                                padding: 0.25rem 0.75rem;
+                                border-radius: 20px;
+                                font-size: 0.75rem;
+                                font-weight: 600;
+                                display: flex;
+                                align-items: center;
+                                gap: 0.25rem;
+                            }
+                            .stat-value {
+                                font-size: 2.75rem;
+                                font-weight: 800;
+                                color: #1e293b;
+                                margin-bottom: 0.5rem;
+                                line-height: 1;
+                            }
+                            .stat-label {
+                                color: #64748b;
+                                font-size: 0.875rem;
+                                font-weight: 500;
+                                margin-bottom: 1rem;
+                            }
+                            .stat-description {
+                                color: #94a3b8;
+                                font-size: 0.75rem;
+                                line-height: 1.4;
+                            }
+                            .dashboard-grid {
+                                display: grid;
+                                grid-template-columns: 2fr 1fr;
+                                gap: 2rem;
+                            }
+                            .main-chart {
+                                background: white;
+                                border: 1px solid #e2e8f0;
+                                border-radius: 16px;
+                                padding: 2rem;
+                                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                            }
+                            .chart-header {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                margin-bottom: 2rem;
+                                padding-bottom: 1rem;
+                                border-bottom: 1px solid #f1f5f9;
+                            }
+                            .chart-title {
+                                color: #1e293b;
+                                font-size: 1.5rem;
+                                font-weight: 700;
+                            }
+                            .chart-subtitle {
+                                color: #64748b;
+                                font-size: 0.875rem;
+                                margin-top: 0.25rem;
+                            }
+                            .time-selector {
+                                display: flex;
+                                background: #f1f5f9;
+                                border-radius: 8px;
+                                padding: 0.25rem;
+                            }
+                            .time-option {
+                                padding: 0.5rem 1rem;
+                                border-radius: 6px;
+                                font-size: 0.875rem;
+                                font-weight: 500;
+                                color: #64748b;
+                                cursor: pointer;
+                                transition: all 0.2s ease;
+                            }
+                            .time-option.active {
+                                background: white;
+                                color: #1e40af;
+                                box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+                            }
+                            .chart-placeholder {
+                                height: 320px;
+                                background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+                                border-radius: 12px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: #94a3b8;
+                                border: 2px dashed #cbd5e1;
+                            }
+                            .sidebar-panel {
+                                background: white;
+                                border: 1px solid #e2e8f0;
+                                border-radius: 16px;
+                                padding: 2rem;
+                                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                            }
+                            .panel-title {
+                                color: #1e293b;
+                                font-size: 1.25rem;
+                                font-weight: 700;
+                                margin-bottom: 1.5rem;
+                            }
+                            .activity-item {
+                                display: flex;
+                                align-items: center;
+                                gap: 1rem;
+                                padding: 1rem 0;
+                                border-bottom: 1px solid #f1f5f9;
+                            }
+                            .activity-item:last-child {
+                                border-bottom: none;
+                            }
+                            .activity-icon {
+                                width: 40px;
+                                height: 40px;
+                                background: #eff6ff;
+                                border-radius: 10px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: #1e40af;
+                                font-size: 1rem;
+                            }
+                            .activity-content {
+                                flex: 1;
+                            }
+                            .activity-title {
+                                color: #1e293b;
+                                font-weight: 600;
+                                font-size: 0.875rem;
+                                margin-bottom: 0.25rem;
+                            }
+                            .activity-time {
+                                color: #64748b;
+                                font-size: 0.75rem;
+                            }
+                            .activity-status {
+                                padding: 0.25rem 0.75rem;
+                                border-radius: 12px;
+                                font-size: 0.75rem;
+                                font-weight: 500;
+                            }
+                            .status-success {
+                                background: #f0fdf4;
+                                color: #16a34a;
+                            }
+                            .status-warning {
+                                background: #fffbeb;
+                                color: #d97706;
+                            }
+                            .status-info {
+                                background: #eff6ff;
+                                color: #1e40af;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="dashboard">
+                            <div class="sidebar">
+                                <div class="logo">
+                                    <i class="fas fa-headset"></i>
+                                    VoiceCore AI
+                                </div>
+                                <div class="user-profile">
+                                    <div class="user-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="user-name">Admin Usuario</div>
+                                    <div class="user-role">Administrador</div>
+                                </div>
+                                <div class="nav-section">
+                                    <div class="nav-section-title">Principal</div>
+                                    <div class="nav-item active">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span>Dashboard</span>
+                                    </div>
+                                    <div class="nav-item">
+                                        <i class="fas fa-broadcast-tower"></i>
+                                        <span>Monitor Tiempo Real</span>
+                                    </div>
+                                </div>
+                                <div class="nav-section">
+                                    <div class="nav-section-title">Gestión de Llamadas</div>
+                                    <div class="nav-item">
+                                        <i class="fas fa-phone"></i>
+                                        <span>Llamadas en Vivo</span>
+                                    </div>
+                                    <div class="nav-item">
+                                        <i class="fas fa-list-ol"></i>
+                                        <span>Cola de Llamadas</span>
+                                    </div>
+                                    <div class="nav-item">
+                                        <i class="fas fa-history"></i>
+                                        <span>Historial</span>
+                                    </div>
+                                </div>
+                                <div class="nav-section">
+                                    <div class="nav-section-title">Recursos Humanos</div>
+                                    <div class="nav-item">
+                                        <i class="fas fa-users"></i>
+                                        <span>Agentes</span>
+                                    </div>
+                                    <div class="nav-item">
+                                        <i class="fas fa-building"></i>
+                                        <span>Departamentos</span>
+                                    </div>
+                                    <div class="nav-item">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>Horarios</span>
+                                    </div>
+                                </div>
+                                <div class="nav-section">
+                                    <div class="nav-section-title">IA & Analytics</div>
+                                    <div class="nav-item">
+                                        <i class="fas fa-brain"></i>
+                                        <span>IA Training</span>
+                                    </div>
+                                    <div class="nav-item">
+                                        <i class="fas fa-chart-bar"></i>
+                                        <span>Analytics</span>
+                                    </div>
+                                    <div class="nav-item">
+                                        <i class="fas fa-crown"></i>
+                                        <span>VIP Management</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-content">
+                                <div class="header">
+                                    <div class="header-left">
+                                        <div class="breadcrumb">
+                                            <i class="fas fa-home"></i>
+                                            <span>Dashboard</span>
+                                            <i class="fas fa-chevron-right"></i>
+                                            <span>Resumen Ejecutivo</span>
+                                        </div>
+                                        <h1>Dashboard Ejecutivo</h1>
+                                    </div>
+                                    <div class="header-right">
+                                        <div class="status-indicator">
+                                            <div class="pulse-dot"></div>
+                                            Sistema Operacional
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    <div class="stats-overview">
+                                        <div class="stat-card">
+                                            <div class="stat-header">
+                                                <div class="stat-icon">
+                                                    <i class="fas fa-phone"></i>
+                                                </div>
+                                                <div class="stat-trend">
+                                                    <i class="fas fa-arrow-up"></i>
+                                                    +12%
+                                                </div>
+                                            </div>
+                                            <div class="stat-value">24</div>
+                                            <div class="stat-label">Llamadas Activas</div>
+                                            <div class="stat-description">Llamadas en curso en este momento</div>
+                                        </div>
+                                        <div class="stat-card">
+                                            <div class="stat-header">
+                                                <div class="stat-icon">
+                                                    <i class="fas fa-users"></i>
+                                                </div>
+                                                <div class="stat-trend">
+                                                    <i class="fas fa-arrow-up"></i>
+                                                    85%
+                                                </div>
+                                            </div>
+                                            <div class="stat-value">12</div>
+                                            <div class="stat-label">Agentes Disponibles</div>
+                                            <div class="stat-description">De 14 agentes totales activos</div>
+                                        </div>
+                                        <div class="stat-card">
+                                            <div class="stat-header">
+                                                <div class="stat-icon">
+                                                    <i class="fas fa-clock"></i>
+                                                </div>
+                                                <div class="stat-trend" style="background: #fef3c7; color: #d97706;">
+                                                    <i class="fas fa-arrow-down"></i>
+                                                    -8%
+                                                </div>
+                                            </div>
+                                            <div class="stat-value">1:24</div>
+                                            <div class="stat-label">Tiempo Promedio</div>
+                                            <div class="stat-description">Duración promedio de llamadas</div>
+                                        </div>
+                                        <div class="stat-card">
+                                            <div class="stat-header">
+                                                <div class="stat-icon">
+                                                    <i class="fas fa-robot"></i>
+                                                </div>
+                                                <div class="stat-trend">
+                                                    <i class="fas fa-arrow-up"></i>
+                                                    +3%
+                                                </div>
+                                            </div>
+                                            <div class="stat-value">87%</div>
+                                            <div class="stat-label">IA Resolución</div>
+                                            <div class="stat-description">Consultas resueltas por IA</div>
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-grid">
+                                        <div class="main-chart">
+                                            <div class="chart-header">
+                                                <div>
+                                                    <div class="chart-title">Actividad de Llamadas</div>
+                                                    <div class="chart-subtitle">Volumen de llamadas en tiempo real</div>
+                                                </div>
+                                                <div class="time-selector">
+                                                    <div class="time-option">1H</div>
+                                                    <div class="time-option">6H</div>
+                                                    <div class="time-option active">24H</div>
+                                                    <div class="time-option">7D</div>
+                                                </div>
+                                            </div>
+                                            <div class="chart-placeholder">
+                                                <i class="fas fa-chart-area" style="font-size: 4rem;"></i>
+                                            </div>
+                                        </div>
+                                        <div class="sidebar-panel">
+                                            <div class="panel-title">Actividad Reciente</div>
+                                            <div class="activity-item">
+                                                <div class="activity-icon">
+                                                    <i class="fas fa-phone"></i>
+                                                </div>
+                                                <div class="activity-content">
+                                                    <div class="activity-title">Llamada Respondida</div>
+                                                    <div class="activity-time">Hace 2 minutos</div>
+                                                </div>
+                                                <div class="activity-status status-success">Activa</div>
+                                            </div>
+                                            <div class="activity-item">
+                                                <div class="activity-icon">
+                                                    <i class="fas fa-user-check"></i>
+                                                </div>
+                                                <div class="activity-content">
+                                                    <div class="activity-title">Agente Disponible</div>
+                                                    <div class="activity-time">Hace 5 minutos</div>
+                                                </div>
+                                                <div class="activity-status status-info">Online</div>
+                                            </div>
+                                            <div class="activity-item">
+                                                <div class="activity-icon">
+                                                    <i class="fas fa-robot"></i>
+                                                </div>
+                                                <div class="activity-content">
+                                                    <div class="activity-title">IA Resolvió Consulta</div>
+                                                    <div class="activity-time">Hace 8 minutos</div>
+                                                </div>
+                                                <div class="activity-status status-success">Completado</div>
+                                            </div>
+                                            <div class="activity-item">
+                                                <div class="activity-icon">
+                                                    <i class="fas fa-exclamation-triangle"></i>
+                                                </div>
+                                                <div class="activity-content">
+                                                    <div class="activity-title">Cola de Espera</div>
+                                                    <div class="activity-time">Hace 12 minutos</div>
+                                                </div>
+                                                <div class="activity-status status-warning">Pendiente</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                    '></iframe>
+                </div>
+                <div class="features-list">
+                    <h4>Características Principales:</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Diseño corporativo azul</li>
+                        <li><i class="fas fa-check"></i> Perfil de usuario integrado</li>
+                        <li><i class="fas fa-check"></i> Navegación ejecutiva</li>
+                        <li><i class="fas fa-check"></i> Métricas destacadas</li>
+                        <li><i class="fas fa-check"></i> Actividad en tiempo real</li>
+                        <li><i class="fas fa-check"></i> Estilo Fortune 500</li>
+                    </ul>
+                </div>
+                <div class="select-button">
+                    <button class="btn" onclick="selectDesign(4)">
+                        <i class="fas fa-building"></i>
+                        Seleccionar Este Diseño
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function selectDesign(designNumber) {
+                const designs = {
+                    1: "Glassmorphism Ultra Modern",
+                    2: "Dark Professional Elite", 
+                    3: "Minimalist Clean Pro",
+                    4: "Corporate Blue Executive"
+                };
+                
+                alert(`Has seleccionado: ${designs[designNumber]}\\n\\n¿Proceder con la implementación de este diseño?`);
+                
+                // Aquí se podría enviar la selección al servidor
+                console.log(`Diseño seleccionado: ${designNumber} - ${designs[designNumber]}`);
+            }
+        </script>
+    </div>
+</body>
+</html>
+users"></i>
+                                                </div>
+                                                <div class="stat-trend">
+                                                    <i class="fas fa-arrow-up"></i>
+                                                    +5%
+                                                </div>
+                                            </div>
+                                            <div class="stat-value">12</div>
+                                            <div class="stat-label">Agentes Disponibles</div>
+                                            <div class="stat-description">Agentes listos para atender llamadas</div>
+                                        </div>
+                                        <div class="stat-card">
+                                            <div class="stat-header">
+                                                <div class="stat-icon">
+                                                    <i class="fas fa-clock"></i>
+                                                </div>
+                                                <div class="stat-trend">
+                                                    <i class="fas fa-arrow-down"></i>
+                                                    -8%
+                                                </div>
+                                            </div>
+                                            <div class="stat-value">1:24</div>
+                                            <div class="stat-label">Tiempo Promedio</div>
+                                            <div class="stat-description">Duración promedio de llamadas</div>
+                                        </div>
+                                        <div class="stat-card">
+                                            <div class="stat-header">
+                                                <div class="stat-icon">
+                                                    <i class="fas fa-robot"></i>
+                                                </div>
+                                                <div class="stat-trend">
+                                                    <i class="fas fa-arrow-up"></i>
+                                                    +3%
+                                                </div>
+                                            </div>
+                                            <div class="stat-value">87%</div>
+                                            <div class="stat-label">IA Resolución</div>
+                                            <div class="stat-description">Consultas resueltas por IA</div>
+                                        </div>
+                                    </div>
+                                    <div class="dashboard-grid">
+                                        <div class="main-chart">
+                                            <div class="chart-header">
+                                                <div>
+                                                    <div class="chart-title">Actividad de Llamadas</div>
+                                                    <div class="chart-subtitle">Análisis de rendimiento en tiempo real</div>
+                                                </div>
+                                                <div class="time-selector">
+                                                    <div class="time-option active">24h</div>
+                                                    <div class="time-option">7d</div>
+                                                    <div class="time-option">30d</div>
+                                                </div>
+                                            </div>
+                                            <div class="chart-placeholder">
+                                                <i class="fas fa-chart-area" style="font-size: 4rem;"></i>
+                                            </div>
+                                        </div>
+                                        <div class="sidebar-panel">
+                                            <div class="panel-title">Actividad Reciente</div>
+                                            <div class="activity-item">
+                                                <div class="activity-icon">
+                                                    <i class="fas fa-phone"></i>
+                                                </div>
+                                                <div class="activity-content">
+                                                    <div class="activity-title">Llamada entrante atendida</div>
+                                                    <div class="activity-time">Hace 2 minutos</div>
+                                                </div>
+                                                <div class="activity-status status-success">Completada</div>
+                                            </div>
+                                            <div class="activity-item">
+                                                <div class="activity-icon">
+                                                    <i class="fas fa-user-plus"></i>
+                                                </div>
+                                                <div class="activity-content">
+                                                    <div class="activity-title">Agente conectado</div>
+                                                    <div class="activity-time">Hace 5 minutos</div>
+                                                </div>
+                                                <div class="activity-status status-info">Disponible</div>
+                                            </div>
+                                            <div class="activity-item">
+                                                <div class="activity-icon">
+                                                    <i class="fas fa-robot"></i>
+                                                </div>
+                                                <div class="activity-content">
+                                                    <div class="activity-title">IA resolvió consulta</div>
+                                                    <div class="activity-time">Hace 8 minutos</div>
+                                                </div>
+                                                <div class="activity-status status-success">Exitosa</div>
+                                            </div>
+                                            <div class="activity-item">
+                                                <div class="activity-icon">
+                                                    <i class="fas fa-exclamation-triangle"></i>
+                                                </div>
+                                                <div class="activity-content">
+                                                    <div class="activity-title">Cola de espera alta</div>
+                                                    <div class="activity-time">Hace 12 minutos</div>
+                                                </div>
+                                                <div class="activity-status status-warning">Atención</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                    '></iframe>
+                </div>
+                <div class="features-list">
+                    <h4>Características Principales:</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Diseño corporativo Fortune 500</li>
+                        <li><i class="fas fa-check"></i> Gradientes azules ejecutivos</li>
+                        <li><i class="fas fa-check"></i> Perfil de usuario integrado</li>
+                        <li><i class="fas fa-check"></i> Navegación por secciones</li>
+                        <li><i class="fas fa-check"></i> Métricas ejecutivas</li>
+                        <li><i class="fas fa-check"></i> Actividad en tiempo real</li>
+                    </ul>
+                </div>
+                <div class="select-button">
+                    <button class="btn" onclick="selectDesign(4)">
+                        <i class="fas fa-building"></i>
+                        Seleccionar Este Diseño
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Selection Confirmation Modal -->
+        <div id="selectionModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000; align-items: center; justify-content: center;">
+            <div style="background: white; padding: 3rem; border-radius: 20px; max-width: 500px; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.25);">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🎉</div>
+                <h2 style="color: #1e40af; margin-bottom: 1rem;">¡Excelente Elección!</h2>
+                <p style="color: #64748b; margin-bottom: 2rem; line-height: 1.6;">Has seleccionado un diseño profesional y moderno. ¿Deseas que implemente este diseño en tu dashboard de VoiceCore AI?</p>
+                <div style="display: flex; gap: 1rem; justify-content: center;">
+                    <button onclick="confirmImplementation()" style="background: #1e40af; color: white; padding: 1rem 2rem; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                        <i class="fas fa-rocket"></i> Sí, Implementar
+                    </button>
+                    <button onclick="closeModal()" style="background: #f1f5f9; color: #64748b; padding: 1rem 2rem; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedDesignId = null;
+        const designNames = {
+            1: "Glassmorphism Ultra Modern",
+            2: "Dark Professional Elite", 
+            3: "Minimalist Clean Pro",
+            4: "Corporate Blue Executive"
+        };
+
+        function selectDesign(designId) {
+            selectedDesignId = designId;
+            const modal = document.getElementById('selectionModal');
+            modal.style.display = 'flex';
+            
+            // Update modal content with selected design name
+            const designName = designNames[designId];
+            const modalContent = modal.querySelector('div');
+            modalContent.querySelector('h2').textContent = `¡Has seleccionado: ${designName}!`;
+        }
+
+        function closeModal() {
+            document.getElementById('selectionModal').style.display = 'none';
+            selectedDesignId = null;
+        }
+
+        function confirmImplementation() {
+            if (selectedDesignId) {
+                const designName = designNames[selectedDesignId];
+                alert(`🚀 Perfecto! Implementaré el diseño "${designName}" en tu dashboard de VoiceCore AI. 
+
+Este diseño incluye:
+✅ Interfaz moderna y profesional
+✅ Navegación intuitiva
+✅ Métricas en tiempo real
+✅ Diseño responsive
+✅ Integración con WebSocket
+
+¡Comenzando la implementación ahora!`);
+                closeModal();
+                
+                // Here you would typically make an API call to implement the selected design
+                console.log(`Implementing design ${selectedDesignId}: ${designName}`);
+            }
+        }
+
+        // Add smooth scrolling and animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add fade-in animation to design options
+            const designOptions = document.querySelectorAll('.design-option');
+            designOptions.forEach((option, index) => {
+                option.style.opacity = '0';
+                option.style.transform = 'translateY(30px)';
+                setTimeout(() => {
+                    option.style.transition = 'all 0.6s ease';
+                    option.style.opacity = '1';
+                    option.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+
+            // Add hover effects to buttons
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+            if (e.key >= '1' && e.key <= '4') {
+                selectDesign(parseInt(e.key));
+            }
+        });
+    </script>
+</body>
+</html>
