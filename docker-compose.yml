@@ -1,0 +1,75 @@
+# VoiceCore AI - Development Environment
+# Docker Compose configuration for local development
+
+version: '3.8'
+
+services:
+  # Main application
+  voicecore:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=true
+      - LOG_LEVEL=DEBUG
+      - REDIS_URL=redis://redis:6379
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    volumes:
+      - ./voicecore:/app/voicecore
+      - ./logs:/app/logs
+    restart: unless-stopped
+    networks:
+      - voicecore-network
+
+  # Redis for caching and rate limiting
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    networks:
+      - voicecore-network
+    command: redis-server --appendonly yes
+
+  # PostgreSQL for local development (optional - use if not using Supabase)
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: voicecore
+      POSTGRES_USER: voicecore
+      POSTGRES_PASSWORD: voicecore_dev_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - voicecore-network
+
+  # Nginx reverse proxy (for production-like setup)
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - voicecore
+    restart: unless-stopped
+    networks:
+      - voicecore-network
+
+volumes:
+  redis_data:
+  postgres_data:
+
+networks:
+  voicecore-network:
+    driver: bridge

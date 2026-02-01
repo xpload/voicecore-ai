@@ -1,0 +1,40 @@
+# VoiceCore AI - Kustomization Configuration
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: voicecore-ai
+
+resources:
+  - namespace.yaml
+  - configmap.yaml
+  - secrets.yaml
+  - pvc.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
+  - hpa.yaml
+
+images:
+  - name: voicecore-ai
+    newTag: latest
+
+commonLabels:
+  app: voicecore-ai
+  environment: production
+
+patchesStrategicMerge:
+  - deployment-patch.yaml
+
+configMapGenerator:
+  - name: voicecore-env-config
+    envs:
+      - .env.production
+
+secretGenerator:
+  - name: voicecore-env-secrets
+    envs:
+      - .env.secrets
+
+replicas:
+  - name: voicecore-api
+    count: 3

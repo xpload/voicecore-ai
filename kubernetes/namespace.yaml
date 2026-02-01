@@ -1,0 +1,9 @@
+# VoiceCore AI - Kubernetes Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: voicecore-ai
+  labels:
+    name: voicecore-ai
+    environment: production
+    app: voicecore-ai

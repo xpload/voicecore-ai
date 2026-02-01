@@ -1,0 +1,32 @@
+# VoiceCore AI - Persistent Volume Claims
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: redis-pvc
+  namespace: voicecore-ai
+  labels:
+    app: redis
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: gp2  # AWS EBS GP2, adjust for your cloud provider
+
+---
+# Logs PVC (optional, for persistent logging)
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: logs-pvc
+  namespace: voicecore-ai
+  labels:
+    app: voicecore-api
+spec:
+  accessModes:
+    - ReadWriteMany  # Multiple pods can write logs
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: efs  # AWS EFS, adjust for your cloud provider

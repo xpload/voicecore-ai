@@ -1,0 +1,157 @@
+# VoiceCore AI - Prometheus Alert Rules
+# Production monitoring and alerting rules
+
+groups:
+  - name: voicecore.rules
+    rules:
+      # High-level service availability
+      - alert: VoiceCoreServiceDown
+        expr: up{job="voicecore-api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "VoiceCore API service is down"
+          description: "VoiceCore API service has been down for more than 1 minute."
+
+      # High error rate
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value }} errors per second."
+
+      # High response time
+      - alert: HighResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High response time detected"
+          description: "95th percentile response time is {{ $value }} seconds."
+
+      # Memory usage
+      - alert: HighMemoryUsage
+        expr: (container_memory_usage_bytes / container_spec_memory_limit_bytes) * 100 > 85
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage"
+          description: "Memory usage is {{ $value }}%."
+
+      # CPU usage
+      - alert: HighCPUUsage
+        expr: rate(container_cpu_usage_seconds_total[5m]) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage"
+          description: "CPU usage is {{ $value }}%."
+
+      # Redis connectivity
+      - alert: RedisDown
+        expr: up{job="redis"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Redis is down"
+          description: "Redis service has been down for more than 1 minute."
+
+      # Database connection issues
+      - alert: DatabaseConnectionIssues
+        expr: increase(database_connection_errors_total[5m]) > 10
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Database connection issues"
+          description: "{{ $value }} database connection errors in the last 5 minutes."
+
+      # Call processing issues
+      - alert: CallProcessingErrors
+        expr: increase(call_processing_errors_total[5m]) > 5
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Call processing errors"
+          description: "{{ $value }} call processing errors in the last 5 minutes."
+
+      # AI service issues
+      - alert: AIServiceErrors
+        expr: increase(ai_service_errors_total[5m]) > 3
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "AI service errors"
+          description: "{{ $value }} AI service errors in the last 5 minutes."
+
+      # Twilio webhook failures
+      - alert: TwilioWebhookFailures
+        expr: increase(twilio_webhook_failures_total[5m]) > 5
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Twilio webhook failures"
+          description: "{{ $value }} Twilio webhook failures in the last 5 minutes."
+
+      # Disk space
+      - alert: LowDiskSpace
+        expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) * 100 < 10
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Low disk space"
+          description: "Disk space is {{ $value }}% full."
+
+      # SSL certificate expiration
+      - alert: SSLCertificateExpiring
+        expr: probe_ssl_earliest_cert_expiry - time() < 86400 * 7
+        for: 1h
+        labels:
+          severity: warning
+        annotations:
+          summary: "SSL certificate expiring soon"
+          description: "SSL certificate expires in {{ $value | humanizeDuration }}."
+
+  - name: business.rules
+    rules:
+      # Call volume monitoring
+      - alert: UnusualCallVolume
+        expr: rate(calls_total[1h]) > 1000 or rate(calls_total[1h]) < 10
+        for: 10m
+        labels:
+          severity: info
+        annotations:
+          summary: "Unusual call volume detected"
+          description: "Call rate is {{ $value }} calls per second."
+
+      # Credit system alerts
+      - alert: TenantLowCredits
+        expr: tenant_credits_remaining < 100
+        for: 5m
+        labels:
+          severity: info
+        annotations:
+          summary: "Tenant has low credits"
+          description: "Tenant {{ $labels.tenant_id }} has {{ $value }} credits remaining."
+
+      # Spam detection rate
+      - alert: HighSpamDetectionRate
+        expr: rate(spam_calls_detected_total[1h]) / rate(calls_total[1h]) > 0.3
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High spam detection rate"
+          description: "{{ $value | humanizePercentage }} of calls are being flagged as spam."
