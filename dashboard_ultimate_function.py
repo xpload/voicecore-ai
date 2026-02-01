@@ -1,273 +1,11 @@
 #!/usr/bin/env python3
 """
-Inicio simplificado de VoiceCore AI para desarrollo local.
-
-Este script inicia la aplicación con configuración mínima
-para poder ver la interfaz y probar las funcionalidades básicas.
+Función del Dashboard Ultimate Enterprise para integrar en simple_start.py
 """
 
-import os
-import sys
-from pathlib import Path
-
-# Agregar el directorio actual al PYTHONPATH
-current_dir = Path(__file__).parent
-sys.path.insert(0, str(current_dir))
-
-# Configurar variables de entorno básicas
-os.environ.setdefault("PYTHONPATH", str(current_dir))
-
-try:
-    from fastapi import FastAPI, HTTPException
-    from fastapi.responses import HTMLResponse, JSONResponse
-    from fastapi.staticfiles import StaticFiles
-    from fastapi.middleware.cors import CORSMiddleware
-    import uvicorn
-    
-    # Crear aplicación FastAPI básica
-    app = FastAPI(
-        title="VoiceCore AI",
-        description="Sistema de Recepcionista Virtual con IA",
-        version="1.0.0",
-        docs_url="/docs",
-        redoc_url="/redoc"
-    )
-    
-    # Configurar CORS
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=["*"],
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
-    
-    @app.get("/", response_class=HTMLResponse)
-    async def root():
-        """Página principal con información del sistema."""
-        return """
-        <!DOCTYPE html>
-        <html lang="es">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>VoiceCore AI - Recepcionista Virtual</title>
-            <style>
-                body {
-                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                    margin: 0;
-                    padding: 20px;
-                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                    color: white;
-                    min-height: 100vh;
-                }
-                .container {
-                    max-width: 1200px;
-                    margin: 0 auto;
-                    background: rgba(255, 255, 255, 0.1);
-                    border-radius: 20px;
-                    padding: 40px;
-                    backdrop-filter: blur(10px);
-                }
-                h1 {
-                    text-align: center;
-                    font-size: 3em;
-                    margin-bottom: 10px;
-                    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-                }
-                .subtitle {
-                    text-align: center;
-                    font-size: 1.2em;
-                    margin-bottom: 40px;
-                    opacity: 0.9;
-                }
-                .status {
-                    background: rgba(255, 255, 255, 0.2);
-                    border-radius: 15px;
-                    padding: 30px;
-                    margin: 20px 0;
-                }
-                .status h2 {
-                    color: #4ade80;
-                    margin-top: 0;
-                }
-                .feature-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                    gap: 20px;
-                    margin: 30px 0;
-                }
-                .feature {
-                    background: rgba(255, 255, 255, 0.15);
-                    border-radius: 15px;
-                    padding: 25px;
-                    text-align: center;
-                }
-                .feature h3 {
-                    color: #fbbf24;
-                    margin-top: 0;
-                }
-                .links {
-                    display: flex;
-                    justify-content: center;
-                    gap: 20px;
-                    margin: 30px 0;
-                    flex-wrap: wrap;
-                }
-                .btn {
-                    background: rgba(255, 255, 255, 0.2);
-                    color: white;
-                    padding: 15px 30px;
-                    text-decoration: none;
-                    border-radius: 10px;
-                    font-weight: bold;
-                    transition: all 0.3s ease;
-                    border: 2px solid rgba(255, 255, 255, 0.3);
-                }
-                .btn:hover {
-                    background: rgba(255, 255, 255, 0.3);
-                    transform: translateY(-2px);
-                }
-                .config-note {
-                    background: rgba(251, 191, 36, 0.2);
-                    border: 2px solid #fbbf24;
-                    border-radius: 10px;
-                    padding: 20px;
-                    margin: 20px 0;
-                }
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <h1>🤖 VoiceCore AI</h1>
-                <p class="subtitle">Sistema de Recepcionista Virtual con Inteligencia Artificial</p>
-                
-                <div class="status">
-                    <h2>✅ Sistema Iniciado Correctamente</h2>
-                    <p>La aplicación está ejecutándose en modo de desarrollo. Todas las dependencias básicas están instaladas y funcionando.</p>
-                </div>
-                
-                <div class="config-note">
-                    <h3>⚙️ Configuración Requerida</h3>
-                    <p>Para usar todas las funcionalidades, necesitas configurar las siguientes APIs en el archivo <code>.env</code>:</p>
-                    <ul>
-                        <li><strong>Twilio:</strong> Para llamadas telefónicas</li>
-                        <li><strong>OpenAI:</strong> Para inteligencia artificial</li>
-                        <li><strong>Supabase:</strong> Para base de datos (opcional)</li>
-                    </ul>
-                </div>
-                
-                <div class="feature-grid">
-                    <div class="feature">
-                        <h3>📞 Llamadas Inteligentes</h3>
-                        <p>Recepcionista virtual que atiende llamadas 24/7 con IA conversacional avanzada</p>
-                    </div>
-                    <div class="feature">
-                        <h3>🏢 Multi-tenant</h3>
-                        <p>Soporte para múltiples empresas con datos completamente aislados</p>
-                    </div>
-                    <div class="feature">
-                        <h3>📊 Analytics</h3>
-                        <p>Métricas detalladas de llamadas, satisfacción y rendimiento</p>
-                    </div>
-                    <div class="feature">
-                        <h3>🔒 Seguridad</h3>
-                        <p>Detección de spam, autenticación y cifrado de extremo a extremo</p>
-                    </div>
-                </div>
-                
-                <div class="links">
-                    <a href="/docs" class="btn">📚 Documentación API</a>
-                    <a href="/health" class="btn">🏥 Estado del Sistema</a>
-                    <a href="/dashboard" class="btn">📊 Dashboard Enterprise</a>
-                    <a href="/api/tenants" class="btn">🏢 Gestión de Tenants</a>
-                </div>
-                
-                <div style="text-align: center; margin-top: 40px; opacity: 0.7;">
-                    <p>VoiceCore AI v1.0.0 - Desarrollado con FastAPI y Python</p>
-                </div>
-            </div>
-        </body>
-        </html>
-        """
-    
-    @app.get("/health")
-    async def health_check():
-        """Verificación de salud del sistema."""
-        return {
-            "status": "healthy",
-            "service": "VoiceCore AI",
-            "version": "1.0.0",
-            "environment": "development",
-            "dependencies": {
-                "fastapi": "✅ Instalado",
-                "uvicorn": "✅ Instalado",
-                "sqlalchemy": "✅ Instalado",
-                "twilio": "✅ Instalado",
-                "openai": "✅ Instalado",
-                "database": "⚠️ Configuración pendiente",
-                "redis": "⚠️ Opcional"
-            },
-            "configuration": {
-                "database_url": "sqlite:///./voicecore_dev.db",
-                "debug_mode": True,
-                "cors_enabled": True
-            }
-        }
-    
-    @app.get("/api/tenants")
-    async def list_tenants():
-        """Lista de tenants (simulado para demostración)."""
-        return {
-            "tenants": [
-                {
-                    "id": "demo-tenant-1",
-                    "name": "Empresa Demo",
-                    "status": "active",
-                    "ai_name": "Sofia",
-                    "phone": "+1234567890",
-                    "created_at": "2024-01-15T10:00:00Z"
-                }
-            ],
-            "total": 1,
-            "note": "Esta es una respuesta de demostración. Configura la base de datos para datos reales."
-        }
-    
-    @app.get("/api/calls")
-    async def list_calls():
-        """Lista de llamadas (simulado para demostración)."""
-        return {
-            "calls": [
-                {
-                    "id": "call-demo-1",
-                    "from": "+1987654321",
-                    "to": "+1234567890",
-                    "status": "completed",
-                    "duration": 120,
-                    "ai_handled": True,
-                    "created_at": "2024-01-15T14:30:00Z"
-                }
-            ],
-            "total": 1,
-            "note": "Esta es una respuesta de demostración. Configura Twilio para llamadas reales."
-        }
-    
-    # Importar y agregar rutas del sistema de monitoreo (temporalmente deshabilitado)
-    # try:
-    #     from voicecore.api.system_status_routes import router as system_router
-    #     app.include_router(system_router)
-    # except ImportError:
-    #     print("⚠️ No se pudo cargar el sistema de monitoreo")
-    
-    # Dashboard enterprise integrado directamente (sin router externo para evitar conflictos)
-    
-    # Dashboard Enterprise Routes integrado
-
-    @app.get("/dashboard", response_class=HTMLResponse)
-    async def enterprise_dashboard_professional():
-        """Professional Enterprise Dashboard - Senior Developer Level - Interfaz Profesional y Robusta"""
-        from dashboard_enterprise_professional import create_professional_dashboard
-        return create_professional_dashboard()
+def get_ultimate_dashboard_html():
+    """Retorna el HTML del Ultimate Enterprise Dashboard"""
+    return '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -986,16 +724,8 @@ try:
                 </button>
                 <button class="nav-item" onclick="showSection('agents')">
                     <i class="fas fa-user-tie"></i>
-                    Human Agents
+                    AI Agents
                     <span class="nav-badge" id="agentCount">0</span>
-                </button>
-                <button class="nav-item" onclick="showSection('departments')">
-                    <i class="fas fa-sitemap"></i>
-                    Departments
-                </button>
-                <button class="nav-item" onclick="showSection('extensions')">
-                    <i class="fas fa-phone-square"></i>
-                    Extensions
                 </button>
                 <button class="nav-item" onclick="showSection('calls')">
                     <i class="fas fa-phone"></i>
@@ -1009,14 +739,6 @@ try:
             
             <div class="nav-section">
                 <div class="nav-section-title">AI & Training</div>
-                <button class="nav-item" onclick="showSection('ai-receptionist')">
-                    <i class="fas fa-robot"></i>
-                    AI Receptionist
-                </button>
-                <button class="nav-item" onclick="showSection('transfer-rules')">
-                    <i class="fas fa-exchange-alt"></i>
-                    Transfer Rules
-                </button>
                 <button class="nav-item" onclick="showSection('ai-training')">
                     <i class="fas fa-brain"></i>
                     AI Training
@@ -1181,20 +903,16 @@ try:
                                 Create Tenant
                             </button>
                             <button class="btn btn-success" onclick="showSection('agents')">
-                                <i class="fas fa-user-plus"></i>
-                                Add Human Agent
-                            </button>
-                            <button class="btn btn-cyan" onclick="showSection('departments')">
-                                <i class="fas fa-sitemap"></i>
-                                Setup Departments
+                                <i class="fas fa-robot"></i>
+                                Deploy Agent
                             </button>
                             <button class="btn btn-warning" onclick="showSection('vip')">
                                 <i class="fas fa-crown"></i>
                                 Add VIP
                             </button>
-                            <button class="btn btn-purple" onclick="showSection('ai-receptionist')">
-                                <i class="fas fa-robot"></i>
-                                Configure AI
+                            <button class="btn btn-purple" onclick="showSection('ai-training')">
+                                <i class="fas fa-brain"></i>
+                                Train AI
                             </button>
                         </div>
                     </div>
@@ -1282,322 +1000,56 @@ try:
                 </div>
             </section>
             
-            <!-- Human Agents Management Section -->
+            <!-- AI Agents Management Section -->
             <section id="agents" class="content-section">
                 <div class="card">
                     <div class="management-header">
                         <div>
-                            <h2 class="management-title">Human Agent Management</h2>
-                            <p class="management-subtitle">Manage human agents who receive transferred calls via softphone</p>
+                            <h2 class="management-title">AI Agent Management</h2>
+                            <p class="management-subtitle">Deploy and manage AI conversational agents</p>
                         </div>
                     </div>
                     
                     <div class="management-actions">
-                        <button class="btn btn-primary" onclick="addHumanAgent()">
-                            <i class="fas fa-user-plus"></i>
-                            Add Human Agent
+                        <button class="btn btn-primary" onclick="createAgent()">
+                            <i class="fas fa-robot"></i>
+                            Deploy New Agent
                         </button>
-                        <button class="btn btn-success" onclick="showAgentSoftphone()">
-                            <i class="fas fa-phone-laptop"></i>
-                            Agent Softphone
+                        <button class="btn btn-success" onclick="trainAgent()">
+                            <i class="fas fa-brain"></i>
+                            Train Agent
                         </button>
-                        <button class="btn btn-warning" onclick="agentStatusMonitor()">
-                            <i class="fas fa-heartbeat"></i>
-                            Status Monitor
-                        </button>
-                        <button class="btn btn-purple" onclick="agentPerformance()">
+                        <button class="btn btn-warning" onclick="agentAnalytics()">
                             <i class="fas fa-chart-bar"></i>
                             Performance Analytics
                         </button>
-                        <button class="btn btn-cyan" onclick="bulkAgentActions()">
-                            <i class="fas fa-tasks"></i>
-                            Bulk Actions
+                        <button class="btn btn-purple" onclick="agentSettings()">
+                            <i class="fas fa-cog"></i>
+                            Agent Settings
                         </button>
                     </div>
                     
                     <div class="table-container">
                         <div class="table-header">
-                            <h3 class="table-title">Human Agents</h3>
+                            <h3 class="table-title">Active AI Agents</h3>
                             <span class="status-badge success" id="agentStatus">Loading...</span>
                         </div>
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th>Agent Name</th>
-                                    <th>Extension</th>
-                                    <th>Department</th>
+                                    <th>Tenant</th>
                                     <th>Status</th>
-                                    <th>Calls Today</th>
-                                    <th>Avg Handle Time</th>
+                                    <th>Conversations</th>
+                                    <th>Success Rate</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="agentsTableBody">
                                 <tr>
-                                    <td colspan="7" class="loading">
+                                    <td colspan="6" class="loading">
                                         <div class="spinner"></div>
-                                        Loading human agents...
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Departments Management Section -->
-            <section id="departments" class="content-section">
-                <div class="card">
-                    <div class="management-header">
-                        <div>
-                            <h2 class="management-title">Department Management</h2>
-                            <p class="management-subtitle">Organize agents into departments for proper call routing</p>
-                        </div>
-                    </div>
-                    
-                    <div class="management-actions">
-                        <button class="btn btn-primary" onclick="createDepartment()">
-                            <i class="fas fa-plus"></i>
-                            Create Department
-                        </button>
-                        <button class="btn btn-success" onclick="assignAgentsToDept()">
-                            <i class="fas fa-user-friends"></i>
-                            Assign Agents
-                        </button>
-                        <button class="btn btn-warning" onclick="departmentSchedules()">
-                            <i class="fas fa-clock"></i>
-                            Work Schedules
-                        </button>
-                        <button class="btn btn-purple" onclick="departmentAnalytics()">
-                            <i class="fas fa-chart-pie"></i>
-                            Department Analytics
-                        </button>
-                    </div>
-                    
-                    <div class="table-container">
-                        <div class="table-header">
-                            <h3 class="table-title">Departments</h3>
-                            <span class="status-badge success" id="departmentStatus">Loading...</span>
-                        </div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Department</th>
-                                    <th>Manager</th>
-                                    <th>Agents</th>
-                                    <th>Available Now</th>
-                                    <th>Calls in Queue</th>
-                                    <th>Avg Wait Time</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="departmentsTableBody">
-                                <tr>
-                                    <td colspan="7" class="loading">
-                                        <div class="spinner"></div>
-                                        Loading departments...
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Extensions Management Section -->
-            <section id="extensions" class="content-section">
-                <div class="card">
-                    <div class="management-header">
-                        <div>
-                            <h2 class="management-title">Extension Management</h2>
-                            <p class="management-subtitle">Manage agent extensions for direct dialing</p>
-                        </div>
-                    </div>
-                    
-                    <div class="management-actions">
-                        <button class="btn btn-primary" onclick="assignExtension()">
-                            <i class="fas fa-phone-square"></i>
-                            Assign Extension
-                        </button>
-                        <button class="btn btn-success" onclick="bulkExtensionSetup()">
-                            <i class="fas fa-list-ol"></i>
-                            Bulk Setup
-                        </button>
-                        <button class="btn btn-warning" onclick="extensionRouting()">
-                            <i class="fas fa-route"></i>
-                            Routing Rules
-                        </button>
-                        <button class="btn btn-cyan" onclick="extensionAnalytics()">
-                            <i class="fas fa-chart-bar"></i>
-                            Usage Analytics
-                        </button>
-                    </div>
-                    
-                    <div class="table-container">
-                        <div class="table-header">
-                            <h3 class="table-title">Agent Extensions</h3>
-                            <span class="status-badge success" id="extensionStatus">Loading...</span>
-                        </div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Extension</th>
-                                    <th>Agent Name</th>
-                                    <th>Department</th>
-                                    <th>Status</th>
-                                    <th>Direct Calls Today</th>
-                                    <th>Last Activity</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="extensionsTableBody">
-                                <tr>
-                                    <td colspan="7" class="loading">
-                                        <div class="spinner"></div>
-                                        Loading extensions...
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- AI Receptionist Configuration Section -->
-            <section id="ai-receptionist" class="content-section">
-                <div class="card">
-                    <div class="management-header">
-                        <div>
-                            <h2 class="management-title">AI Receptionist Configuration</h2>
-                            <p class="management-subtitle">Configure the AI that handles initial call reception</p>
-                        </div>
-                    </div>
-                    
-                    <div class="management-actions">
-                        <button class="btn btn-primary" onclick="configureAIVoice()">
-                            <i class="fas fa-microphone"></i>
-                            Voice Settings
-                        </button>
-                        <button class="btn btn-success" onclick="aiGreetingSetup()">
-                            <i class="fas fa-comment-dots"></i>
-                            Greeting Scripts
-                        </button>
-                        <button class="btn btn-warning" onclick="aiLanguageSettings()">
-                            <i class="fas fa-globe"></i>
-                            Language Detection
-                        </button>
-                        <button class="btn btn-purple" onclick="aiPersonality()">
-                            <i class="fas fa-user-robot"></i>
-                            AI Personality
-                        </button>
-                    </div>
-                    
-                    <div class="management-grid">
-                        <div class="card">
-                            <h3 class="management-title">Current AI Configuration</h3>
-                            <div style="margin-top: 1rem;">
-                                <p><strong>AI Name:</strong> <span id="aiName">Sofia</span></p>
-                                <p><strong>Voice:</strong> <span id="aiVoice">Female, Professional</span></p>
-                                <p><strong>Languages:</strong> <span id="aiLanguages">English, Spanish</span></p>
-                                <p><strong>Response Time:</strong> <span id="aiResponseTime">< 2 seconds</span></p>
-                                <p><strong>Transfer Attempts:</strong> <span id="aiTransferAttempts">3 before human handoff</span></p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <h3 class="management-title">AI Performance Today</h3>
-                            <div style="margin-top: 1rem;">
-                                <p><strong>Calls Handled:</strong> <span id="aiCallsHandled">247</span></p>
-                                <p><strong>Resolved by AI:</strong> <span id="aiResolved">186 (75.3%)</span></p>
-                                <p><strong>Transferred to Humans:</strong> <span id="aiTransferred">61 (24.7%)</span></p>
-                                <p><strong>Avg Conversation Time:</strong> <span id="aiAvgTime">2m 34s</span></p>
-                                <p><strong>Customer Satisfaction:</strong> <span id="aiSatisfaction">4.6/5.0</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Transfer Rules Section -->
-            <section id="transfer-rules" class="content-section">
-                <div class="card">
-                    <div class="management-header">
-                        <div>
-                            <h2 class="management-title">Call Transfer Rules</h2>
-                            <p class="management-subtitle">Configure when and how AI transfers calls to human agents</p>
-                        </div>
-                    </div>
-                    
-                    <div class="management-actions">
-                        <button class="btn btn-primary" onclick="createTransferRule()">
-                            <i class="fas fa-plus"></i>
-                            Create Rule
-                        </button>
-                        <button class="btn btn-success" onclick="testTransferRules()">
-                            <i class="fas fa-play"></i>
-                            Test Rules
-                        </button>
-                        <button class="btn btn-warning" onclick="transferAnalytics()">
-                            <i class="fas fa-chart-line"></i>
-                            Transfer Analytics
-                        </button>
-                        <button class="btn btn-purple" onclick="escalationMatrix()">
-                            <i class="fas fa-layer-group"></i>
-                            Escalation Matrix
-                        </button>
-                    </div>
-                    
-                    <div class="table-container">
-                        <div class="table-header">
-                            <h3 class="table-title">Active Transfer Rules</h3>
-                            <span class="status-badge success" id="transferRulesStatus">5 Active Rules</span>
-                        </div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Rule Name</th>
-                                    <th>Trigger Condition</th>
-                                    <th>Target Department</th>
-                                    <th>Priority</th>
-                                    <th>Success Rate</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="transferRulesTableBody">
-                                <tr>
-                                    <td><strong>Failed Assistance (3x)</strong></td>
-                                    <td>AI unable to help after 3 attempts</td>
-                                    <td>Customer Service</td>
-                                    <td><span class="status-badge error">High</span></td>
-                                    <td>94.2%</td>
-                                    <td>
-                                        <button class="btn btn-secondary" onclick="editTransferRule('1')">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Technical Keywords</strong></td>
-                                    <td>Keywords: "technical", "bug", "error"</td>
-                                    <td>Technical Support</td>
-                                    <td><span class="status-badge warning">Medium</span></td>
-                                    <td>87.5%</td>
-                                    <td>
-                                        <button class="btn btn-secondary" onclick="editTransferRule('2')">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Sales Inquiry</strong></td>
-                                    <td>Keywords: "price", "buy", "purchase"</td>
-                                    <td>Sales</td>
-                                    <td><span class="status-badge success">Low</span></td>
-                                    <td>91.8%</td>
-                                    <td>
-                                        <button class="btn btn-secondary" onclick="editTransferRule('3')">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
+                                        Loading agents...
                                     </td>
                                 </tr>
                             </tbody>
@@ -2125,56 +1577,8 @@ try:
         console.log('🔥 Most Professional, Robust, and Scalable Dashboard Possible');
     </script>
 </body>
-</html>"""
-    
-    @app.exception_handler(404)
-    async def not_found_handler(request, exc):
-        return JSONResponse(
-            status_code=404,
-            content={
-                "error": "Endpoint no encontrado",
-                "message": "La ruta solicitada no existe",
-                "available_endpoints": [
-                    "/",
-                    "/docs",
-                    "/health",
-                    "/dashboard",
-                    "/dashboard/metrics/system",
-                    "/dashboard/metrics/infrastructure", 
-                    "/dashboard/metrics/api",
-                    "/dashboard/metrics/business",
-                    "/system/status",
-                    "/system/dashboard",
-                    "/api/tenants",
-                    "/api/calls"
-                ]
-            }
-        )
-    
-    if __name__ == "__main__":
-        # Railway asigna el puerto dinámicamente
-        port = int(os.environ.get("PORT", 8000))
-        
-        print("🚀 Iniciando VoiceCore AI...")
-        print(f"📍 Puerto: {port}")
-        print("📚 Documentación: /docs")
-        print("🏥 Estado: /health")
-        print("\n⚠️  Nota: Esta es una versión simplificada para desarrollo.")
-        print("   Para funcionalidad completa, configura las APIs en variables de entorno\n")
-        
-        uvicorn.run(
-            "simple_start:app",
-            host="0.0.0.0",
-            port=port,
-            reload=False,
-            log_level="info"
-        )
+</html>'''
 
-except ImportError as e:
-    print(f"❌ Error de importación: {e}")
-    print("💡 Asegúrate de que el entorno virtual esté activado y las dependencias instaladas.")
-    print("   Ejecuta: pip install -r requirements_minimal.txt")
-    sys.exit(1)
-except Exception as e:
-    print(f"❌ Error inesperado: {e}")
-    sys.exit(1)
+if __name__ == "__main__":
+    print("Dashboard Ultimate Enterprise Function Ready!")
+    print("Use get_ultimate_dashboard_html() to get the HTML content")
