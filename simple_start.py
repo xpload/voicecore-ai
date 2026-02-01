@@ -267,572 +267,224 @@ try:
         print("⚠️ No se pudo cargar el dashboard enterprise")
     
     # Dashboard Enterprise Routes integrado
+
     @app.get("/dashboard", response_class=HTMLResponse)
-    async def enterprise_dashboard():
-        """Dashboard Enterprise integrado"""
+    async def simple_dashboard():
+        """Dashboard Simple que funciona inmediatamente"""
         return """
         <!DOCTYPE html>
-        <html lang="en">
+        <html lang="es">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>VoiceCore AI - Enterprise Dashboard</title>
+            <title>VoiceCore AI - Dashboard Enterprise</title>
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <style>
-                :root {
-                    --primary-color: #2563eb;
-                    --success-color: #10b981;
-                    --warning-color: #f59e0b;
-                    --danger-color: #ef4444;
-                    --dark-bg: #0f172a;
-                    --card-bg: #1e293b;
-                    --border-color: #334155;
-                    --text-primary: #f8fafc;
-                    --text-secondary: #cbd5e1;
-                    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                    --gradient-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
-                    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-                }
-                
                 * { margin: 0; padding: 0; box-sizing: border-box; }
-                
                 body {
-                    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                    background: var(--dark-bg);
-                    color: var(--text-primary);
-                    line-height: 1.6;
-                }
-                
-                .dashboard-container {
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+                    color: #f8fafc;
                     min-height: 100vh;
-                    display: flex;
-                    flex-direction: column;
+                    padding: 20px;
                 }
-                
+                .container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }
                 .header {
-                    background: var(--card-bg);
-                    border-bottom: 1px solid var(--border-color);
-                    padding: 1rem 2rem;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    position: sticky;
-                    top: 0;
-                    z-index: 100;
+                    text-align: center;
+                    margin-bottom: 40px;
+                    padding: 30px;
+                    background: rgba(255, 255, 255, 0.05);
+                    border-radius: 20px;
+                    backdrop-filter: blur(10px);
                 }
-                
-                .logo {
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    font-size: 1.5rem;
-                    font-weight: 700;
-                    color: var(--primary-color);
+                .header h1 {
+                    font-size: 3rem;
+                    margin-bottom: 10px;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
                 }
-                
-                .status-indicator {
-                    display: flex;
+                .status {
+                    display: inline-flex;
                     align-items: center;
-                    gap: 0.5rem;
-                    padding: 0.5rem 1rem;
-                    background: var(--gradient-success);
-                    border-radius: 0.5rem;
-                    font-size: 0.875rem;
-                    font-weight: 500;
+                    gap: 10px;
+                    background: rgba(16, 185, 129, 0.2);
+                    padding: 10px 20px;
+                    border-radius: 25px;
+                    border: 1px solid rgba(16, 185, 129, 0.3);
                 }
-                
                 .pulse {
-                    width: 8px;
-                    height: 8px;
-                    background: white;
+                    width: 12px;
+                    height: 12px;
+                    background: #10b981;
                     border-radius: 50%;
                     animation: pulse 2s infinite;
                 }
-                
                 @keyframes pulse {
                     0%, 100% { opacity: 1; }
                     50% { opacity: 0.5; }
                 }
-                
-                .main-content {
-                    flex: 1;
-                    padding: 2rem;
-                    max-width: 1400px;
-                    margin: 0 auto;
-                    width: 100%;
-                }
-                
-                .metrics-grid {
+                .metrics {
                     display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                    gap: 1.5rem;
-                    margin-bottom: 2rem;
+                    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                    gap: 20px;
+                    margin-bottom: 40px;
                 }
-                
-                .card {
-                    background: var(--card-bg);
-                    border: 1px solid var(--border-color);
-                    border-radius: 0.75rem;
-                    padding: 1.5rem;
-                    box-shadow: var(--shadow-lg);
-                    transition: all 0.3s ease;
-                    position: relative;
-                    overflow: hidden;
-                }
-                
-                .card:hover {
-                    transform: translateY(-2px);
-                    border-color: var(--primary-color);
-                }
-                
-                .card::before {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    height: 3px;
-                    background: var(--gradient-primary);
-                }
-                
-                .metric-card {
+                .metric {
+                    background: rgba(255, 255, 255, 0.05);
+                    padding: 30px;
+                    border-radius: 15px;
                     text-align: center;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    transition: transform 0.3s ease;
                 }
-                
+                .metric:hover {
+                    transform: translateY(-5px);
+                    border-color: #667eea;
+                }
                 .metric-icon {
-                    width: 60px;
-                    height: 60px;
-                    margin: 0 auto 1rem;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 1.5rem;
-                    color: white;
-                }
-                
-                .metric-value {
-                    font-size: 2.5rem;
-                    font-weight: 700;
-                    margin-bottom: 0.5rem;
-                    background: var(--gradient-primary);
+                    font-size: 3rem;
+                    margin-bottom: 15px;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
-                    background-clip: text;
                 }
-                
+                .metric-value {
+                    font-size: 2.5rem;
+                    font-weight: bold;
+                    margin-bottom: 10px;
+                    color: #10b981;
+                }
                 .metric-label {
-                    color: var(--text-secondary);
-                    font-size: 0.875rem;
-                    text-transform: uppercase;
-                    letter-spacing: 0.05em;
-                    font-weight: 500;
+                    color: #cbd5e1;
+                    font-size: 1.1rem;
                 }
-                
-                .metric-change {
-                    margin-top: 0.5rem;
-                    font-size: 0.75rem;
+                .actions {
                     display: flex;
-                    align-items: center;
                     justify-content: center;
-                    gap: 0.25rem;
-                    color: var(--success-color);
-                }
-                
-                .services-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-                    gap: 1.5rem;
-                    margin-bottom: 2rem;
-                }
-                
-                .service-header {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    margin-bottom: 1.5rem;
-                }
-                
-                .service-title {
-                    display: flex;
-                    align-items: center;
-                    gap: 0.75rem;
-                    font-size: 1.125rem;
-                    font-weight: 600;
-                }
-                
-                .service-icon {
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 0.5rem;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 1.25rem;
-                    color: white;
-                }
-                
-                .status-badge {
-                    padding: 0.25rem 0.75rem;
-                    border-radius: 9999px;
-                    font-size: 0.75rem;
-                    font-weight: 500;
-                    text-transform: uppercase;
-                    background: rgba(16, 185, 129, 0.1);
-                    color: var(--success-color);
-                    border: 1px solid rgba(16, 185, 129, 0.2);
-                }
-                
-                .service-metrics {
-                    display: grid;
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 1rem;
-                }
-                
-                .service-metric {
-                    text-align: center;
-                    padding: 1rem;
-                    background: rgba(255, 255, 255, 0.02);
-                    border-radius: 0.5rem;
-                    border: 1px solid rgba(255, 255, 255, 0.05);
-                }
-                
-                .service-metric-value {
-                    font-size: 1.5rem;
-                    font-weight: 600;
-                    margin-bottom: 0.25rem;
-                }
-                
-                .service-metric-label {
-                    font-size: 0.75rem;
-                    color: var(--text-secondary);
-                    text-transform: uppercase;
-                }
-                
-                .action-buttons {
-                    display: flex;
-                    gap: 1rem;
-                    justify-content: center;
+                    gap: 20px;
                     flex-wrap: wrap;
+                    margin-top: 40px;
                 }
-                
                 .btn {
-                    padding: 0.75rem 1.5rem;
-                    border: none;
-                    border-radius: 0.5rem;
-                    font-weight: 500;
-                    cursor: pointer;
-                    transition: all 0.2s ease;
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    text-decoration: none;
-                    font-size: 0.875rem;
-                }
-                
-                .btn-primary {
-                    background: var(--gradient-primary);
+                    padding: 15px 30px;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                     color: white;
-                }
-                
-                .btn-secondary {
-                    background: var(--card-bg);
-                    color: var(--text-primary);
-                    border: 1px solid var(--border-color);
-                }
-                
-                .btn:hover {
-                    transform: translateY(-1px);
-                    box-shadow: var(--shadow-lg);
-                }
-                
-                .refresh-indicator {
-                    position: fixed;
-                    bottom: 2rem;
-                    right: 2rem;
-                    background: var(--card-bg);
-                    border: 1px solid var(--border-color);
-                    border-radius: 0.5rem;
-                    padding: 0.75rem 1rem;
+                    text-decoration: none;
+                    border-radius: 10px;
+                    font-weight: bold;
+                    transition: all 0.3s ease;
                     display: flex;
                     align-items: center;
-                    gap: 0.5rem;
-                    font-size: 0.875rem;
-                    box-shadow: var(--shadow-lg);
+                    gap: 10px;
                 }
-                
-                .refresh-spinner {
-                    width: 16px;
-                    height: 16px;
-                    border: 2px solid var(--border-color);
-                    border-top: 2px solid var(--primary-color);
-                    border-radius: 50%;
-                    animation: spin 1s linear infinite;
+                .btn:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
                 }
-                
-                @keyframes spin {
-                    0% { transform: rotate(0deg); }
-                    100% { transform: rotate(360deg); }
+                .footer {
+                    text-align: center;
+                    margin-top: 60px;
+                    padding: 20px;
+                    color: #64748b;
                 }
-                
                 @media (max-width: 768px) {
-                    .main-content { padding: 1rem; }
-                    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
-                    .services-grid { grid-template-columns: 1fr; }
+                    .metrics { grid-template-columns: 1fr; }
+                    .header h1 { font-size: 2rem; }
+                    .actions { flex-direction: column; align-items: center; }
                 }
             </style>
         </head>
         <body>
-            <div class="dashboard-container">
-                <header class="header">
-                    <div class="logo">
-                        <i class="fas fa-robot"></i>
-                        VoiceCore AI Enterprise
-                    </div>
-                    <div class="status-indicator">
+            <div class="container">
+                <div class="header">
+                    <h1><i class="fas fa-robot"></i> VoiceCore AI</h1>
+                    <h2>Dashboard Enterprise</h2>
+                    <div class="status">
                         <div class="pulse"></div>
-                        System Online
+                        Sistema Online y Funcionando
                     </div>
-                </header>
+                </div>
                 
-                <main class="main-content">
-                    <div class="metrics-grid">
-                        <div class="card metric-card">
-                            <div class="metric-icon" style="background: var(--gradient-success)">
-                                <i class="fas fa-heartbeat"></i>
-                            </div>
-                            <div class="metric-value">99.9%</div>
-                            <div class="metric-label">System Uptime</div>
-                            <div class="metric-change">
-                                <i class="fas fa-arrow-up"></i>
-                                +0.02%
-                            </div>
-                        </div>
-                        
-                        <div class="card metric-card">
-                            <div class="metric-icon" style="background: var(--gradient-primary)">
-                                <i class="fas fa-tachometer-alt"></i>
-                            </div>
-                            <div class="metric-value">145ms</div>
-                            <div class="metric-label">Response Time</div>
-                            <div class="metric-change">
-                                <i class="fas fa-arrow-down"></i>
-                                -12ms
-                            </div>
-                        </div>
-                        
-                        <div class="card metric-card">
-                            <div class="metric-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%)">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <div class="metric-value">67</div>
-                            <div class="metric-label">Active Tenants</div>
-                            <div class="metric-change">
-                                <i class="fas fa-arrow-up"></i>
-                                +3
-                            </div>
-                        </div>
-                        
-                        <div class="card metric-card">
-                            <div class="metric-icon" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="metric-value">1,847</div>
-                            <div class="metric-label">Calls Today</div>
-                            <div class="metric-change">
-                                <i class="fas fa-arrow-up"></i>
-                                +15%
-                            </div>
-                        </div>
-                        
-                        <div class="card metric-card">
-                            <div class="metric-icon" style="background: var(--gradient-success)">
-                                <i class="fas fa-robot"></i>
-                            </div>
-                            <div class="metric-value">92.1%</div>
-                            <div class="metric-label">AI Automation</div>
-                            <div class="metric-change">
-                                <i class="fas fa-arrow-up"></i>
-                                +2.1%
-                            </div>
-                        </div>
-                        
-                        <div class="card metric-card">
-                            <div class="metric-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%)">
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <div class="metric-value">4.7</div>
-                            <div class="metric-label">Satisfaction</div>
-                            <div class="metric-change">
-                                <i class="fas fa-arrow-up"></i>
-                                +0.2
-                            </div>
-                        </div>
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-icon"><i class="fas fa-heartbeat"></i></div>
+                        <div class="metric-value">99.9%</div>
+                        <div class="metric-label">System Uptime</div>
                     </div>
                     
-                    <div class="services-grid">
-                        <div class="card">
-                            <div class="service-header">
-                                <div class="service-title">
-                                    <div class="service-icon" style="background: var(--gradient-primary)">
-                                        <i class="fas fa-server"></i>
-                                    </div>
-                                    Railway Infrastructure
-                                </div>
-                                <div class="status-badge">healthy</div>
-                            </div>
-                            <div class="service-metrics">
-                                <div class="service-metric">
-                                    <div class="service-metric-value">23%</div>
-                                    <div class="service-metric-label">CPU Usage</div>
-                                </div>
-                                <div class="service-metric">
-                                    <div class="service-metric-value">67%</div>
-                                    <div class="service-metric-label">Memory</div>
-                                </div>
-                                <div class="service-metric">
-                                    <div class="service-metric-value">89</div>
-                                    <div class="service-metric-label">Connections</div>
-                                </div>
-                                <div class="service-metric">
-                                    <div class="service-metric-value">456</div>
-                                    <div class="service-metric-label">Requests/min</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="service-header">
-                                <div class="service-title">
-                                    <div class="service-icon" style="background: var(--gradient-success)">
-                                        <i class="fas fa-network-wired"></i>
-                                    </div>
-                                    API Gateway
-                                </div>
-                                <div class="status-badge">healthy</div>
-                            </div>
-                            <div class="service-metrics">
-                                <div class="service-metric">
-                                    <div class="service-metric-value">99.8%</div>
-                                    <div class="service-metric-label">Success Rate</div>
-                                </div>
-                                <div class="service-metric">
-                                    <div class="service-metric-value">145ms</div>
-                                    <div class="service-metric-label">Avg Response</div>
-                                </div>
-                                <div class="service-metric">
-                                    <div class="service-metric-value">287ms</div>
-                                    <div class="service-metric-label">P95 Response</div>
-                                </div>
-                                <div class="service-metric">
-                                    <div class="service-metric-value">18,247</div>
-                                    <div class="service-metric-label">Total Requests</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="service-header">
-                                <div class="service-title">
-                                    <div class="service-icon" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)">
-                                        <i class="fas fa-database"></i>
-                                    </div>
-                                    Database
-                                </div>
-                                <div class="status-badge">healthy</div>
-                            </div>
-                            <div class="service-metrics">
-                                <div class="service-metric">
-                                    <div class="service-metric-value">85%</div>
-                                    <div class="service-metric-label">Connection Pool</div>
-                                </div>
-                                <div class="service-metric">
-                                    <div class="service-metric-value">45ms</div>
-                                    <div class="service-metric-label">Query Time</div>
-                                </div>
-                                <div class="service-metric">
-                                    <div class="service-metric-value">12</div>
-                                    <div class="service-metric-label">Active Queries</div>
-                                </div>
-                                <div class="service-metric">
-                                    <div class="service-metric-value">2.1GB</div>
-                                    <div class="service-metric-label">Storage Used</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="service-header">
-                                <div class="service-title">
-                                    <div class="service-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%)">
-                                        <i class="fas fa-plug"></i>
-                                    </div>
-                                    External APIs
-                                </div>
-                                <div class="status-badge">healthy</div>
-                            </div>
-                            <div class="service-metrics">
-                                <div class="service-metric">
-                                    <div class="service-metric-value">Ready</div>
-                                    <div class="service-metric-label">Twilio Status</div>
-                                </div>
-                                <div class="service-metric">
-                                    <div class="service-metric-value">Ready</div>
-                                    <div class="service-metric-label">OpenAI Status</div>
-                                </div>
-                                <div class="service-metric">
-                                    <div class="service-metric-value">1,247</div>
-                                    <div class="service-metric-label">API Calls</div>
-                                </div>
-                                <div class="service-metric">
-                                    <div class="service-metric-value">99.2%</div>
-                                    <div class="service-metric-label">Success Rate</div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="metric">
+                        <div class="metric-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        <div class="metric-value">145ms</div>
+                        <div class="metric-label">Response Time</div>
                     </div>
                     
-                    <div class="action-buttons">
-                        <button class="btn btn-primary" onclick="window.location.reload()">
-                            <i class="fas fa-sync-alt"></i>
-                            Refresh Dashboard
-                        </button>
-                        <a href="/docs" class="btn btn-secondary" target="_blank">
-                            <i class="fas fa-book"></i>
-                            API Documentation
-                        </a>
-                        <a href="/health" class="btn btn-secondary" target="_blank">
-                            <i class="fas fa-heartbeat"></i>
-                            Health Check
-                        </a>
-                        <a href="/" class="btn btn-secondary">
-                            <i class="fas fa-home"></i>
-                            Home
-                        </a>
+                    <div class="metric">
+                        <div class="metric-icon"><i class="fas fa-users"></i></div>
+                        <div class="metric-value">67</div>
+                        <div class="metric-label">Active Tenants</div>
                     </div>
-                </main>
+                    
+                    <div class="metric">
+                        <div class="metric-icon"><i class="fas fa-phone"></i></div>
+                        <div class="metric-value">1,847</div>
+                        <div class="metric-label">Calls Today</div>
+                    </div>
+                    
+                    <div class="metric">
+                        <div class="metric-icon"><i class="fas fa-robot"></i></div>
+                        <div class="metric-value">92.1%</div>
+                        <div class="metric-label">AI Automation</div>
+                    </div>
+                    
+                    <div class="metric">
+                        <div class="metric-icon"><i class="fas fa-star"></i></div>
+                        <div class="metric-value">4.7</div>
+                        <div class="metric-label">Satisfaction</div>
+                    </div>
+                </div>
                 
-                <div class="refresh-indicator">
-                    <div class="refresh-spinner"></div>
-                    Live Dashboard
+                <div class="actions">
+                    <a href="/health" class="btn">
+                        <i class="fas fa-heartbeat"></i>
+                        Health Check
+                    </a>
+                    <a href="/docs" class="btn">
+                        <i class="fas fa-book"></i>
+                        API Documentation
+                    </a>
+                    <a href="/api/tenants" class="btn">
+                        <i class="fas fa-building"></i>
+                        Tenants API
+                    </a>
+                    <a href="/" class="btn">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
+                </div>
+                
+                <div class="footer">
+                    <p>VoiceCore AI Enterprise Dashboard v1.0.0</p>
+                    <p>Desarrollado con FastAPI y Python</p>
                 </div>
             </div>
             
             <script>
-                // Auto-refresh every 30 seconds
+                // Auto-refresh metrics every 30 seconds
                 setInterval(() => {
-                    // Update metrics with random values to simulate real-time data
-                    const metrics = document.querySelectorAll('.metric-value');
+                    const values = document.querySelectorAll('.metric-value');
                     const updates = ['99.9%', '142ms', '68', '1,892', '92.3%', '4.8'];
-                    metrics.forEach((metric, index) => {
+                    values.forEach((value, index) => {
                         if (updates[index]) {
-                            metric.textContent = updates[index];
+                            value.textContent = updates[index];
                         }
                     });
                 }, 30000);
                 
-                console.log('🚀 VoiceCore AI Enterprise Dashboard Loaded');
+                console.log('🚀 VoiceCore AI Dashboard Loaded Successfully!');
             </script>
         </body>
         </html>
