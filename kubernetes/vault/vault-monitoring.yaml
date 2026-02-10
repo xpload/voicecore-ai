@@ -1,0 +1,132 @@
+---
+# ServiceMonitor for Prometheus
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: vault
+  namespace: vault
+  labels:
+    app: vault
+spec:
+  selector:
+    matchLabels:
+      app: vault
+  endpoints:
+    - port: http
+      path: /v1/sys/metrics
+      params:
+        format: ['prometheus']
+      interval: 30s
+      scrapeTimeout: 10s
+
+---
+# PrometheusRule for Vault alerts
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: vault-alerts
+  namespace: vault
+  labels:
+    app: vault
+spec:
+  groups:
+    - name: vault
+      interval: 30s
+      rules:
+        - alert: VaultSealed
+          expr: vault_core_unsealed == 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Vault is sealed"
+            description: "Vault instance {{ $labels.instance }} is sealed"
+        
+        - alert: VaultDown
+          expr: up{job="vault"} == 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Vault is down"
+            description: "Vault instance {{ $labels.instance }} is down"
+        
+        - alert: VaultLeadershipLost
+          expr: vault_core_leader == 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Vault lost leadership"
+            description: "Vault instance {{ $labels.instance }} lost leadership"
+        
+        - alert: VaultHighMemoryUsage
+          expr: (vault_runtime_alloc_bytes / vault_runtime_sys_bytes) > 0.9
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Vault high memory usage"
+            description: "Vault instance {{ $labels.instance }} memory usage is above 90%"
+        
+        - alert: VaultTokenExpiringSoon
+          expr: vault_token_count_by_ttl{creation_ttl="30d"} > 100
+          for: 1h
+          labels:
+            severity: info
+          annotations:
+            summary: "Many Vault tokens expiring soon"
+            description: "{{ $value }} tokens will expire in the next 30 days"
+
+---
+# Grafana Dashboard ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vault-dashboard
+  namespace: vault
+  labels:
+    grafana_dashboard: "1"
+data:
+  vault-dashboard.json: |
+    {
+      "dashboard": {
+        "title": "Vault Monitoring",
+        "tags": ["vault", "security"],
+        "timezone": "browser",
+        "panels": [
+          {
+            "title": "Vault Status",
+            "targets": [
+              {
+                "expr": "vault_core_unsealed"
+              }
+            ]
+          },
+          {
+            "title": "Request Rate",
+            "targets": [
+              {
+                "expr": "rate(vault_core_handle_request_count[5m])"
+              }
+            ]
+          },
+          {
+            "title": "Request Duration",
+            "targets": [
+              {
+                "expr": "vault_core_handle_request"
+              }
+            ]
+          },
+          {
+            "title": "Active Tokens",
+            "targets": [
+              {
+                "expr": "vault_token_count"
+              }
+            ]
+          }
+        ]
+      }
+    }

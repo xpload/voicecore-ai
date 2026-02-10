@@ -283,6 +283,9 @@ def create_application() -> FastAPI:
     from voicecore.api.data_export_routes import router as data_export_router
     from voicecore.api.credit_routes import router as credit_router
     from voicecore.api.error_handling_routes import router as error_handling_router
+    from voicecore.api.bi_dashboard_routes import router as bi_dashboard_router
+    from voicecore.api.report_builder_routes import router as report_builder_router
+    from voicecore.api.event_sourcing_routes import router as event_sourcing_router
     
     app.include_router(tenant_router, tags=["Tenants"])
     app.include_router(webhook_router, tags=["Webhooks"])
@@ -302,6 +305,9 @@ def create_application() -> FastAPI:
     app.include_router(data_export_router, tags=["Data Export & Integration"])
     app.include_router(credit_router, tags=["Credit Management & Billing"])
     app.include_router(error_handling_router, tags=["System Diagnostics & Error Handling"])
+    app.include_router(bi_dashboard_router, tags=["Business Intelligence"])
+    app.include_router(report_builder_router, tags=["Report Builder"])
+    app.include_router(event_sourcing_router, tags=["Event Sourcing & CQRS"])
     
     # TODO: Add other routers as they are implemented
     # app.include_router(auth_router, prefix="/api/v1/auth", tags=["Authentication"])

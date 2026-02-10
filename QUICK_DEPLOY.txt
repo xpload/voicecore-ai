@@ -1,0 +1,136 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║                                                                      ║
+║              VoiceCore AI 3.0 - QUICK DEPLOY REFERENCE               ║
+║                     Production in 10 Minutes                         ║
+║                                                                      ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────────────┐
+│ STEP 1: PRE-FLIGHT CHECK (1 minute)                                 │
+└──────────────────────────────────────────────────────────────────────┘
+
+  python pre_deploy_check.py
+
+  Expected: ✅ All checks passed (7/7)
+
+
+┌──────────────────────────────────────────────────────────────────────┐
+│ STEP 2: DEPLOY (9 minutes)                                          │
+└──────────────────────────────────────────────────────────────────────┘
+
+  python deploy_railway.py
+
+  The script will guide you through:
+  1. Railway CLI check
+  2. Login to Railway
+  3. Create project
+  4. Add PostgreSQL (manual step in dashboard)
+  5. Set environment variables (manual step in dashboard)
+  6. Deploy application
+  7. Run migrations
+  8. Initialize data
+
+
+┌──────────────────────────────────────────────────────────────────────┐
+│ REQUIRED ENVIRONMENT VARIABLES                                       │
+└──────────────────────────────────────────────────────────────────────┘
+
+  Minimum (to run):
+  ├─ SECRET_KEY=your-secret-key-min-32-chars
+  └─ JWT_SECRET_KEY=your-jwt-secret-key
+
+  Optional (full functionality):
+  ├─ TWILIO_ACCOUNT_SID=ACxxxxx
+  ├─ TWILIO_AUTH_TOKEN=xxxxx
+  ├─ TWILIO_PHONE_NUMBER=+1234567890
+  └─ OPENAI_API_KEY=sk-proj-xxxxx
+
+  Note: DATABASE_URL is auto-set by Railway
+
+
+┌──────────────────────────────────────────────────────────────────────┐
+│ STEP 3: VERIFY (2 minutes)                                          │
+└──────────────────────────────────────────────────────────────────────┘
+
+  # Get your URL
+  railway domain
+
+  # Test health
+  curl https://your-app.railway.app/health
+
+  # View logs
+  railway logs --follow
+
+
+┌──────────────────────────────────────────────────────────────────────┐
+│ USEFUL COMMANDS                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+
+  railway status          # Check service status
+  railway logs            # View recent logs
+  railway logs --follow   # Stream logs in real-time
+  railway restart         # Restart service
+  railway variables       # View environment variables
+  railway open            # Open dashboard in browser
+  railway connect postgres # Connect to database
+
+
+┌──────────────────────────────────────────────────────────────────────┐
+│ TROUBLESHOOTING                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+
+  Problem: "No project found"
+  Solution: railway link
+
+  Problem: "Database connection failed"
+  Solution: railway status && railway variables
+
+  Problem: "Migration failed"
+  Solution: railway run alembic current
+            railway run alembic upgrade head
+
+  Problem: "Port already in use"
+  Solution: Railway auto-assigns port (no action needed)
+
+
+┌──────────────────────────────────────────────────────────────────────┐
+│ COST ESTIMATE                                                        │
+└──────────────────────────────────────────────────────────────────────┘
+
+  PostgreSQL:  $5/month
+  Web Service: $5/month
+  ─────────────────────
+  Total:       $10/month
+
+  Free Credit: $5 (first month ~$5 total)
+
+
+┌──────────────────────────────────────────────────────────────────────┐
+│ DOCUMENTATION                                                        │
+└──────────────────────────────────────────────────────────────────────┘
+
+  Quick Start:      DEPLOY_NOW.md
+  Full Guide:       PRODUCTION_DEPLOYMENT_GUIDE.md
+  Railway Guide:    RAILWAY_DEPLOY_GUIDE.md
+  Production Ready: PRODUCTION_READY.md
+  Testing:          TESTING_GUIDE.md
+
+
+┌──────────────────────────────────────────────────────────────────────┐
+│ SUPPORT                                                              │
+└──────────────────────────────────────────────────────────────────────┘
+
+  Railway Dashboard: https://railway.app/dashboard
+  Railway Docs:      https://docs.railway.app
+  API Docs:          https://your-app.railway.app/docs
+
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                                                                      ║
+║  ✅ SYSTEM STATUS: PRODUCTION READY                                  ║
+║                                                                      ║
+║  All checks passed. Ready to deploy!                                ║
+║                                                                      ║
+║  Run: python deploy_railway.py                                      ║
+║                                                                      ║
+╚══════════════════════════════════════════════════════════════════════╝

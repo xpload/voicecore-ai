@@ -1,0 +1,145 @@
+---
+# Vault StatefulSet for High Availability
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: vault
+  namespace: vault
+  labels:
+    app: vault
+    version: v1.15.0
+spec:
+  serviceName: vault-internal
+  replicas: 3
+  selector:
+    matchLabels:
+      app: vault
+  template:
+    metadata:
+      labels:
+        app: vault
+        version: v1.15.0
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8200"
+        prometheus.io/path: "/v1/sys/metrics"
+    spec:
+      serviceAccountName: vault
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 100
+        fsGroup: 1000
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - vault
+              topologyKey: kubernetes.io/hostname
+      containers:
+        - name: vault
+          image: hashicorp/vault:1.15.0
+          imagePullPolicy: IfNotPresent
+          command:
+            - "/bin/sh"
+            - "-ec"
+          args:
+            - |
+              cp /vault/config/vault-config.hcl /tmp/vault-config.hcl
+              sed -i "s/vault-0/$(hostname)/g" /tmp/vault-config.hcl
+              exec vault server -config=/tmp/vault-config.hcl
+          env:
+            - name: VAULT_ADDR
+              value: "https://127.0.0.1:8200"
+            - name: VAULT_API_ADDR
+              value: "https://$(POD_NAME).vault-internal:8200"
+            - name: VAULT_CLUSTER_ADDR
+              value: "https://$(POD_NAME).vault-internal:8201"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: VAULT_SKIP_VERIFY
+              value: "true"
+            - name: VAULT_LOG_LEVEL
+              value: "info"
+            - name: VAULT_LOG_FORMAT
+              value: "json"
+          ports:
+            - name: http
+              containerPort: 8200
+              protocol: TCP
+            - name: https-internal
+              containerPort: 8201
+              protocol: TCP
+            - name: http-rep
+              containerPort: 8202
+              protocol: TCP
+          volumeMounts:
+            - name: data
+              mountPath: /vault/data
+            - name: config
+              mountPath: /vault/config
+            - name: tls
+              mountPath: /vault/tls
+              readOnly: true
+            - name: audit
+              mountPath: /vault/audit
+          livenessProbe:
+            httpGet:
+              path: /v1/sys/health?standbyok=true
+              port: 8200
+              scheme: HTTPS
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 3
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /v1/sys/health?standbyok=true&sealedcode=204&uninitcode=204
+              port: 8200
+              scheme: HTTPS
+            initialDelaySeconds: 30
+            periodSeconds: 5
+            timeoutSeconds: 3
+            successThreshold: 1
+            failureThreshold: 3
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "2Gi"
+              cpu: "2000m"
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - IPC_LOCK
+      volumes:
+        - name: config
+          configMap:
+            name: vault-config
+        - name: tls
+          secret:
+            secretName: vault-tls
+        - name: audit
+          persistentVolumeClaim:
+            claimName: vault-audit-pvc
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: vault-storage
+        resources:
+          requests:
+            storage: 50Gi

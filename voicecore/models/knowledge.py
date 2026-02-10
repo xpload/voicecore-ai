@@ -26,6 +26,7 @@ class KnowledgeCategory(enum.Enum):
 
 
 class KnowledgeBase(BaseModel, TimestampMixin, TenantMixin):
+    __tablename__ = "knowledge_base"
     """
     Knowledge base entries for AI training and responses.
     
@@ -191,7 +192,8 @@ class KnowledgeBase(BaseModel, TimestampMixin, TenantMixin):
         doc="Who created this knowledge entry"
     )
     
-    metadata = Column(
+    kb_metadata = Column(
+        "metadata",  # Database column name
         JSON,
         default=dict,
         nullable=False,
@@ -227,6 +229,7 @@ class KnowledgeBase(BaseModel, TimestampMixin, TenantMixin):
 
 
 class SpamRule(BaseModel, TimestampMixin, TenantMixin):
+    __tablename__ = "spam_rule"
     """
     Spam detection rules for filtering unwanted calls.
     
@@ -389,7 +392,8 @@ class SpamRule(BaseModel, TimestampMixin, TenantMixin):
         doc="Who created this rule"
     )
     
-    metadata = Column(
+    rule_metadata = Column(
+        "metadata",  # Database column name
         JSON,
         default=dict,
         nullable=False,
@@ -425,6 +429,7 @@ class SpamRule(BaseModel, TimestampMixin, TenantMixin):
 
 
 class SpamReport(BaseModel, TimestampMixin, TenantMixin):
+    __tablename__ = "spam_report"
     """
     Spam detection reports and feedback for rule improvement.
     
@@ -506,7 +511,8 @@ class SpamReport(BaseModel, TimestampMixin, TenantMixin):
     )
     
     # Metadata
-    metadata = Column(
+    report_metadata = Column(
+        "metadata",  # Database column name
         JSON,
         default=dict,
         nullable=False,

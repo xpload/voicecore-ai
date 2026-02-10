@@ -43,6 +43,7 @@ class VIPHandlingRule(enum.Enum):
 
 
 class VIPCaller(BaseModel, TimestampMixin, TenantMixin):
+    __tablename__ = "v_i_p_caller"
     """
     VIP caller model for managing premium customers.
     
@@ -216,7 +217,7 @@ class VIPCaller(BaseModel, TimestampMixin, TenantMixin):
     )
     
     # Metadata
-    metadata = Column(
+    vip_metadata = Column("metadata", 
         JSON,
         default=dict,
         nullable=False,
@@ -326,6 +327,7 @@ class VIPCaller(BaseModel, TimestampMixin, TenantMixin):
 
 
 class VIPCallHistory(BaseModel, TimestampMixin, TenantMixin):
+    __tablename__ = "v_i_p_call_history"
     """
     VIP call history tracking for analytics and service improvement.
     
@@ -450,6 +452,7 @@ class VIPCallHistory(BaseModel, TimestampMixin, TenantMixin):
 
 
 class VIPEscalationRule(BaseModel, TimestampMixin, TenantMixin):
+    __tablename__ = "v_i_p_escalation_rule"
     """
     VIP escalation rules for automatic escalation based on conditions.
     

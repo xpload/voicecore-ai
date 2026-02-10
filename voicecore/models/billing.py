@@ -157,7 +157,7 @@ class CreditUsage(BaseModel):
     resource_type = Column(String(50))  # call, agent, storage, etc.
     
     # Metadata
-    metadata = Column(JSON)  # Additional usage context
+    billing_metadata = Column("metadata", JSON)  # Additional usage context
     
     # Timestamps
     usage_date = Column(DateTime, nullable=False, default=datetime.utcnow)

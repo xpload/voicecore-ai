@@ -1,0 +1,59 @@
+---
+# Vault ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vault-config
+  namespace: vault
+data:
+  vault-config.hcl: |
+    # Vault Configuration for High Availability
+    
+    ui = true
+    
+    # Storage backend - Raft for HA
+    storage "raft" {
+      path = "/vault/data"
+      node_id = "vault-0"
+      
+      retry_join {
+        leader_api_addr = "http://vault-0.vault-internal:8200"
+      }
+      retry_join {
+        leader_api_addr = "http://vault-1.vault-internal:8200"
+      }
+      retry_join {
+        leader_api_addr = "http://vault-2.vault-internal:8200"
+      }
+    }
+    
+    # Listener for API and UI
+    listener "tcp" {
+      address = "0.0.0.0:8200"
+      cluster_address = "0.0.0.0:8201"
+      tls_disable = 0
+      tls_cert_file = "/vault/tls/tls.crt"
+      tls_key_file = "/vault/tls/tls.key"
+      tls_min_version = "tls13"
+    }
+    
+    # Telemetry
+    telemetry {
+      prometheus_retention_time = "30s"
+      disable_hostname = true
+      unauthenticated_metrics_access = true
+    }
+    
+    # API address
+    api_addr = "https://vault.voicecore.ai:8200"
+    cluster_addr = "https://vault-0.vault-internal:8201"
+    
+    # Seal configuration - Auto-unseal with AWS KMS
+    seal "awskms" {
+      region = "us-east-1"
+      kms_key_id = "alias/vault-unseal-key"
+    }
+    
+    # Enable audit logging
+    log_level = "info"
+    log_format = "json"

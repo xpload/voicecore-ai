@@ -1,0 +1,169 @@
+# Certificate Management and Rotation Configuration
+# Istio automatically manages certificate lifecycle using Citadel (now part of istiod)
+
+---
+# ConfigMap for certificate rotation settings
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: istio-ca-root-cert
+  namespace: voicecore-ai
+data:
+  # Certificate rotation policy
+  # Certificates are automatically rotated by Istio CA
+  rotation-policy: |
+    # Default certificate lifetime: 90 days
+    # Rotation starts: 24 hours before expiry
+    # Grace period: 10% of certificate lifetime
+    certificate_lifetime: 2160h  # 90 days
+    rotation_window: 24h
+    grace_period: 216h  # 10% of lifetime
+
+---
+# Mesh configuration for certificate management
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: istio-mesh-config
+  namespace: istio-system
+data:
+  mesh: |
+    # Certificate configuration
+    certificates:
+      - secretName: dns.voicecore-gateway
+        dnsNames:
+          - voicecore-gateway.voicecore-ai.svc.cluster.local
+      - secretName: dns.tenant-service
+        dnsNames:
+          - tenant-service.voicecore-ai.svc.cluster.local
+      - secretName: dns.call-service
+        dnsNames:
+          - call-service.voicecore-ai.svc.cluster.local
+      - secretName: dns.ai-service
+        dnsNames:
+          - ai-service.voicecore-ai.svc.cluster.local
+      - secretName: dns.crm-service
+        dnsNames:
+          - crm-service.voicecore-ai.svc.cluster.local
+      - secretName: dns.analytics-service
+        dnsNames:
+          - analytics-service.voicecore-ai.svc.cluster.local
+      - secretName: dns.integration-service
+        dnsNames:
+          - integration-service.voicecore-ai.svc.cluster.local
+      - secretName: dns.billing-service
+        dnsNames:
+          - billing-service.voicecore-ai.svc.cluster.local
+    
+    # CA configuration
+    ca:
+      # Certificate authority address
+      address: istiod.istio-system.svc:15012
+      
+      # Certificate TTL
+      workloadCertTtl: 2160h  # 90 days
+      
+      # Maximum certificate TTL
+      maxWorkloadCertTtl: 2160h
+      
+      # Root certificate TTL
+      rootCertTtl: 87600h  # 10 years
+    
+    # Trust domain
+    trustDomain: cluster.local
+    
+    # Enable automatic certificate rotation
+    enableAutoMtls: true
+
+---
+# Certificate monitoring ServiceMonitor for Prometheus
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: certificate-monitoring
+  namespace: voicecore-ai
+data:
+  monitoring-config: |
+    # Monitor certificate expiration
+    # Alert when certificates are within 7 days of expiry
+    alert_threshold: 168h  # 7 days
+    
+    # Check interval
+    check_interval: 1h
+    
+    # Metrics to collect
+    metrics:
+      - certificate_expiry_timestamp
+      - certificate_rotation_count
+      - certificate_rotation_failures
+      - certificate_validation_errors
+
+---
+# Certificate rotation CronJob for monitoring
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: certificate-rotation-monitor
+  namespace: voicecore-ai
+spec:
+  schedule: "0 */6 * * *"  # Every 6 hours
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: cert-monitor
+        spec:
+          serviceAccountName: istio-reader-service-account
+          containers:
+          - name: cert-checker
+            image: istio/istioctl:1.20.0
+            command:
+            - /bin/sh
+            - -c
+            - |
+              echo "Checking certificate status..."
+              istioctl proxy-config secret -n voicecore-ai
+              
+              echo "Checking certificate expiration..."
+              for pod in $(kubectl get pods -n voicecore-ai -l istio-injection=enabled -o name); do
+                echo "Checking $pod"
+                kubectl exec -n voicecore-ai $pod -c istio-proxy -- \
+                  openssl s_client -connect localhost:15000 -showcerts 2>/dev/null | \
+                  openssl x509 -noout -dates
+              done
+          restartPolicy: OnFailure
+
+---
+# RBAC for certificate monitoring
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: istio-reader-service-account
+  namespace: voicecore-ai
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: istio-reader-role
+  namespace: voicecore-ai
+rules:
+- apiGroups: [""]
+  resources: ["pods", "secrets"]
+  verbs: ["get", "list", "watch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: istio-reader-role-binding
+  namespace: voicecore-ai
+subjects:
+- kind: ServiceAccount
+  name: istio-reader-service-account
+  namespace: voicecore-ai
+roleRef:
+  kind: Role
+  name: istio-reader-role
+  apiGroup: rbac.authorization.k8s.io

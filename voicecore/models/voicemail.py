@@ -37,6 +37,7 @@ class VoicemailPriority(enum.Enum):
 
 
 class VoicemailBox(BaseModel):
+    __tablename__ = "voicemail_box"
     """
     Voicemail box model for departments and agents.
     
@@ -375,7 +376,7 @@ class VoicemailMessage(BaseModel):
     )
     
     # Metadata
-    metadata = Column(
+    vm_metadata = Column("metadata", 
         JSON,
         default=dict,
         nullable=False,
@@ -515,7 +516,7 @@ class VoicemailNotification(BaseModel):
     )
     
     # Metadata
-    metadata = Column(
+    vm_metadata = Column("metadata", 
         JSON,
         default=dict,
         nullable=False,

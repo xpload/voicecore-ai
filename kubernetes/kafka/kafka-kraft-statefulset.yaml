@@ -1,0 +1,258 @@
+---
+# Kafka with KRaft (ZooKeeper-less) - Alternative to ZooKeeper
+# KRaft is the new consensus protocol for Kafka (production-ready in Kafka 3.3+)
+# This provides an alternative to ZooKeeper for cluster coordination
+
+# Kafka Headless Service for StatefulSet
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-kraft-headless
+  namespace: kafka
+  labels:
+    app: kafka-kraft
+spec:
+  ports:
+  - port: 9092
+    name: internal
+  - port: 9093
+    name: controller
+  clusterIP: None
+  selector:
+    app: kafka-kraft
+---
+# Kafka Service for external access
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-kraft
+  namespace: kafka
+  labels:
+    app: kafka-kraft
+spec:
+  ports:
+  - port: 9092
+    name: internal
+    targetPort: 9092
+  selector:
+    app: kafka-kraft
+  type: ClusterIP
+---
+# Kafka StatefulSet with KRaft mode (3 controller+broker nodes)
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kafka-kraft
+  namespace: kafka
+spec:
+  serviceName: kafka-kraft-headless
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kafka-kraft
+  template:
+    metadata:
+      labels:
+        app: kafka-kraft
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - kafka-kraft
+            topologyKey: kubernetes.io/hostname
+      initContainers:
+      - name: kafka-init
+        image: confluentinc/cp-kafka:7.5.0
+        command:
+        - sh
+        - -c
+        - |
+          # Extract node ID from pod name (kafka-kraft-0 -> 0)
+          NODE_ID=${HOSTNAME##*-}
+          
+          # Generate cluster ID if not exists
+          if [ ! -f /var/lib/kafka/data/meta.properties ]; then
+            CLUSTER_ID=$(kafka-storage random-uuid)
+            echo "Generated Cluster ID: $CLUSTER_ID"
+            
+            # Format storage with KRaft
+            kafka-storage format \
+              -t $CLUSTER_ID \
+              -c /etc/kafka/kraft.properties \
+              --ignore-formatted
+          fi
+        volumeMounts:
+        - name: datadir
+          mountPath: /var/lib/kafka/data
+        - name: config
+          mountPath: /etc/kafka
+      containers:
+      - name: kafka
+        image: confluentinc/cp-kafka:7.5.0
+        ports:
+        - containerPort: 9092
+          name: internal
+        - containerPort: 9093
+          name: controller
+        env:
+        # Extract node ID from pod name
+        - name: KAFKA_NODE_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: KAFKA_PROCESS_ROLES
+          value: "broker,controller"
+        - name: KAFKA_CONTROLLER_QUORUM_VOTERS
+          value: "0@kafka-kraft-0.kafka-kraft-headless.kafka.svc.cluster.local:9093,1@kafka-kraft-1.kafka-kraft-headless.kafka.svc.cluster.local:9093,2@kafka-kraft-2.kafka-kraft-headless.kafka.svc.cluster.local:9093"
+        - name: KAFKA_LISTENERS
+          value: "PLAINTEXT://:9092,CONTROLLER://:9093"
+        - name: KAFKA_ADVERTISED_LISTENERS
+          value: "PLAINTEXT://$(POD_NAME).kafka-kraft-headless.kafka.svc.cluster.local:9092"
+        - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
+          value: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT"
+        - name: KAFKA_CONTROLLER_LISTENER_NAMES
+          value: "CONTROLLER"
+        - name: KAFKA_INTER_BROKER_LISTENER_NAME
+          value: "PLAINTEXT"
+        # Replication settings for HA
+        - name: KAFKA_DEFAULT_REPLICATION_FACTOR
+          value: "3"
+        - name: KAFKA_MIN_INSYNC_REPLICAS
+          value: "2"
+        - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
+          value: "3"
+        - name: KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR
+          value: "3"
+        - name: KAFKA_TRANSACTION_STATE_LOG_MIN_ISR
+          value: "2"
+        # Exactly-once semantics configuration
+        - name: KAFKA_ENABLE_IDEMPOTENCE
+          value: "true"
+        - name: KAFKA_TRANSACTIONAL_ID_EXPIRATION_MS
+          value: "604800000"
+        # Performance tuning for 1M+ events/second
+        - name: KAFKA_NUM_NETWORK_THREADS
+          value: "8"
+        - name: KAFKA_NUM_IO_THREADS
+          value: "8"
+        - name: KAFKA_SOCKET_SEND_BUFFER_BYTES
+          value: "102400"
+        - name: KAFKA_SOCKET_RECEIVE_BUFFER_BYTES
+          value: "102400"
+        - name: KAFKA_SOCKET_REQUEST_MAX_BYTES
+          value: "104857600"
+        - name: KAFKA_NUM_PARTITIONS
+          value: "12"
+        - name: KAFKA_LOG_RETENTION_HOURS
+          value: "168"
+        - name: KAFKA_LOG_SEGMENT_BYTES
+          value: "1073741824"
+        - name: KAFKA_LOG_RETENTION_CHECK_INTERVAL_MS
+          value: "300000"
+        # Compression for throughput
+        - name: KAFKA_COMPRESSION_TYPE
+          value: "snappy"
+        # Auto-create topics
+        - name: KAFKA_AUTO_CREATE_TOPICS_ENABLE
+          value: "true"
+        # Log directories
+        - name: KAFKA_LOG_DIRS
+          value: "/var/lib/kafka/data"
+        # JVM settings for performance
+        - name: KAFKA_HEAP_OPTS
+          value: "-Xmx4G -Xms4G"
+        - name: KAFKA_JVM_PERFORMANCE_OPTS
+          value: "-XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:G1HeapRegionSize=16M -XX:MinMetaspaceFreeRatio=50 -XX:MaxMetaspaceFreeRatio=80"
+        resources:
+          requests:
+            memory: "6Gi"
+            cpu: "2000m"
+          limits:
+            memory: "8Gi"
+            cpu: "4000m"
+        volumeMounts:
+        - name: datadir
+          mountPath: /var/lib/kafka/data
+        - name: config
+          mountPath: /etc/kafka
+        livenessProbe:
+          tcpSocket:
+            port: 9092
+          initialDelaySeconds: 60
+          periodSeconds: 10
+        readinessProbe:
+          tcpSocket:
+            port: 9092
+          initialDelaySeconds: 30
+          periodSeconds: 5
+      volumes:
+      - name: config
+        configMap:
+          name: kafka-kraft-config
+  volumeClaimTemplates:
+  - metadata:
+      name: datadir
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 100Gi
+---
+# ConfigMap for KRaft configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafka-kraft-config
+  namespace: kafka
+data:
+  kraft.properties: |
+    # KRaft mode configuration
+    process.roles=broker,controller
+    node.id=0
+    controller.quorum.voters=0@kafka-kraft-0.kafka-kraft-headless.kafka.svc.cluster.local:9093,1@kafka-kraft-1.kafka-kraft-headless.kafka.svc.cluster.local:9093,2@kafka-kraft-2.kafka-kraft-headless.kafka.svc.cluster.local:9093
+    
+    # Listeners
+    listeners=PLAINTEXT://:9092,CONTROLLER://:9093
+    inter.broker.listener.name=PLAINTEXT
+    controller.listener.names=CONTROLLER
+    listener.security.protocol.map=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+    
+    # Log directories
+    log.dirs=/var/lib/kafka/data
+    
+    # Replication
+    default.replication.factor=3
+    min.insync.replicas=2
+    offsets.topic.replication.factor=3
+    transaction.state.log.replication.factor=3
+    transaction.state.log.min.isr=2
+    
+    # Performance
+    num.network.threads=8
+    num.io.threads=8
+    socket.send.buffer.bytes=102400
+    socket.receive.buffer.bytes=102400
+    socket.request.max.bytes=104857600
+    
+    # Partitions
+    num.partitions=12
+    
+    # Retention
+    log.retention.hours=168
+    log.segment.bytes=1073741824
+    log.retention.check.interval.ms=300000
+    
+    # Compression
+    compression.type=snappy
+    
+    # Auto-create topics
+    auto.create.topics.enable=true

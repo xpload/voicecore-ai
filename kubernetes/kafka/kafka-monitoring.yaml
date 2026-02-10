@@ -1,0 +1,259 @@
+---
+# Kafka Exporter for Prometheus metrics
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-exporter
+  namespace: kafka
+  labels:
+    app: kafka-exporter
+spec:
+  ports:
+  - port: 9308
+    name: metrics
+    targetPort: 9308
+  selector:
+    app: kafka-exporter
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-exporter
+  namespace: kafka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-exporter
+  template:
+    metadata:
+      labels:
+        app: kafka-exporter
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9308"
+        prometheus.io/path: "/metrics"
+    spec:
+      containers:
+      - name: kafka-exporter
+        image: danielqsj/kafka-exporter:latest
+        args:
+        - --kafka.server=kafka-0.kafka-headless.kafka.svc.cluster.local:9092
+        - --kafka.server=kafka-1.kafka-headless.kafka.svc.cluster.local:9092
+        - --kafka.server=kafka-2.kafka-headless.kafka.svc.cluster.local:9092
+        - --web.listen-address=:9308
+        - --web.telemetry-path=/metrics
+        - --log.level=info
+        ports:
+        - containerPort: 9308
+          name: metrics
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        livenessProbe:
+          httpGet:
+            path: /metrics
+            port: 9308
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /metrics
+            port: 9308
+          initialDelaySeconds: 10
+          periodSeconds: 5
+---
+# ServiceMonitor for Prometheus Operator (optional - requires Prometheus Operator)
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: kafka-metrics
+  namespace: kafka
+  labels:
+    app: kafka
+spec:
+  selector:
+    matchLabels:
+      app: kafka-exporter
+  endpoints:
+  - port: metrics
+    interval: 30s
+    path: /metrics
+---
+# PrometheusRule for Kafka alerts (optional - requires Prometheus Operator)
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: kafka-alerts
+  namespace: kafka
+  labels:
+    app: kafka
+spec:
+  groups:
+  - name: kafka.rules
+    interval: 30s
+    rules:
+    # Alert when a broker is down
+    - alert: KafkaBrokerDown
+      expr: kafka_brokers < 3
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Kafka broker is down"
+        description: "Kafka cluster has {{ $value }} brokers running (expected 3)"
+    
+    # Alert when there are offline partitions
+    - alert: KafkaOfflinePartitions
+      expr: kafka_controller_kafkacontroller_offlinepartitionscount > 0
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Kafka has offline partitions"
+        description: "Kafka cluster has {{ $value }} offline partitions"
+    
+    # Alert when there are under-replicated partitions
+    - alert: KafkaUnderReplicatedPartitions
+      expr: kafka_server_replicamanager_underreplicatedpartitions > 0
+      for: 10m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Kafka has under-replicated partitions"
+        description: "Kafka cluster has {{ $value }} under-replicated partitions"
+    
+    # Alert when consumer lag is high
+    - alert: KafkaConsumerLagHigh
+      expr: kafka_consumergroup_lag > 1000
+      for: 10m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Kafka consumer lag is high"
+        description: "Consumer group {{ $labels.consumergroup }} has lag of {{ $value }} messages on topic {{ $labels.topic }}"
+    
+    # Alert when producer latency is high
+    - alert: KafkaProducerLatencyHigh
+      expr: kafka_producer_request_latency_avg > 1000
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Kafka producer latency is high"
+        description: "Producer latency is {{ $value }}ms (threshold: 1000ms)"
+    
+    # Alert when disk usage is high
+    - alert: KafkaDiskUsageHigh
+      expr: (kafka_log_log_size / kafka_log_log_size_limit) > 0.8
+      for: 10m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Kafka disk usage is high"
+        description: "Kafka broker {{ $labels.broker }} disk usage is {{ $value | humanizePercentage }}"
+    
+    # Alert when ISR shrinks
+    - alert: KafkaISRShrink
+      expr: rate(kafka_server_replicamanager_isrshrinkspersec[5m]) > 0
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Kafka ISR is shrinking"
+        description: "Kafka broker {{ $labels.broker }} ISR is shrinking at {{ $value }} per second"
+    
+    # Alert when leader election rate is high
+    - alert: KafkaLeaderElectionRateHigh
+      expr: rate(kafka_controller_controllerstats_leaderelectionrateandtimems_count[5m]) > 0.1
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Kafka leader election rate is high"
+        description: "Kafka is experiencing frequent leader elections: {{ $value }} per second"
+---
+# ConfigMap for Grafana dashboard (optional)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafka-grafana-dashboard
+  namespace: kafka
+  labels:
+    grafana_dashboard: "1"
+data:
+  kafka-overview.json: |
+    {
+      "dashboard": {
+        "title": "Kafka Overview",
+        "tags": ["kafka", "messaging"],
+        "timezone": "browser",
+        "panels": [
+          {
+            "title": "Broker Status",
+            "type": "stat",
+            "targets": [
+              {
+                "expr": "kafka_brokers",
+                "legendFormat": "Brokers"
+              }
+            ]
+          },
+          {
+            "title": "Messages In Per Second",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "rate(kafka_server_brokertopicmetrics_messagesin_total[5m])",
+                "legendFormat": "{{topic}}"
+              }
+            ]
+          },
+          {
+            "title": "Bytes In Per Second",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "rate(kafka_server_brokertopicmetrics_bytesin_total[5m])",
+                "legendFormat": "{{topic}}"
+              }
+            ]
+          },
+          {
+            "title": "Consumer Lag",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "kafka_consumergroup_lag",
+                "legendFormat": "{{consumergroup}} - {{topic}}"
+              }
+            ]
+          },
+          {
+            "title": "Under Replicated Partitions",
+            "type": "graph",
+            "targets": [
+              {
+                "expr": "kafka_server_replicamanager_underreplicatedpartitions",
+                "legendFormat": "Broker {{broker}}"
+              }
+            ]
+          },
+          {
+            "title": "Offline Partitions",
+            "type": "stat",
+            "targets": [
+              {
+                "expr": "kafka_controller_kafkacontroller_offlinepartitionscount",
+                "legendFormat": "Offline Partitions"
+              }
+            ]
+          }
+        ]
+      }
+    }

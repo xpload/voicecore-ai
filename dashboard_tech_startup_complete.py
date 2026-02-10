@@ -670,8 +670,8 @@ TECH_STARTUP_DASHBOARD_HTML = """
             --warning: #fb8500;
             --danger: #f85149;
             --info: #1f6feb;
-            --sidebar-width: 280px;
-            --header-height: 64px;
+            --sidebar-width: 240px;
+            --header-height: 60px;
         }
 
         * {
@@ -848,22 +848,22 @@ TECH_STARTUP_DASHBOARD_HTML = """
 
         /* Dashboard Grid */
         .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            display: flex;
+            gap: 1rem;
             margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
 
         /* Cards */
         .card {
             background: var(--bg-secondary);
             border: 1px solid var(--border-primary);
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
         }
 
         .card-header {
-            padding: 1.5rem;
+            padding: 1rem;
             border-bottom: 1px solid var(--border-primary);
             display: flex;
             align-items: center;
@@ -871,7 +871,7 @@ TECH_STARTUP_DASHBOARD_HTML = """
         }
 
         .card-title {
-            font-size: 1rem;
+            font-size: 0.875rem;
             font-weight: 600;
             color: var(--text-primary);
             display: flex;
@@ -880,17 +880,19 @@ TECH_STARTUP_DASHBOARD_HTML = """
         }
 
         .card-content {
-            padding: 1.5rem;
+            padding: 1rem;
         }
 
         /* Metrics Cards */
         .metric-card {
             text-align: center;
-            padding: 2rem 1.5rem;
+            padding: 1rem;
+            flex: 1;
+            min-width: 200px;
         }
 
         .metric-value {
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
         }
@@ -904,13 +906,11 @@ TECH_STARTUP_DASHBOARD_HTML = """
         .metric-label {
             font-size: 0.875rem;
             color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
 
         .metric-change {
             font-size: 0.75rem;
-            margin-top: 0.5rem;
+            margin-top: 0.25rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1372,15 +1372,18 @@ TECH_STARTUP_DASHBOARD_HTML = """
         <main class="main-content">
             <!-- Header -->
             <header class="header">
-                <h1 class="header-title" id="page-title">Enterprise Command Center</h1>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <h1 class="header-title" id="page-title">VoiceCore AI</h1>
+                    <span style="background: var(--accent-green); color: white; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">ENTERPRISE</span>
+                </div>
                 <div class="header-actions">
-                    <div class="status-indicator">
-                        <div class="status-dot"></div>
-                        <span>ONLINE</span>
-                    </div>
-                    <div class="real-time-indicator">
-                        <div class="real-time-dot"></div>
-                        <span>NEURAL LINK ACTIVE</span>
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <span style="color: var(--accent-green); font-size: 0.875rem; font-weight: 500;">
+                            <i class="fas fa-circle"></i> Online
+                        </span>
+                        <span style="color: var(--accent-blue); font-size: 0.875rem; font-weight: 500;">
+                            <i class="fas fa-broadcast-tower"></i> Live
+                        </span>
                     </div>
                 </div>
             </header>
@@ -1391,72 +1394,28 @@ TECH_STARTUP_DASHBOARD_HTML = """
                 <div id="overview-section" class="section active">
                     <div class="dashboard-grid">
                         <!-- Key Metrics -->
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">
-                                    <i class="fas fa-phone"></i>
-                                    Active Calls
-                                </h3>
-                            </div>
-                            <div class="card-content metric-card">
-                                <div class="metric-value blue" id="active-calls-count">0</div>
-                                <div class="metric-label">Currently Active</div>
-                                <div class="metric-change positive">
-                                    <i class="fas fa-arrow-up"></i>
-                                    <span>↑ +12% today</span>
-                                </div>
-                            </div>
+                        <div class="card metric-card">
+                            <div class="metric-value blue" id="active-calls-count">24</div>
+                            <div class="metric-label">Active Calls</div>
+                            <div class="metric-change positive">↑ +12% today</div>
                         </div>
 
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">
-                                    <i class="fas fa-users"></i>
-                                    Available Agents
-                                </h3>
-                            </div>
-                            <div class="card-content metric-card">
-                                <div class="metric-value green" id="available-agents-count">0</div>
-                                <div class="metric-label">Ready to Take Calls</div>
-                                <div class="metric-change positive">
-                                    <i class="fas fa-arrow-up"></i>
-                                    <span>85% capacity</span>
-                                </div>
-                            </div>
+                        <div class="card metric-card">
+                            <div class="metric-value green" id="available-agents-count">18</div>
+                            <div class="metric-label">Available Agents</div>
+                            <div class="metric-change positive">85% capacity</div>
                         </div>
 
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">
-                                    <i class="fas fa-list-ol"></i>
-                                    Queue Size
-                                </h3>
-                            </div>
-                            <div class="card-content metric-card">
-                                <div class="metric-value red" id="queue-size-count">0</div>
-                                <div class="metric-label">Calls Waiting</div>
-                                <div class="metric-change negative">
-                                    <i class="fas fa-arrow-down"></i>
-                                    <span>↓ -5% hour</span>
-                                </div>
-                            </div>
+                        <div class="card metric-card">
+                            <div class="metric-value red" id="queue-size-count">3</div>
+                            <div class="metric-label">Queue Size</div>
+                            <div class="metric-change negative">↓ -5% hour</div>
                         </div>
 
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">
-                                    <i class="fas fa-robot"></i>
-                                    AI Resolution Rate
-                                </h3>
-                            </div>
-                            <div class="card-content metric-card">
-                                <div class="metric-value purple" id="ai-resolution-rate">0%</div>
-                                <div class="metric-label">Resolved by AI</div>
-                                <div class="metric-change positive">
-                                    <i class="fas fa-arrow-up"></i>
-                                    <span>↑ +3% week</span>
-                                </div>
-                            </div>
+                        <div class="card metric-card">
+                            <div class="metric-value purple" id="ai-resolution-rate">87%</div>
+                            <div class="metric-label">AI Resolution</div>
+                            <div class="metric-change positive">↑ +3% week</div>
                         </div>
                     </div>
 

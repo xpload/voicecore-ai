@@ -1,0 +1,96 @@
+---
+# Vault Policy ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vault-policies
+  namespace: vault
+data:
+  # Admin policy - full access
+  admin-policy.hcl: |
+    # Full access to all paths
+    path "*" {
+      capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+    }
+  
+  # VoiceCore service policy
+  voicecore-policy.hcl: |
+    # Read access to VoiceCore secrets
+    path "voicecore/data/*" {
+      capabilities = ["read", "list"]
+    }
+    
+    # Write access to VoiceCore secrets
+    path "voicecore/data/config/*" {
+      capabilities = ["create", "read", "update", "delete"]
+    }
+    
+    # Database dynamic credentials
+    path "database/creds/voicecore-*" {
+      capabilities = ["read"]
+    }
+    
+    # Transit encryption
+    path "transit/encrypt/voicecore-key" {
+      capabilities = ["update"]
+    }
+    
+    path "transit/decrypt/voicecore-key" {
+      capabilities = ["update"]
+    }
+    
+    # PKI certificates
+    path "pki/issue/voicecore" {
+      capabilities = ["create", "update"]
+    }
+  
+  # Database admin policy
+  database-admin-policy.hcl: |
+    # Manage database connections
+    path "database/config/*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
+    }
+    
+    # Manage database roles
+    path "database/roles/*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
+    }
+    
+    # Rotate root credentials
+    path "database/rotate-root/*" {
+      capabilities = ["update"]
+    }
+  
+  # Kubernetes auth policy
+  kubernetes-auth-policy.hcl: |
+    # Allow Kubernetes auth
+    path "auth/kubernetes/login" {
+      capabilities = ["create", "update"]
+    }
+    
+    # Allow token renewal
+    path "auth/token/renew-self" {
+      capabilities = ["update"]
+    }
+    
+    # Allow token lookup
+    path "auth/token/lookup-self" {
+      capabilities = ["read"]
+    }
+  
+  # Secrets rotation policy
+  secrets-rotation-policy.hcl: |
+    # Rotate secrets
+    path "voicecore/data/*" {
+      capabilities = ["create", "update"]
+    }
+    
+    # Read rotation status
+    path "sys/leases/lookup" {
+      capabilities = ["update"]
+    }
+    
+    # Revoke leases
+    path "sys/leases/revoke" {
+      capabilities = ["update"]
+    }

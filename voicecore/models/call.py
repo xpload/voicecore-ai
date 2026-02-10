@@ -53,6 +53,7 @@ class Call(BaseModel, TimestampMixin, TenantMixin):
     Tracks complete call lifecycle from initiation to completion
     with comprehensive metadata for analytics and compliance.
     """
+    __tablename__ = "calls"
     
     # Twilio integration
     twilio_call_sid = Column(
@@ -336,7 +337,8 @@ class Call(BaseModel, TimestampMixin, TenantMixin):
     )
     
     # Metadata and additional information
-    metadata = Column(
+    call_metadata = Column(
+        "metadata",  # Database column name
         JSON,
         default=dict,
         nullable=False,
@@ -414,10 +416,11 @@ class CallEvent(BaseModel, TimestampMixin, TenantMixin):
     Records all significant events during a call lifecycle
     for debugging, analytics, and compliance purposes.
     """
+    __tablename__ = "call_events"
     
     call_id = Column(
         UUID(as_uuid=True),
-        ForeignKey("call.id"),
+        ForeignKey("calls.id"),
         nullable=False,
         doc="Reference to the call"
     )
@@ -463,10 +466,11 @@ class CallQueue(BaseModel, TimestampMixin, TenantMixin):
     Tracks calls waiting for available agents with
     priority and timeout management.
     """
+    __tablename__ = "call_queue"
     
     call_id = Column(
         UUID(as_uuid=True),
-        ForeignKey("call.id"),
+        ForeignKey("calls.id"),
         nullable=False,
         unique=True,
         doc="Reference to the queued call"

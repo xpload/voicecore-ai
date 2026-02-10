@@ -14,6 +14,7 @@ from .base import BaseModel, TimestampMixin
 
 
 class Tenant(BaseModel, TimestampMixin):
+    __tablename__ = "tenant"
     """
     Tenant model representing a company/organization using VoiceCore AI.
     
@@ -107,6 +108,7 @@ class Tenant(BaseModel, TimestampMixin):
     # calls = relationship("Call", back_populates="tenant", cascade="all, delete-orphan")
     voicemail_boxes = relationship("VoicemailBox", back_populates="tenant", cascade="all, delete-orphan")
     subscription = relationship("TenantSubscription", back_populates="tenant", uselist=False)
+    ai_personalities = relationship("AIPersonality", back_populates="tenant", cascade="all, delete-orphan")
     
     def __repr__(self) -> str:
         return f"<Tenant(id={self.id}, name='{self.name}', active={self.is_active})>"

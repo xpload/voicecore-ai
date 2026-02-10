@@ -47,6 +47,7 @@ class CallbackType(enum.Enum):
 
 
 class CallbackRequest(BaseModel, TimestampMixin, TenantMixin):
+    __tablename__ = "callback_request"
     """
     Callback request model for managing return call requests.
     
@@ -256,7 +257,7 @@ class CallbackRequest(BaseModel, TimestampMixin, TenantMixin):
         doc="Tags for categorization"
     )
     
-    metadata = Column(
+    callback_metadata = Column("metadata", 
         JSON,
         default=dict,
         nullable=False,
@@ -400,6 +401,7 @@ class CallbackRequest(BaseModel, TimestampMixin, TenantMixin):
 
 
 class CallbackSchedule(BaseModel, TimestampMixin, TenantMixin):
+    __tablename__ = "callback_schedule"
     """
     Callback scheduling configuration for departments and agents.
     
@@ -567,6 +569,7 @@ class CallbackSchedule(BaseModel, TimestampMixin, TenantMixin):
 
 
 class CallbackAttempt(BaseModel, TimestampMixin, TenantMixin):
+    __tablename__ = "callback_attempt"
     """
     Individual callback attempt tracking.
     

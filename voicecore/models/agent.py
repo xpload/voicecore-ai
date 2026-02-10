@@ -22,12 +22,15 @@ class AgentStatus(enum.Enum):
 
 
 class Agent(BaseModel, TimestampMixin, TenantMixin):
+    __tablename__ = "agent"
     """
     Agent model representing employees who handle calls.
     
     Agents belong to departments and have status management
     for call routing and availability tracking.
     """
+    
+    __tablename__ = "agents"
     
     # Basic agent information
     email = Column(
@@ -229,12 +232,15 @@ class Agent(BaseModel, TimestampMixin, TenantMixin):
 
 
 class Department(BaseModel, TimestampMixin, TenantMixin):
+    __tablename__ = "department"
     """
     Department model for organizing agents into functional groups.
     
     Departments have managers and specific functions within
     the organization for proper call routing.
     """
+    
+    __tablename__ = "departments"
     
     # Basic department information
     name = Column(
@@ -368,12 +374,15 @@ class Department(BaseModel, TimestampMixin, TenantMixin):
 
 
 class AgentSession(BaseModel, TimestampMixin, TenantMixin):
+    __tablename__ = "agent_session"
     """
     Agent session tracking for login/logout and status history.
     
     Tracks when agents log in/out and their status changes
     for analytics and compliance purposes.
     """
+    
+    __tablename__ = "agent_sessions"
     
     agent_id = Column(
         UUID(as_uuid=True),

@@ -1,0 +1,105 @@
+---
+# Vault Initialization Job
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: vault-init
+  namespace: vault
+spec:
+  template:
+    metadata:
+      labels:
+        app: vault-init
+    spec:
+      serviceAccountName: vault
+      restartPolicy: OnFailure
+      containers:
+        - name: vault-init
+          image: hashicorp/vault:1.15.0
+          command:
+            - "/bin/sh"
+            - "-c"
+          args:
+            - |
+              set -e
+              
+              echo "Waiting for Vault to be ready..."
+              until vault status 2>/dev/null; do
+                echo "Vault not ready, waiting..."
+                sleep 5
+              done
+              
+              echo "Checking if Vault is initialized..."
+              if vault status | grep -q "Initialized.*false"; then
+                echo "Initializing Vault..."
+                vault operator init \
+                  -key-shares=5 \
+                  -key-threshold=3 \
+                  -format=json > /tmp/vault-init.json
+                
+                echo "Vault initialized successfully"
+                echo "Unseal keys and root token saved to /tmp/vault-init.json"
+                
+                # Store init data in Kubernetes secret
+                kubectl create secret generic vault-init-keys \
+                  --from-file=/tmp/vault-init.json \
+                  --namespace=vault
+              else
+                echo "Vault already initialized"
+              fi
+              
+              echo "Enabling audit logging..."
+              vault audit enable file file_path=/vault/audit/audit.log || true
+              
+              echo "Enabling Kubernetes auth..."
+              vault auth enable kubernetes || true
+              
+              echo "Configuring Kubernetes auth..."
+              vault write auth/kubernetes/config \
+                kubernetes_host="https://kubernetes.default.svc:443" \
+                kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt \
+                token_reviewer_jwt=@/var/run/secrets/kubernetes.io/serviceaccount/token || true
+              
+              echo "Enabling KV v2 secrets engine..."
+              vault secrets enable -path=voicecore kv-v2 || true
+              
+              echo "Enabling database secrets engine..."
+              vault secrets enable database || true
+              
+              echo "Enabling transit secrets engine..."
+              vault secrets enable transit || true
+              
+              echo "Creating transit encryption key..."
+              vault write -f transit/keys/voicecore-key || true
+              
+              echo "Enabling PKI secrets engine..."
+              vault secrets enable pki || true
+              vault secrets tune -max-lease-ttl=87600h pki || true
+              
+              echo "Creating Vault policies..."
+              for policy in /vault/policies/*.hcl; do
+                policy_name=$(basename "$policy" .hcl)
+                echo "Creating policy: $policy_name"
+                vault policy write "$policy_name" "$policy" || true
+              done
+              
+              echo "Creating Kubernetes auth role for VoiceCore..."
+              vault write auth/kubernetes/role/voicecore \
+                bound_service_account_names=voicecore-vault-auth \
+                bound_service_account_namespaces=default \
+                policies=voicecore-policy \
+                ttl=24h || true
+              
+              echo "Vault initialization complete!"
+          env:
+            - name: VAULT_ADDR
+              value: "https://vault:8200"
+            - name: VAULT_SKIP_VERIFY
+              value: "true"
+          volumeMounts:
+            - name: policies
+              mountPath: /vault/policies
+      volumes:
+        - name: policies
+          configMap:
+            name: vault-policies

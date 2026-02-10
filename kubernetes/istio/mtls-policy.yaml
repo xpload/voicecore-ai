@@ -1,0 +1,92 @@
+# Mutual TLS (mTLS) Configuration for VoiceCore AI
+# Enforces strict mTLS for all service-to-service communication
+
+---
+# Global mTLS policy - Enforce strict mTLS across the mesh
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default-mtls-strict
+  namespace: istio-system
+spec:
+  mtls:
+    mode: STRICT
+
+---
+# VoiceCore AI namespace mTLS policy
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: voicecore-mtls
+  namespace: voicecore-ai
+spec:
+  mtls:
+    mode: STRICT
+
+---
+# Certificate rotation configuration
+# Certificates are automatically rotated by Istio CA (Citadel)
+# Default rotation: 24 hours before expiry
+# Certificate lifetime: 90 days (configurable via mesh config)
+
+---
+# Authorization policy - Allow authenticated traffic only
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-authenticated
+  namespace: voicecore-ai
+spec:
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        principals: ["cluster.local/*"]
+  - to:
+    - operation:
+        methods: ["GET", "POST", "PUT", "DELETE", "PATCH"]
+
+---
+# Deny all policy (can be applied selectively to sensitive services)
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: deny-all-default
+  namespace: voicecore-ai
+spec:
+  action: DENY
+  rules:
+  - from:
+    - source:
+        notPrincipals: ["cluster.local/*"]
+
+---
+# Service-specific mTLS configuration for gateway
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: gateway-mtls
+  namespace: voicecore-ai
+spec:
+  selector:
+    matchLabels:
+      app: gateway
+  mtls:
+    mode: STRICT
+  portLevelMtls:
+    8000:
+      mode: STRICT
+
+---
+# Service-specific mTLS for all microservices
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: microservices-mtls
+  namespace: voicecore-ai
+spec:
+  selector:
+    matchLabels:
+      tier: microservice
+  mtls:
+    mode: STRICT

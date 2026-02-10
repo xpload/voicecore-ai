@@ -1,0 +1,115 @@
+---
+# ConfigMap for Kafka topic creation script
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafka-topics-config
+  namespace: kafka
+data:
+  create-topics.sh: |
+    #!/bin/bash
+    set -e
+    
+    echo "Waiting for Kafka to be ready..."
+    sleep 30
+    
+    KAFKA_BROKERS="kafka-0.kafka-headless.kafka.svc.cluster.local:9092,kafka-1.kafka-headless.kafka.svc.cluster.local:9092,kafka-2.kafka-headless.kafka.svc.cluster.local:9092"
+    
+    # Function to create topic with exactly-once semantics
+    create_topic() {
+      local topic=$1
+      local partitions=$2
+      local replication=$3
+      local min_isr=$4
+      
+      echo "Creating topic: $topic"
+      kafka-topics --bootstrap-server $KAFKA_BROKERS \
+        --create \
+        --if-not-exists \
+        --topic $topic \
+        --partitions $partitions \
+        --replication-factor $replication \
+        --config min.insync.replicas=$min_isr \
+        --config retention.ms=604800000 \
+        --config compression.type=snappy \
+        --config max.message.bytes=1048576
+    }
+    
+    # Function to create topic with exactly-once semantics for critical topics
+    create_critical_topic() {
+      local topic=$1
+      local partitions=$2
+      
+      echo "Creating critical topic with exactly-once semantics: $topic"
+      kafka-topics --bootstrap-server $KAFKA_BROKERS \
+        --create \
+        --if-not-exists \
+        --topic $topic \
+        --partitions $partitions \
+        --replication-factor 3 \
+        --config min.insync.replicas=2 \
+        --config retention.ms=2592000000 \
+        --config compression.type=snappy \
+        --config max.message.bytes=1048576 \
+        --config cleanup.policy=compact \
+        --config segment.ms=3600000
+    }
+    
+    # Call lifecycle events (high volume)
+    create_topic "call.events" 24 3 2
+    
+    # AI interaction events (high volume)
+    create_topic "ai.interactions" 24 3 2
+    
+    # CRM updates (medium volume)
+    create_topic "crm.updates" 12 3 2
+    
+    # Billing transactions (critical - exactly-once)
+    create_critical_topic "billing.transactions" 12
+    
+    # Security audit events (critical - exactly-once)
+    create_critical_topic "security.audit" 12
+    
+    # System metrics (high volume)
+    create_topic "system.metrics" 24 3 2
+    
+    # Notification events
+    create_topic "notification.events" 12 3 2
+    
+    # Integration events
+    create_topic "integration.events" 12 3 2
+    
+    # Analytics events
+    create_topic "analytics.events" 24 3 2
+    
+    # Dead letter queue for failed messages
+    create_topic "dlq.failed-messages" 12 3 2
+    
+    echo "All topics created successfully!"
+    
+    # List all topics
+    echo "Current topics:"
+    kafka-topics --bootstrap-server $KAFKA_BROKERS --list
+---
+# Job to create Kafka topics
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kafka-topics-setup
+  namespace: kafka
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: kafka-topics
+        image: confluentinc/cp-kafka:7.5.0
+        command: ["/bin/bash", "/scripts/create-topics.sh"]
+        volumeMounts:
+        - name: scripts
+          mountPath: /scripts
+      volumes:
+      - name: scripts
+        configMap:
+          name: kafka-topics-config
+          defaultMode: 0755

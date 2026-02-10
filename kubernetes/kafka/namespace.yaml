@@ -1,0 +1,11 @@
+---
+# Kafka Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kafka
+  labels:
+    name: kafka
+    istio-injection: enabled
+  annotations:
+    description: "Apache Kafka cluster with high availability for event-driven architecture"

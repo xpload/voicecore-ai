@@ -34,13 +34,16 @@ from .voicemail import (
 )
 
 # Analytics and metrics models
-from .analytics import (
-    CallAnalytics,
-    AgentMetrics,
-    SystemMetrics,
-    ReportTemplate,
-    MetricType
-)
+# Lazy import to avoid circular dependency
+def _import_analytics():
+    from .analytics import CallAnalytics, AgentMetrics, SystemMetrics, MetricType
+    return CallAnalytics, AgentMetrics, SystemMetrics, MetricType
+
+try:
+    CallAnalytics, AgentMetrics, SystemMetrics, MetricType = _import_analytics()
+except ImportError:
+    # Fallback for circular import issues
+    CallAnalytics = AgentMetrics = SystemMetrics = MetricType = None
 
 # VIP caller management models
 from .vip import (
@@ -72,6 +75,24 @@ from .billing import (
     PlanType,
     UsageType,
     BillingStatus
+)
+
+# AI Personality models (v2.0)
+from .ai_personality import (
+    AIPersonality,
+    ConversationTemplate,
+    AITrainingSession,
+    AIFeedback
+)
+
+# CRM models (v2.0)
+from .crm import (
+    CRMContact,
+    CRMLead,
+    CRMPipeline,
+    CRMPipelineStage,
+    CRMInteraction,
+    CRMActivity
 )
 
 # Export all models for easy importing
@@ -147,4 +168,18 @@ __all__ = [
     "PlanType",
     "UsageType",
     "BillingStatus",
+    
+    # AI Personality models (v2.0)
+    "AIPersonality",
+    "ConversationTemplate",
+    "AITrainingSession",
+    "AIFeedback",
+    
+    # CRM models (v2.0)
+    "CRMContact",
+    "CRMLead",
+    "CRMPipeline",
+    "CRMPipelineStage",
+    "CRMInteraction",
+    "CRMActivity",
 ]

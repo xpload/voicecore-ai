@@ -1,0 +1,206 @@
+# Istio Installation Configuration for VoiceCore AI 3.0 Enterprise
+# This file defines the Istio control plane installation using IstioOperator
+
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  namespace: istio-system
+  name: voicecore-istio
+spec:
+  profile: production
+  
+  # Istio components configuration
+  components:
+    # Pilot - Traffic management and service discovery
+    pilot:
+      enabled: true
+      k8s:
+        resources:
+          requests:
+            cpu: 500m
+            memory: 2048Mi
+          limits:
+            cpu: 2000m
+            memory: 4096Mi
+        replicaCount: 2
+        hpaSpec:
+          minReplicas: 2
+          maxReplicas: 5
+          metrics:
+          - type: Resource
+            resource:
+              name: cpu
+              targetAverageUtilization: 80
+    
+    # Ingress Gateway - Entry point for external traffic
+    ingressGateways:
+    - name: istio-ingressgateway
+      enabled: true
+      k8s:
+        resources:
+          requests:
+            cpu: 500m
+            memory: 512Mi
+          limits:
+            cpu: 2000m
+            memory: 2048Mi
+        replicaCount: 2
+        hpaSpec:
+          minReplicas: 2
+          maxReplicas: 10
+          metrics:
+          - type: Resource
+            resource:
+              name: cpu
+              targetAverageUtilization: 80
+        service:
+          type: LoadBalancer
+          ports:
+          - name: http2
+            port: 80
+            targetPort: 8080
+          - name: https
+            port: 443
+            targetPort: 8443
+          - name: status-port
+            port: 15021
+            targetPort: 15021
+    
+    # Egress Gateway - Control outbound traffic
+    egressGateways:
+    - name: istio-egressgateway
+      enabled: true
+      k8s:
+        resources:
+          requests:
+            cpu: 200m
+            memory: 256Mi
+          limits:
+            cpu: 1000m
+            memory: 1024Mi
+        replicaCount: 2
+  
+  # Global mesh configuration
+  meshConfig:
+    # Enable access logging
+    accessLogFile: /dev/stdout
+    accessLogEncoding: JSON
+    
+    # Default configuration for proxies
+    defaultConfig:
+      # Distributed tracing configuration
+      tracing:
+        sampling: 100.0  # Sample 100% of requests for enterprise observability
+        zipkin:
+          address: jaeger-collector.observability:9411
+      
+      # Proxy resource configuration
+      proxyMetadata:
+        ISTIO_META_DNS_CAPTURE: "true"
+        ISTIO_META_DNS_AUTO_ALLOCATE: "true"
+    
+    # Enable automatic mTLS
+    enableAutoMtls: true
+    
+    # Outbound traffic policy
+    outboundTrafficPolicy:
+      mode: REGISTRY_ONLY  # Only allow traffic to registered services
+    
+    # Service discovery
+    discoverySelectors:
+    - matchLabels:
+        istio-injection: enabled
+  
+  # Values configuration
+  values:
+    global:
+      # Istio control plane namespace
+      istioNamespace: istio-system
+      
+      # Proxy configuration
+      proxy:
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 2000m
+            memory: 1024Mi
+        
+        # Automatic sidecar injection
+        autoInject: enabled
+        
+        # Logging level
+        logLevel: warning
+        
+        # Component log level
+        componentLogLevel: "misc:error"
+      
+      # mTLS configuration
+      mtls:
+        enabled: true
+        auto: true
+      
+      # Multi-cluster configuration (for future expansion)
+      multiCluster:
+        enabled: false
+      
+      # Network configuration
+      network: voicecore-network
+      
+      # Mesh ID
+      meshID: voicecore-mesh
+      
+      # Trust domain for SPIFFE identities
+      trustDomain: cluster.local
+    
+    # Pilot-specific values
+    pilot:
+      autoscaleEnabled: true
+      autoscaleMin: 2
+      autoscaleMax: 5
+      cpu:
+        targetAverageUtilization: 80
+      
+      # Enable Kubernetes ingress controller
+      configMap: true
+      
+      # Trace sampling
+      traceSampling: 100.0
+    
+    # Telemetry configuration
+    telemetry:
+      enabled: true
+      v2:
+        enabled: true
+        prometheus:
+          enabled: true
+        stackdriver:
+          enabled: false
+    
+    # Security configuration
+    security:
+      # Enable certificate management
+      enableCertManager: false
+      
+      # Certificate provider
+      certificateProvider: istiod
+    
+    # Sidecar injector configuration
+    sidecarInjectorWebhook:
+      enableNamespacesByDefault: false
+      rewriteAppHTTPProbe: true
+      
+      # Injection template
+      templates:
+        custom: |
+          spec:
+            containers:
+            - name: istio-proxy
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
+                limits:
+                  cpu: 2000m
+                  memory: 1024Mi

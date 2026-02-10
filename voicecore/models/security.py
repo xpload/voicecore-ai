@@ -31,6 +31,7 @@ class SecurityEventType(enum.Enum):
 
 
 class SecurityConfiguration(BaseModel, TimestampMixin, TenantMixin):
+    __tablename__ = "security_configuration"
     """
     Security configuration settings per tenant.
     
@@ -226,6 +227,7 @@ class SecurityConfiguration(BaseModel, TimestampMixin, TenantMixin):
 
 
 class SecurityEvent(BaseModel, TimestampMixin, TenantMixin):
+    __tablename__ = "security_event"
     """
     Security event log for monitoring and compliance.
     
@@ -383,6 +385,7 @@ class SecurityEvent(BaseModel, TimestampMixin, TenantMixin):
 
 
 class ThreatIntelligence(BaseModel, TimestampMixin):
+    __tablename__ = "threat_intelligence"
     """
     Threat intelligence data for enhanced security.
     
@@ -512,6 +515,7 @@ class ThreatIntelligence(BaseModel, TimestampMixin):
 
 
 class ComplianceReport(BaseModel, TimestampMixin, TenantMixin):
+    __tablename__ = "compliance_report"
     """
     Compliance reporting for privacy and security audits.
     

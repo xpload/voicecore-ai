@@ -1,0 +1,44 @@
+---
+# StorageClass for Vault data
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: vault-storage
+  namespace: vault
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp3
+  encrypted: "true"
+  fsType: ext4
+allowVolumeExpansion: true
+volumeBindingMode: WaitForFirstConsumer
+
+---
+# PersistentVolumeClaim for Vault data
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vault-data-pvc
+  namespace: vault
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: vault-storage
+  resources:
+    requests:
+      storage: 50Gi
+
+---
+# PersistentVolumeClaim for Vault audit logs
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vault-audit-pvc
+  namespace: vault
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: vault-storage
+  resources:
+    requests:
+      storage: 100Gi

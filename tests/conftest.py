@@ -301,3 +301,269 @@ class AsyncTestCase:
     def run_async(self, coro):
         """Run an async coroutine in the test loop."""
         return self.loop.run_until_complete(coro)
+
+
+
+# Additional fixtures for call flow testing
+
+@pytest.fixture
+def db():
+    """Provide database session for tests"""
+    from voicecore.database import SessionLocal
+    session = SessionLocal()
+    try:
+        yield session
+    finally:
+        session.close()
+
+
+@pytest.fixture
+async def test_tenant2(db):
+    """Second test tenant for multi-tenant testing"""
+    from voicecore.models.tenant import Tenant
+    
+    tenant = Tenant(
+        id=uuid.uuid4(),
+        name="Test Tenant 2",
+        domain="tenant2.test.com",
+        is_active=True,
+        settings={}
+    )
+    db.add(tenant)
+    db.commit()
+    
+    yield tenant
+    
+    # Cleanup
+    db.delete(tenant)
+    db.commit()
+
+
+@pytest.fixture
+def mock_twilio_client():
+    """Mock Twilio client for testing"""
+    from unittest.mock import Mock
+    
+    client = Mock()
+    client.calls = Mock()
+    client.calls.create = Mock()
+    client.calls.return_value.fetch = Mock()
+    client.calls.return_value.recordings = Mock()
+    client.recordings = Mock()
+    
+    return client
+
+
+@pytest.fixture
+def mock_openai_service():
+    """Mock OpenAI service for testing"""
+    from unittest.mock import AsyncMock
+    
+    service = AsyncMock()
+    service.generate_response = AsyncMock(return_value={
+        'response': 'Test AI response',
+        'intent': 'test_intent',
+        'confidence': 0.95,
+        'sentiment': 'neutral'
+    })
+    
+    return service
+
+
+@pytest.fixture
+async def test_call(db, test_tenant):
+    """Create a test call"""
+    from voicecore.models.call import Call, CallStatus
+    
+    call = Call(
+        id=uuid.uuid4(),
+        tenant_id=test_tenant.id,
+        from_number="+1234567890",
+        to_number="+0987654321",
+        status=CallStatus.INITIATED,
+        direction='inbound'
+    )
+    db.add(call)
+    db.commit()
+    
+    yield call
+    
+    # Cleanup
+    db.delete(call)
+    db.commit()
+
+
+@pytest.fixture
+async def test_agent_available(db, test_tenant):
+    """Create an available test agent"""
+    from voicecore.models.agent import Agent, AgentStatus
+    
+    agent = Agent(
+        id=uuid.uuid4(),
+        tenant_id=test_tenant.id,
+        name="Test Agent",
+        email="test@example.com",
+        status=AgentStatus.AVAILABLE,
+        is_active=True
+    )
+    db.add(agent)
+    db.commit()
+    
+    yield agent
+    
+    # Cleanup
+    db.delete(agent)
+    db.commit()
+
+
+@pytest.fixture
+def sample_call_data():
+    """Sample call data for testing"""
+    return {
+        'caller_number': '+1234567890',
+        'business_number': '+0987654321',
+        'call_sid': f"CA{uuid.uuid4().hex[:32]}",
+        'direction': 'inbound'
+    }
+
+
+@pytest.fixture
+def sample_ai_response():
+    """Sample AI response for testing"""
+    return {
+        'response': 'Hello! How can I help you today?',
+        'intent': 'greeting',
+        'confidence': 0.95,
+        'sentiment': 'positive',
+        'requires_escalation': False
+    }
+
+
+@pytest.fixture
+def sample_customer_message():
+    """Sample customer message for testing"""
+    return {
+        'text': 'What are your business hours?',
+        'intent': 'business_hours_inquiry',
+        'sentiment': 'neutral'
+    }
+
+
+# Utility functions for call testing
+
+def create_mock_twilio_call(call_sid=None, status='in-progress'):
+    """Create a mock Twilio call object"""
+    from unittest.mock import Mock
+    
+    if not call_sid:
+        call_sid = f"CA{uuid.uuid4().hex[:32]}"
+    
+    mock_call = Mock()
+    mock_call.sid = call_sid
+    mock_call.status = status
+    mock_call.from_ = '+1234567890'
+    mock_call.to = '+0987654321'
+    mock_call.duration = 0
+    
+    return mock_call
+
+
+def create_mock_recording(recording_sid=None, status='completed'):
+    """Create a mock Twilio recording object"""
+    from unittest.mock import Mock
+    
+    if not recording_sid:
+        recording_sid = f"RE{uuid.uuid4().hex[:32]}"
+    
+    mock_recording = Mock()
+    mock_recording.sid = recording_sid
+    mock_recording.status = status
+    mock_recording.duration = 120
+    mock_recording.uri = f"/Recordings/{recording_sid}"
+    
+    return mock_recording
+
+
+# Assertion helpers
+
+def assert_call_status(call, expected_status):
+    """Assert call has expected status"""
+    from voicecore.models.call import CallStatus
+    
+    if isinstance(expected_status, str):
+        expected_status = CallStatus[expected_status.upper()]
+    
+    assert call.status == expected_status, \
+        f"Expected call status {expected_status}, got {call.status}"
+
+
+def assert_agent_status(agent, expected_status):
+    """Assert agent has expected status"""
+    from voicecore.models.agent import AgentStatus
+    
+    if isinstance(expected_status, str):
+        expected_status = AgentStatus[expected_status.upper()]
+    
+    assert agent.status == expected_status, \
+        f"Expected agent status {expected_status}, got {agent.status}"
+
+
+def assert_event_exists(events, event_type):
+    """Assert event of given type exists in event list"""
+    event_types = [e.event_type for e in events]
+    assert event_type in event_types, \
+        f"Expected event type {event_type} not found in {event_types}"
+
+
+# Performance testing utilities
+
+class CallLoadGenerator:
+    """Generate load for call testing"""
+    
+    def __init__(self, num_calls=10):
+        self.num_calls = num_calls
+        self.calls = []
+    
+    async def generate_calls(self):
+        """Generate multiple concurrent calls"""
+        tasks = []
+        for i in range(self.num_calls):
+            task = self.create_call(i)
+            tasks.append(task)
+        
+        self.calls = await asyncio.gather(*tasks)
+        return self.calls
+    
+    async def create_call(self, index):
+        """Create a single call"""
+        # Implementation would create actual call
+        await asyncio.sleep(0.1)  # Simulate call creation
+        return {
+            'id': uuid.uuid4(),
+            'index': index,
+            'status': 'created'
+        }
+
+
+# Cleanup utilities
+
+@pytest.fixture(autouse=True)
+async def cleanup_after_test(db):
+    """Automatically cleanup after each test"""
+    yield
+    
+    # Cleanup any test data
+    try:
+        from voicecore.models.call import Call
+        from voicecore.models.event_store import EventStore
+        
+        # Delete test calls
+        db.query(Call).filter(
+            Call.from_number.like('+1234%')
+        ).delete()
+        
+        # Commit changes
+        db.commit()
+    except Exception as e:
+        logger.warning(f"Cleanup failed: {e}")
+        db.rollback()
