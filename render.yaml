@@ -1,0 +1,31 @@
+services:
+  # Web Service
+  - type: web
+    name: voicecore-ai
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn voicecore.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: voicecore-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: false
+      - key: APP_NAME
+        value: VoiceCore AI
+      - key: APP_VERSION
+        value: 3.0.0
+      - key: LOG_LEVEL
+        value: INFO
+      - key: ALLOWED_ORIGINS
+        value: "*"
+
+databases:
+  - name: voicecore-db
+    plan: free
+    databaseName: voicecore
+    user: voicecore
